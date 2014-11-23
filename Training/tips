@@ -1,0 +1,29 @@
+maps = {"key" => "value",...}
+maps.fetch("key",3)  #returns 3 is key doesn't exist
+maps["key"]
+
+Symbols
+:hello
+{:key => "value"}
+{key: "value"}
+
+File.read("words.txt")
+File.read("words.txt").split
+length size
+
+words.select {|word| word.start_with?("s")}.length
+words.select {|word| word[0] == "s"}.length
+word[0..499].select {|word| ...}
+
+1+2
+x=_
+
+words.select {|word| word.start_with?("s")}.map{|word| word[1]}.uniq
+("a".."z").to_a - _
+eatables=[]
+eatables.push("apple")
+eatables.pust("banana")
+eatables[o]="carrot"
+eatables.pop
+
+words.any? {|word| word.start_with?("str")}

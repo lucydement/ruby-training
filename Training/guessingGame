@@ -1,0 +1,15 @@
+number = rand(99)         
+i = 1
+while i < 11
+	guess = gets.chomp
+	if guess.to_i == number
+		puts "You got it"
+		break
+	elsif guess.to_i < number
+		puts "Higher" 
+	else
+		puts "lower"        
+	end
+    i = i + 1
+end   
+puts "Sorry the number was " + number.to_s 

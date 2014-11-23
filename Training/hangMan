@@ -1,0 +1,20 @@
+words = File.read("words.txt").split
+word = words.sample.chars
+guessed = word.map {|char| "_"}
+
+(1..8).each do
+	puts guessed.join
+	guess = gets.chomp
+	if word.include?(guess)
+		for i in (0..word.length)
+			if word[i] == guess
+				guessed[i]=guess
+			end
+		end
+	else
+		puts "incorrect guess"
+	end
+	if guessed == word
+		"You got it right!"
+	end
+end
