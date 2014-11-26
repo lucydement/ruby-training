@@ -1,0 +1,27 @@
+<h1><%= display_word(@game) %></h1>
+
+<%= display_image(@game) %>
+
+<p>You have <%= @game.number_lives_left %> lives left.</p>
+
+<% if !@game.won? && !@game.lost? %>
+	<%= form_for [@game, Guess.new] do |f| %>
+		<p>
+			Enter your guess:
+			<%= f.text_field :letter %>
+			<%= f.submit "Submit" %>
+		</p>
+	<% end %>
+<% elsif @game.won? %>
+	<h2>Congratulations! You won.</h2>
+<% else %>
+	<h2>You lost, the word was <%= @game.secret_word %>.</h2>
+<% end %>
+
+<ul>
+	<% @guesses.each do |guess| %>
+		<li> You guessed <%= guess.letter %>.</li>
+	<% end %>
+</ul> 
+
+<%= link_to "Home", root_path %>

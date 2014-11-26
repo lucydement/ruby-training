@@ -1,0 +1,13 @@
+<h1>Welcome to HangMan!</h1>
+
+<ul>
+	<% @games.each do |game| %>
+		<li>
+			<%= link_to display_game(game) , game %>
+		</li>
+	<% end %>
+</ul>
+
+<%= form_for Game.new do |f| %>
+	<%= f.submit "Create new game!" %>
+<% end %>
