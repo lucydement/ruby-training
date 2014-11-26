@@ -1,8 +1,8 @@
-<h1><%= display_word(@game) %></h1>
+<h1><%= displayable_partial_word(@game) %></h1>
 
-<%= display_image(@game) %>
+<%= hangman_svg(@game) %>
 
-<p>You have <%= @game.number_lives_left %> lives left.</p>
+<p>You have <%= pluralize @game.number_lives_left, 'life' %> left.</p>
 
 <% if !@game.won? && !@game.lost? %>
 	<%= form_for [@game, Guess.new] do |f| %>
@@ -11,6 +11,9 @@
 			<%= f.text_field :letter %>
 			<%= f.submit "Submit" %>
 		</p>
+		<% if flash[:notice] %>
+			<%= flash[:notice] %>
+		<% end %>
 	<% end %>
 <% elsif @game.won? %>
 	<h2>Congratulations! You won.</h2>

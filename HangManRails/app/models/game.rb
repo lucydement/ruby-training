@@ -1,28 +1,26 @@
 class Game < ActiveRecord::Base
-  Words_File_Path = Rails.root.join("app", "assets", "words.txt")
+  WORDS_FILE_PATH = Rails.root.join("app", "assets", "words.txt")
   MAX_LIVES = 9
 
   has_many :guesses, dependent: :destroy
 
-  before_validation :get_secret_word
+  before_validation :generate_secret_word
   validates :secret_word, presence: true
 
   def number_lives_left
-    MAX_LIVES - (guesses_as_array - word_as_array).length
+    MAX_LIVES - (guessed_letters - secret_letters).length
   end
 
   def partial_word
-    word_as_array.map do |char| 
-      if guesses_as_array.include?(char)
+    secret_letters.map do |char| 
+      if guessed_letters.include?(char)
         char
-      else
-        nil 
       end
     end
   end
 
   def won?
-    (word_as_array - guesses_as_array).empty?
+    (secret_letters - guessed_letters).empty?
   end
 
   def lost?
@@ -31,15 +29,15 @@ class Game < ActiveRecord::Base
 
   private
 
-  def get_secret_word
-    self.secret_word ||= File.read(Words_File_Path).split.sample
+  def generate_secret_word
+    self.secret_word ||= File.read(WORDS_FILE_PATH).split.sample
   end
 
-  def guesses_as_array
+  def guessed_letters
     guesses.map {|guess| guess.letter}
   end
 
-  def word_as_array
+  def secret_letters
     secret_word.chars
   end
 end

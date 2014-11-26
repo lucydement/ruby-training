@@ -1,10 +1,10 @@
 module GamesHelper
-  def display_word(game)
+  def displayable_partial_word(game)
     word = game.partial_word
     word.map{|char| char ? char : "_"}.join(" ")
   end
 
-  def display_game(game)
+  def game_state(game)
     if game.won?
       "You won, the word was #{game.secret_word}."
     elsif game.lost?

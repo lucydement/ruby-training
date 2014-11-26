@@ -3,11 +3,14 @@ class GuessesController < ApplicationController
     game = Game.find(params[:game_id])
 
     if game.won? || game.lost?
-      raise("Cannot enter letters after game has ended.")
+      flash[:notice] = "You cannot guess after you have won or lost."
+    else
+      guess = game.guesses.new(params.require(:guess).permit(:letter))
+      if !guess.save
+        flash[:notice] = "This is an invalid guess."
+      end
     end
-
-    guess = game.guesses.create(params.require(:guess).permit(:letter))
-
+    
     redirect_to game
   end
 end
