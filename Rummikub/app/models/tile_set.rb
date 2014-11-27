@@ -21,9 +21,10 @@ class TileSet < ActiveRecord::Base
   def valid_run?
     colours = tiles.map{|tile| tile.colour}.uniq
     return false if colours.length > 1
-
+    puts "past colours"
     numbers = tiles.map{|tile| tile.number}
-    (1..number.length - 1).each do |t|
+    
+    (1..numbers.length - 1).each do |t|
       return false if numbers[t] - numbers[t-1] != 1
     end
     true

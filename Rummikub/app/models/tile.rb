@@ -8,8 +8,13 @@ class Tile < ActiveRecord::Base
   validates :game_id, presence: true
 
   validate :only_in_one_of_player_or_tile_set 
+  validate :when_in_tile_set_has_order
 
   def only_in_one_of_player_or_tile_set
     errors.add(:player_id, "invalid") if player_id && tile_set_id
+  end
+
+  def when_in_tile_set_has_order
+    errors.add(:tile_set_order, "invalid") if tile_set_id && !tile_set_order
   end
 end
