@@ -10,4 +10,9 @@ RSpec.describe TileSet, :type => :model do
       expect(TileSet.new.save).to be_falsey
     end
   end
+
+  context "When testing validity" do
+    it "is valid when a valid group" do
+    end
+  end
 end
