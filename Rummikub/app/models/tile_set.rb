@@ -1,4 +1,6 @@
 class TileSet < ActiveRecord::Base
+  belongs_to :game
   has_many :tiles
-  belongs_to :board
+
+  validates :game_id, presence: true
 end

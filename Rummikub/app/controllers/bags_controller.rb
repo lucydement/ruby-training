@@ -1,2 +1,0 @@
-class BagsController < ApplicationController
-end
