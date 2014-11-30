@@ -15,7 +15,9 @@ RSpec.describe Tile, :type => :model do
       expect(Tile.new(colour: "red" ,number: 12, game_id: 2, tile_set_id: 1, tile_set_order: 1).save).to be_truthy
     end
 
-    it "should not create a tile when "
+    it "should not create a tile when a tile_set_id is specified but not a order" do
+      expect(Tile.new(colour: "red", number: 3, game_id: 1, tile_set_id: 1).save).to be_falsey
+    end
 
     it "shouldn't create a tile when no colour" do
       expect(Tile.new(number: 2, game_id: 1).save).to be_falsey

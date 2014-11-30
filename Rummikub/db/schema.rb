@@ -35,8 +35,9 @@ ActiveRecord::Schema.define(version: 20141126222539) do
   add_index "tile_sets", ["game_id"], name: "index_tile_sets_on_game_id"
 
   create_table "tiles", force: true do |t|
-    t.string   "colour",      null: false
-    t.integer  "number",      null: false
+    t.string   "colour",         null: false
+    t.integer  "number",         null: false
+    t.integer  "tile_set_order"
     t.integer  "game_id"
     t.integer  "player_id"
     t.integer  "tile_set_id"
@@ -47,5 +48,6 @@ ActiveRecord::Schema.define(version: 20141126222539) do
   add_index "tiles", ["game_id"], name: "index_tiles_on_game_id"
   add_index "tiles", ["player_id"], name: "index_tiles_on_player_id"
   add_index "tiles", ["tile_set_id"], name: "index_tiles_on_tile_set_id"
+  add_index "tiles", ["tile_set_order"], name: "index_tiles_on_tile_set_order"
 
 end

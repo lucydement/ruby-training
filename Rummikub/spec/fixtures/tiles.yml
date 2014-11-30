@@ -1,34 +1,46 @@
 tile1:
  number: 3
  colour: red
+ tile_set_order: 0
  tile_set: set_valid_group 
 
 tile2:
  number: 3
  colour: blue 
+ tile_set_order: 1
  tile_set: set_valid_group 
 
 tile3:
  number: 3
  colour: black 
+ tile_set_order: 2
  tile_set: set_valid_group
 
 tile4:
  number: 5
  colour: blue
+ tile_set_order: 0
  tile_set: set_valid_run
 
 tile5:
  number: 6
  colour: blue
+ tile_set_order: 1
  tile_set: set_valid_run
 
 tile6:
  number: 7
  colour: blue
+ tile_set_order: 2
  tile_set: set_valid_run 
 
 tile7:
  number: 12
  colour: yellow
+ tile_set_order: 0
  tile_set: set_too_small
+
+new_tile:
+ number: 4
+ colour: blue
+ player_id: 23
