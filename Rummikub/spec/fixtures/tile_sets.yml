@@ -6,3 +6,6 @@ set_valid_run:
 
 set_too_small:
  game: set_game
+
+set_for_move:
+ game: set_game

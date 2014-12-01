@@ -21,7 +21,7 @@ class TileSet < ActiveRecord::Base
   def valid_run?
     colours = tiles.map{|tile| tile.colour}.uniq
     return false if colours.length > 1
-    ordered_tiles = tiles.order(:tile_set_order)
+    ordered_tiles = tiles.sort_by {|tile| tile.tile_set_order}
     numbers = ordered_tiles.map{|tile| tile.number}
     
     (1..numbers.length - 1).each do |t|

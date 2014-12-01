@@ -17,4 +17,12 @@ class Tile < ActiveRecord::Base
   def when_in_tile_set_has_order
     errors.add(:tile_set_order, "invalid") if tile_set_id && !tile_set_order
   end
+
+  def is_in_hand?
+    player_id
+  end
+
+  def is_in_set?
+    tile_set_id
+  end
 end

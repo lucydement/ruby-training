@@ -2,45 +2,88 @@ tile1:
  number: 3
  colour: red
  tile_set_order: 0
- tile_set: set_valid_group 
+ tile_set: set_valid_group
+ game: set_game 
 
 tile2:
  number: 3
  colour: blue 
  tile_set_order: 1
  tile_set: set_valid_group 
+ game: set_game 
 
 tile3:
  number: 3
  colour: black 
  tile_set_order: 2
  tile_set: set_valid_group
+ game: set_game 
 
 tile4:
  number: 5
  colour: blue
  tile_set_order: 0
  tile_set: set_valid_run
+ game: set_game 
 
 tile5:
  number: 6
  colour: blue
  tile_set_order: 1
  tile_set: set_valid_run
+ game: set_game 
 
 tile6:
  number: 7
  colour: blue
  tile_set_order: 2
  tile_set: set_valid_run 
+ game: set_game 
 
 tile7:
  number: 12
  colour: yellow
  tile_set_order: 0
  tile_set: set_too_small
+ game: set_game 
 
 new_tile:
  number: 4
  colour: blue
  player_id: 23
+ game: set_game 
+
+tile8:
+ number: 1
+ colour: red
+ tile_set_order: 0
+ tile_set: set_for_move
+ game: set_game
+
+tile9:
+ number: 2
+ colour: red
+ tile_set_order: 1
+ tile_set: set_for_move
+ game: set_game
+
+tile10:
+ number: 3
+ colour: red
+ tile_set_order: 2
+ tile_set: set_for_move
+ game: set_game
+
+tile11:
+ number: 4
+ colour: red
+ tile_set_order: 3
+ tile_set: set_for_move
+ game: set_game
+
+tile12:
+ number: 5
+ colour: red
+ tile_set_order: 4
+ tile_set: set_for_move
+ game: set_game
