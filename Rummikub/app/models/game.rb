@@ -27,5 +27,9 @@ class Game < ActiveRecord::Base
         tile.update_attributes(player_id: player.id)
       end
     end
+
+    #For testing, REMEMBER TO DELETE
+    tile_set = tile_sets.create
+    bag.sample.update_attributes(tile_set_id: tile_set.id, tile_set_order: 0)
   end
 end

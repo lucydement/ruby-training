@@ -1,0 +1,28 @@
+<% @game.tile_sets.each do |tile_set| %>
+	<ol class="set" id=<%= tile_set.id %>>
+		<% tile_set.ordered_tiles.each do |tile| %>
+			<li class=<%= tile.colour %>><%= tile.number %></li>
+		<% end %>
+	</ol>
+<% end %>
+
+<p id="new_set">Create new Set!</p>
+
+
+<ol class="set" id="set1">
+	<li class="red">1</li>
+	<li class="red">2</li>
+	<li class="red">3</li>
+</ol>
+
+<ol class="set" id="set2">
+	 <li class="blue">4</li>
+	<li class="blue">5</li>
+	<li class="blue">6</li>
+</ol>
+
+<ol class="set" id="hand">
+	<% @player.tiles.each do |tile| %>
+		<li class=<%= tile.colour %>><%= tile.number %></li>
+	<% end %>
+</ol>

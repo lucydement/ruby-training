@@ -38,4 +38,8 @@ class TileSet < ActiveRecord::Base
     return false if colours.length < tiles.length
     true
   end
+
+  def ordered_tiles
+    tiles.sort_by(:tile_set_order)
+  end
 end
