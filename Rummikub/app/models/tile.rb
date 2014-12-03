@@ -9,6 +9,7 @@ class Tile < ActiveRecord::Base
 
   validate :only_in_one_of_player_or_tile_set 
   validate :when_in_tile_set_has_order
+  validate :when_in_tile_set_has_x_y
 
   def only_in_one_of_player_or_tile_set
     errors.add(:player_id, "invalid") if player_id && tile_set_id
@@ -16,6 +17,10 @@ class Tile < ActiveRecord::Base
 
   def when_in_tile_set_has_order
     errors.add(:tile_set_order, "invalid") if tile_set_id && !tile_set_order
+  end
+
+  def when_in_tile_set_has_x_y
+    errors.add(:tile_set_id, "invalid") if tile_set_id && (!x || !y)
   end
 
   def is_in_hand?

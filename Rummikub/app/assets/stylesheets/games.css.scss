@@ -18,30 +18,23 @@
   color: #FFE87C;
 }
 
-#set2 {
-  position: fixed;
-  top: 110px;
-}
-
-#hand {
-  position: fixed;
-  top: 85%;
-}
-
-#new_set {
-  padding: 10px;
-  border-style: solid;
-  border-width: 2px;
-  border_color: black;
-}
-
-ol li{
-  display: inline;
-  list-style-type: none;
-  width: 8px;
-  padding: 10px;
+.tile{
+  width: 50px;
+  height: 50px;
+  text-align: center;
   border-style: solid;
   border-width: 2px;
   border-color: black;
 }
 
+#board {
+  height: 500px;
+  width: 600px;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+#hand > .tile {
+  float: left;
+}

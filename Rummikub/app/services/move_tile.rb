@@ -12,6 +12,7 @@ class MoveTile
   def call
     if @tile.is_in_hand? #&& @tile_set.instance_of? TileSet
       #moving from players hand to tile_set
+      @tile.update_attributes(x: 1, y: 1)
       insert(tile: @tile, tile_set: @to, position: @position)
     elsif @tile.is_in_set? #&& @tile_set.instance_of? TileSet
       remove(tile: @tile, tile_set: @from)

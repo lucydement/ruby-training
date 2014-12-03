@@ -40,6 +40,6 @@ class TileSet < ActiveRecord::Base
   end
 
   def ordered_tiles
-    tiles.sort_by(:tile_set_order)
+    tiles.sort_by {|tile| tile.tile_set_order}
   end
 end

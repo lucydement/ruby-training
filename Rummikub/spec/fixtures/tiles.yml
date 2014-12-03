@@ -3,6 +3,8 @@ tile1:
  colour: red
  tile_set_order: 0
  tile_set: set_valid_group
+ x: 1
+ y: 1
  game: set_game 
 
 tile2:
@@ -10,6 +12,8 @@ tile2:
  colour: blue 
  tile_set_order: 1
  tile_set: set_valid_group 
+ x: 1
+ y: 1
  game: set_game 
 
 tile3:
@@ -17,6 +21,8 @@ tile3:
  colour: black 
  tile_set_order: 2
  tile_set: set_valid_group
+ x: 1
+ y: 1
  game: set_game 
 
 tile4:
@@ -24,6 +30,8 @@ tile4:
  colour: blue
  tile_set_order: 0
  tile_set: set_valid_run
+ x: 1
+ y: 1
  game: set_game 
 
 tile5:
@@ -31,6 +39,8 @@ tile5:
  colour: blue
  tile_set_order: 1
  tile_set: set_valid_run
+ x: 1
+ y: 1
  game: set_game 
 
 tile6:
@@ -38,6 +48,8 @@ tile6:
  colour: blue
  tile_set_order: 2
  tile_set: set_valid_run 
+ x: 1
+ y: 1
  game: set_game 
 
 tile7:
@@ -45,6 +57,8 @@ tile7:
  colour: yellow
  tile_set_order: 0
  tile_set: set_too_small
+ x: 1
+ y: 1
  game: set_game 
 
 new_tile:
@@ -58,6 +72,8 @@ tile8:
  colour: red
  tile_set_order: 0
  tile_set: set_for_move
+ x: 1
+ y: 1
  game: set_game
 
 tile9:
@@ -65,6 +81,8 @@ tile9:
  colour: red
  tile_set_order: 1
  tile_set: set_for_move
+ x: 1
+ y: 1
  game: set_game
 
 tile10:
@@ -72,6 +90,8 @@ tile10:
  colour: red
  tile_set_order: 2
  tile_set: set_for_move
+ x: 1
+ y: 1
  game: set_game
 
 tile11:
@@ -79,6 +99,8 @@ tile11:
  colour: red
  tile_set_order: 3
  tile_set: set_for_move
+ x: 1
+ y: 1
  game: set_game
 
 tile12:
@@ -86,4 +108,6 @@ tile12:
  colour: red
  tile_set_order: 4
  tile_set: set_for_move
+ x: 1
+ y: 1
  game: set_game

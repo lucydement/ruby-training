@@ -30,6 +30,8 @@ class Game < ActiveRecord::Base
 
     #For testing, REMEMBER TO DELETE
     tile_set = tile_sets.create
-    bag.sample.update_attributes(tile_set_id: tile_set.id, tile_set_order: 0)
+    bag.sample.update_attributes(tile_set_id: tile_set.id, tile_set_order: 0, x: 250, y: 5)
+    tile_set1 = tile_sets.create
+    bag.sample.update_attributes(tile_set_id: tile_set1.id, tile_set_order: 0, x: 100, y: 100)
   end
 end

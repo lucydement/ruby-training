@@ -7,12 +7,12 @@ RSpec.describe Tile, :type => :model do
     end
 
     it "should not create a tile if both a tile_id and player_id are specified" do
-      expect(Tile.new(colour: "red" ,number: 12, game_id: 2, tile_set_id: 1, player_id: 3, tile_set_order: 1).save).to be_falsey
+      expect(Tile.new(colour: "red" ,number: 12, game_id: 2, tile_set_id: 1, player_id: 3, tile_set_order: 1, x: 1, y: 1).save).to be_falsey
     end
 
     it "should create a tile when only one is specified" do
       expect(Tile.new(colour: "red" ,number: 12, game_id: 2, player_id: 1).save).to be_truthy
-      expect(Tile.new(colour: "red" ,number: 12, game_id: 2, tile_set_id: 1, tile_set_order: 1).save).to be_truthy
+      expect(Tile.new(colour: "red" ,number: 12, game_id: 2, tile_set_id: 1, tile_set_order: 0,x: 1, y: 1).save).to be_truthy
     end
 
     it "should not create a tile when a tile_set_id is specified but not a order" do

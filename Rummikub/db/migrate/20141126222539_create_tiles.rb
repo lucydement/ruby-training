@@ -7,6 +7,8 @@ class CreateTiles < ActiveRecord::Migration
       t.integer :game_id
       t.integer :player_id
       t.integer :tile_set_id
+      t.integer :x 
+      t.integer :y
       t.index :tile_set_order
       t.index :game_id
       t.index :player_id
