@@ -1,7 +1,6 @@
 tile1:
  number: 3
  colour: red
- tile_set_order: 0
  tile_set: set_valid_group
  x: 1
  y: 1
@@ -10,7 +9,6 @@ tile1:
 tile2:
  number: 3
  colour: blue 
- tile_set_order: 1
  tile_set: set_valid_group 
  x: 1
  y: 1
@@ -19,7 +17,6 @@ tile2:
 tile3:
  number: 3
  colour: black 
- tile_set_order: 2
  tile_set: set_valid_group
  x: 1
  y: 1
@@ -28,7 +25,6 @@ tile3:
 tile4:
  number: 5
  colour: blue
- tile_set_order: 0
  tile_set: set_valid_run
  x: 1
  y: 1
@@ -37,7 +33,6 @@ tile4:
 tile5:
  number: 6
  colour: blue
- tile_set_order: 1
  tile_set: set_valid_run
  x: 1
  y: 1
@@ -46,7 +41,6 @@ tile5:
 tile6:
  number: 7
  colour: blue
- tile_set_order: 2
  tile_set: set_valid_run 
  x: 1
  y: 1
@@ -55,7 +49,6 @@ tile6:
 tile7:
  number: 12
  colour: yellow
- tile_set_order: 0
  tile_set: set_too_small
  x: 1
  y: 1
@@ -70,7 +63,6 @@ new_tile:
 tile8:
  number: 1
  colour: red
- tile_set_order: 0
  tile_set: set_for_move
  x: 1
  y: 1
@@ -79,7 +71,6 @@ tile8:
 tile9:
  number: 2
  colour: red
- tile_set_order: 1
  tile_set: set_for_move
  x: 1
  y: 1
@@ -88,7 +79,6 @@ tile9:
 tile10:
  number: 3
  colour: red
- tile_set_order: 2
  tile_set: set_for_move
  x: 1
  y: 1
@@ -97,7 +87,6 @@ tile10:
 tile11:
  number: 4
  colour: red
- tile_set_order: 3
  tile_set: set_for_move
  x: 1
  y: 1
@@ -106,7 +95,6 @@ tile11:
 tile12:
  number: 5
  colour: red
- tile_set_order: 4
  tile_set: set_for_move
  x: 1
  y: 1

@@ -27,10 +27,7 @@ class ValidateBoard
     sets = split_row_into_sets(row)
     return true if !sets
 
-    sets.each do |set|
-      return true if set_invalid?(set)
-    end
-    false
+    sets.detect {|set| set_invalid?(set)}
   end
 
   def split_row_into_sets(row)

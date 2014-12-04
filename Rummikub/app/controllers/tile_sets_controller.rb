@@ -1,2 +1,0 @@
-class TileSetsController < ApplicationController
-end
