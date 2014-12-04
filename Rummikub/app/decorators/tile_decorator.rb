@@ -6,6 +6,6 @@ class TileDecorator
 
   def call
     selected_tiles = @game.tiles.where("tile_set_id IS NOT NULL OR player_id=?",@player.id)
-    {tiles: selected_tiles}
+    {tiles: selected_tiles}.to_json
   end
 end
