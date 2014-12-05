@@ -11,14 +11,18 @@ $(function() {
     return true;
   }
 
-  var onTile = function(x, y, tileId, tiles) {
-
+  var notOnTile = function(x, y, tileId, tiles) {
+    tile_with_coordinates = _.filter(tiles, function(tile) {
+      return tile.x == x && tile.y == y && tile.id != tileId;
+    });
+    console.log(tile_with_coordinates.length);
+    if(tile_with_coordinates.length > 0) return false;
+    return true;
   }
 
   var processGameData = function(game_tiles) {
     console.log("data:", game_tiles);
     var tiles = game_tiles.tiles;
-    console.log(game_tiles);
     var board = $("#board").empty();
 
     tiles.forEach(function(tile) {
@@ -29,11 +33,9 @@ $(function() {
         .text(tile.number);
 
       if (tile.player_id) {
-        console.log("hand");
         $("#hand").append(div);
       }
       else {
-        console.log("board");
         $("#board").append(div);
         positionTile(div, tile.x + 1/2, tile.y + 1/2);
       }
@@ -48,11 +50,13 @@ $(function() {
       var handlers = {
         mousemove : function(e) {
           positionTile(moving_div,e.pageX/52.0,e.pageY/70.0);
+          moving_div.css("z-index", 9999);
         },
         mouseup : function(e) {
+          moving_div.css("z-index", 0);
           var adjustX = Math.floor(e.pageX/52.0);
           var adjustY = Math.floor(e.pageY/70.0);
-          if (onBoard(adjustX, adjustY || onTile(adjustX,adjustY,tileId, tiles))){
+          if (onBoard(adjustX, adjustY) && notOnTile(adjustX,adjustY,tileId,tiles)){
             moving_tile.x = adjustX;
             moving_tile.y = adjustY;
             positionTile(moving_div,adjustX + 1/2,adjustY + 1/2);
