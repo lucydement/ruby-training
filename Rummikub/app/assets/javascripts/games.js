@@ -5,6 +5,16 @@ $(function() {
     div.css({left: x * 52 - 18, top: y * 70 - 27, position: 'absolute'});
   };
 
+  var onBoard = function(x,y) {
+    if(x < 0 || x > 15) return false;
+    if(y < 0 || y > 7) return false;
+    return true;
+  }
+
+  var onTile = function(x, y, tileId, tiles) {
+
+  }
+
   var processGameData = function(game_tiles) {
     console.log("data:", game_tiles);
     var tiles = game_tiles.tiles;
@@ -29,32 +39,31 @@ $(function() {
       }
     });
 
-    var moving_tile;
-    var mouseDown = false;
-    var moving_div;
-
-    $(".tile")
-      .mousedown(function() {
-        mouseDown = true;
-        var tileId = $(this).data("tileId");
-        moving_div = $(this);
-        moving_tile = _.find(tiles,function(tile){
+    $(".tile").on('mousedown', function(e){
+      var moving_div = $(this)
+      var tileId = $(this).data("tileId");
+      var moving_tile = _.find(tiles,function(tile){
           return tile.id == tileId;
         });
-      })
-      .mousemove(function(){
-        if (moving_div != null && mouseDown){
-          positionTile(moving_div,event.pageX/52.0,event.pageY/70.0);
+      var handlers = {
+        mousemove : function(e) {
+          positionTile(moving_div,e.pageX/52.0,e.pageY/70.0);
+        },
+        mouseup : function(e) {
+          var adjustX = Math.floor(e.pageX/52.0);
+          var adjustY = Math.floor(e.pageY/70.0);
+          if (onBoard(adjustX, adjustY || onTile(adjustX,adjustY,tileId, tiles))){
+            moving_tile.x = adjustX;
+            moving_tile.y = adjustY;
+            positionTile(moving_div,adjustX + 1/2,adjustY + 1/2);
+          }else{
+            positionTile(moving_div, moving_tile.x + 1/2, moving_tile.y + 1/2);
+          }
+          $(this).off(handlers)
         }
-      })
-      .mouseup(function(){
-        mouseDown = false;
-        var adjustX = Math.floor(event.pageX/52.0);
-        var adjustY = Math.floor(event.pageY/70.0);
-        moving_tile.x = adjustX;
-        moving_tile.y = adjustY;
-        positionTile($(this),adjustX + 1/2,adjustY + 1/2);
-      })
+      }
+      $(document).on(handlers);
+    });
 
     $("#submit").click(function() {
       console.log("Submit");
@@ -66,6 +75,7 @@ $(function() {
         data: JSON.stringify(game_tiles), 
         success: function(){
           console.log("Success");
+          location.reload();
         },
         failure: function(){
           console.log("Failure");
@@ -75,6 +85,25 @@ $(function() {
 
     $("#drawTile").click(function() {
       console.log("Draw Tile");
+      console.log(JSON.stringify({'drawTile': "drawTile"}))
+      $.ajax({
+        type: 'PUT',
+        url: '/games/' + gameId,
+        contentType: 'application/json',
+        data: JSON.stringify({'drawTile': "drawTile"}),
+        success: function(){
+          console.log("Success");
+          location.reload();
+        },
+        failure: function(){
+          console.log("Failure");
+        }
+      });
+    });
+
+    $("#reset").click(function(){
+      console.log("Reset");
+      location.reload();
     });
   };
 

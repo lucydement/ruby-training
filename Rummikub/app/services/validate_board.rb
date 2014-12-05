@@ -3,7 +3,8 @@ class ValidateBoard
     @tiles = tiles
   end
 
-  def call
+  def call  
+    return false if tile_not_moved_from_hand_to_board?
     return false if board_invalid?
     return false if tiles_moved_from_board_to_hand?
     true
@@ -12,44 +13,10 @@ class ValidateBoard
   private
 
   def board_invalid?
-    board = @tiles.select {|tile| tile["y"] != nil && tile["x"] != nil}
-
-    (0..7).each do |i|
-      row = board.select {|tile| tile["y"] == i}
-      if !row.empty? && row_invalid?(row)
-        return true
-      end
-    end
-    false
-  end
-
-  def row_invalid?(row)
-    sets = split_row_into_sets(row)
+    sets = SplitTilesIntoSets.new(@tiles).call
     return true if !sets
 
     sets.detect {|set| set_invalid?(set)}
-  end
-
-  def split_row_into_sets(row)
-    sets = []
-    set = []
-    previous_was_nil = true
-
-    (0..15).each do |i|
-      column = row.select {|tile| tile["x"] == i}
-
-      return false if column.length > 1
-
-      if column.empty? && !previous_was_nil
-        previous_was_nil = true
-        sets.push(set)
-        set = []
-      elsif !column.empty? 
-        set.push(column[0])
-        previous_was_nil = false
-      end  
-    end
-    sets
   end
 
   def set_invalid?(set)
@@ -90,6 +57,13 @@ class ValidateBoard
     moved_tiles_not_on_board = moved_tiles.select {|tile| tile["x"] > 15 || tile["y"] > 7}
     board_tiles = moved_tiles_not_on_board.select {|tile| tile["player_id"] == nil}
     return true if board_tiles.length != 0
+    false
+  end
+
+  def tile_not_moved_from_hand_to_board?
+    moved_tiles = @tiles.select {|tile| tile["y"] != nil && tile["x"] != nil}
+    players_tiles_on_board = moved_tiles.select {|tile| tile["x"] < 16 && tile["y"] < 8 && tile["player_id"] != nil}
+    return true if players_tiles_on_board.length == 0
     false
   end
 end

@@ -11,6 +11,7 @@ class SplitTilesIntoSets
       row = board.select {|tile| tile["y"] == i}
       return false if !split_row_into_sets(row)
     end
+    @sets
   end
 
   private
@@ -33,6 +34,5 @@ class SplitTilesIntoSets
         previous_was_nil = false
       end  
     end
-    sets
   end
 end

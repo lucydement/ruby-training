@@ -18,12 +18,14 @@ class Game < ActiveRecord::Base
       tiles.create(colour: "yellow", number: t) 
     end
 
-    (1..4).each do 
-      player = players.create
+    (0..3).each do |i|
+      player = players.create(number: i)
       (1..14).each do
         tile = bag.sample
-        tile.update_attributes(player_id: player.id)
+        tile.update_attributes!(player_id: player.id)
       end
     end
+
+    update_attributes!(current_player: 0)
   end
 end

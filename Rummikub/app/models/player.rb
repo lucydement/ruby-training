@@ -3,4 +3,5 @@ class Player < ActiveRecord::Base
   has_many :tiles
 
   validates :game_id , presence: true
+  validates :number, presence: true
 end

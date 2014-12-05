@@ -2,6 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body {
+  background-color: #99C68E;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .blue{
   color: blue;
 }
@@ -19,6 +29,7 @@
 }
 
 .tile{
+  background-color: white;
   width: 50px;
   height: 50px;
   text-align: center;
@@ -28,6 +39,7 @@
 }
 
 #board {
+  background-color: white;
   height: 540px;
   width: 800px;
   border: 2px;
@@ -37,4 +49,16 @@
 
 #hand > .tile {
   float: left;
+}
+
+#info {
+  width: 250px;
+  top: 5px;
+  left: 830px;
+  position: fixed;
+}
+
+#flash {
+  font-weight: bold;
+  color: red;
 }

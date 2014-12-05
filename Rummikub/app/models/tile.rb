@@ -15,11 +15,11 @@ class Tile < ActiveRecord::Base
   end
 
   def when_on_board_has_x_y
-    errors.add(:tile_set_id, "invalid") if on_board && (!x || !y)
+    errors.add(:on_board, "invalid") if on_board && (!x || !y)
   end
 
   def when_not_on_board_has_no_x_y
-    errors.add(:tile_set_id, "invalid") if !on_board && (x || y)
+    errors.add(:on_board, "invalid") if !on_board && (x || y)
   end
 
   def is_in_hand?

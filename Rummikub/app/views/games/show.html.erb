@@ -4,5 +4,23 @@
 
 <button id="submit">Submit Move</button>
 <button id="drawTile">Draw Tile</button>
+<button id="reset">Reset Move</button>
 
 <div id="hand"></div>
+
+<div id="info">
+	<h1>Player <%= @player.number + 1 %>'s turn</h1>
+	<p id="flash"><%= flash[:invalid] %></p>
+	<p>
+	The aim of the game is to get rid of all your tiles. To do this you need to place either runs or groups on the board. 
+	</p>
+	<p>Run: a set of consecutive tiles of the same colour that is at
+	least 3 tiles long.</p>
+	<p>Group: a set tiles with the same number
+	but all different colours, again this must be a least 3 long.</p>
+	<p>
+	During your turn you are allowed to rearange all the tiles on 
+	the board so long as the resulting sets are all valid. If you
+	cannot move you must draw a tile from the bag.
+	</p>
+</div>
