@@ -15,8 +15,8 @@ class GamesController < ApplicationController
   end
 
   def update
-    if request.xhr?
-      game = Game.find params[:id]
+    game = Game.find params[:id]
+    if request.xhr? && !game.won?
       player = game.players.where(number: game.current_player).first
       game_tiles = params[:tiles]
       draw_tile = params[:drawTile]

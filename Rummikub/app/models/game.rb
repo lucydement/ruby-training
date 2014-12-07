@@ -6,6 +6,15 @@ class Game < ActiveRecord::Base
     tiles.where(player_id: nil, on_board: nil)
   end
 
+  def won?
+    players.each do |player|
+      if player.tiles.length == 0
+        return true
+      end
+    end
+    return false
+  end
+
   def setup
     (1..13).each do |t|
       tiles.create(colour: "red", number: t) 

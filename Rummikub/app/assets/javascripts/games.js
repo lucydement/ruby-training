@@ -12,12 +12,83 @@ $(function() {
   }
 
   var notOnTile = function(x, y, tileId, tiles) {
-    tile_with_coordinates = _.filter(tiles, function(tile) {
+    var tile_with_coordinates = _.filter(tiles, function(tile) {
       return tile.x == x && tile.y == y && tile.id != tileId;
     });
-    console.log(tile_with_coordinates.length);
     if(tile_with_coordinates.length > 0) return false;
     return true;
+  }
+
+  var nearestEmptySpace = function(x, y, tiles) {
+    if (x > 15) x = 15;
+    if (x < 0) x = 0;
+    if (y > 7) y = 7;
+    if (y < 0) y = 0;
+    var right = checkRight(x,y,tiles);
+    if (right != null) return right;
+    var left = checkLeft(x,y,tiles);
+    if (left != null) return left;
+    var top = checkTop(x,y,tiles);
+    if(top != null) return top;
+    var bottom = checkBottome(x,y,tiles);
+    if(bottom != null) return bottom;
+  }
+
+  var checkRight = function(x, y, tiles) {
+    var tile_with_coordinates = _.filter(tiles, function(tile) {
+      return tile.x == x && tile.y == y;
+    });
+    if (tile_with_coordinates.length == 0) {
+      return [x,y];
+    }
+    if (x + 1 < 16) {
+      var right = checkRight(x + 1, y,tiles);
+      if (right != null) return right;
+    }
+    return null;
+  }
+
+  var checkLeft = function(x, y, tiles) {
+    var tile_with_coordinates = _.filter(tiles, function(tile) {
+      return tile.x == x && tile.y == y;
+    });
+    if (tile_with_coordinates.length == 0) {
+      return [x,y];
+    }
+    if (x - 1 >= 0) {
+      console.log("left");
+      var left = checkLeft(x - 1, y,tiles);
+      if (left != null) return left;
+    }
+    return null;
+  }
+
+  var checkTop = function(x, y, tiles) {
+    var tile_with_coordinates = _.filter(tiles, function(tile) {
+      return tile.x == x && tile.y == y;
+    });
+    if (tile_with_coordinates.length == 0) {
+      return [x,y];
+    }
+    if (y - 1 >= 0) {
+      var top = checkTop(y - 1, y,tiles);
+      if (top != null) return top;
+    }
+    return null;
+  }
+
+  var checkBottom = function(x, y, tiles) {
+    var tile_with_coordinates = _.filter(tiles, function(tile) {
+      return tile.x == x && tile.y == y;
+    });
+    if (tile_with_coordinates.length == 0) {
+      return [x,y];
+    }
+    if (y + 1 < 8) {
+      var bottom = checkBottom(y + 1, y,tiles);
+      if (bottom != null) return bottom;
+    }
+    return null;
   }
 
   var processGameData = function(game_tiles) {
@@ -61,6 +132,10 @@ $(function() {
             moving_tile.y = adjustY;
             positionTile(moving_div,adjustX + 1/2,adjustY + 1/2);
           }else{
+            coordinates = nearestEmptySpace(adjustX, adjustY, tiles);
+            console.log(coordinates);
+            moving_tile.x = coordinates[0];
+            moving_tile.y = coordinates[1];
             positionTile(moving_div, moving_tile.x + 1/2, moving_tile.y + 1/2);
           }
           $(this).off(handlers)

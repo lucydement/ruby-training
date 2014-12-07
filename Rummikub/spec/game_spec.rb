@@ -34,4 +34,13 @@ RSpec.describe Game, :type => :model do
       expect(game.players[0].tiles.length).to eql 14
     end
   end
+
+  it "knows when a game is won" do
+    expect(game.won?).to be_truthy
+  end
+
+  it "knows when a game is not won" do
+    game.setup
+    expect(game.won?).to be_falsey
+  end
 end
