@@ -15,3 +15,6 @@ game4:
 
 game5:
  current_player: 0
+
+game_show:
+ id: 1

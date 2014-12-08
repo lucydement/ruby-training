@@ -27,6 +27,10 @@ RSpec.describe SubmitMove do
 
       submit_move.call
     end
+
+    it "will return true" do
+      expect(submit_move.call).to be_truthy
+    end
   end
 
   context "When the user submits some invalid move" do
@@ -43,7 +47,9 @@ RSpec.describe SubmitMove do
       submit_move.call
     end
 
-    it "will activate a flash message"
+    it "will return false" do
+      expect(submit_move.call).to be_falsey
+    end
   end
 
   context "When the user submits some valid move" do
@@ -55,9 +61,25 @@ RSpec.describe SubmitMove do
     end
 
     it "will call validate move" do
+      expect(validate_board).to receive(:call).once
+
+      submit_move.call
     end
-    
-    it "will call update game"
-    it "will call next player"
+
+    it "will call update game" do
+      expect(update_game).to receive(:call).once
+
+      submit_move.call
+    end
+
+    it "will call next player" do
+      expect(next_player).to receive(:call).once
+
+      submit_move.call
+    end
+
+    it "will return true" do
+      expect(submit_move.call).to be_truthy
+    end
   end
 end

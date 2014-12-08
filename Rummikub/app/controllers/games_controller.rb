@@ -10,6 +10,7 @@ class GamesController < ApplicationController
     current_player = GetCurrentPlayer.new(@game).call
 
     if request.xhr?
+      puts "xhr"
       render json: TileDecorator.new(@game, current_player).call
     end
   end
@@ -21,9 +22,11 @@ class GamesController < ApplicationController
     if request.xhr? && !game.ended?
       game_tiles = params[:tiles]
 
-      SubmitMove.new(game, player, game_tiles).call
-
-      render nothing: true
+      if !SubmitMove.new(game, player, game_tiles).call
+        flash[:invalid] = "That move was invalid."
+      end
     end
+
+    render nothing: true
   end
 end
