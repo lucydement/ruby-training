@@ -11,12 +11,12 @@ RSpec.describe Game, :type => :model do
     end
   end
 
-  context "Test method setup" do
+  context "The method setup" do
     before do
       game.setup
     end
 
-    it "will add 4 players" do
+    it "will create 4 players" do
       expect(game.players.length).to eql 4
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Game, :type => :model do
       expect(game.tiles.length). to eql 104
     end
 
-    it "will contain 2 red threes" do
+    it "the tiles will contain 2 red threes" do
       expect(game.tiles.where(number: 3, colour: "red").length).to eql 2
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Game, :type => :model do
     expect(game.won?).to be_falsey
   end
 
-  context "test game ended" do
+  context "test when the game ended" do
     it "will return true when someone has won" do
       expect(games(:set_game).ended?).to be_truthy
     end

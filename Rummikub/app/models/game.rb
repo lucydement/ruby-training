@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
   has_many :tiles
-  has_many :players
+  has_many :players 
 
   def bag
     tiles.where(player_id: nil, on_board: nil)

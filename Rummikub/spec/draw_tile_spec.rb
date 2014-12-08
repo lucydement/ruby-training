@@ -11,7 +11,7 @@ RSpec.describe DrawTile do
       expect(players(:player1).tiles.length).to eql 1
     end
 
-    it "will not be on the board" do
+    it "the tile will not be on the board" do
       draw_tile.call
       expect(tiles(:bagTile).on_board).to be_falsey
       expect(tiles(:bagTile).x).to be_falsey

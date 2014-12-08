@@ -31,6 +31,8 @@ gem 'better_errors', group: :development
 
 gem 'rspec-rails'
 
+gem 'json_expressions'
+
 #gem 'pry-byebug '
 
 # Use ActiveModel has_secure_password

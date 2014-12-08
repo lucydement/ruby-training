@@ -10,7 +10,6 @@ class GamesController < ApplicationController
     current_player = GetCurrentPlayer.new(@game).call
 
     if request.xhr?
-      puts "xhr"
       render json: TileDecorator.new(@game, current_player).call
     end
   end

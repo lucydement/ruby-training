@@ -8,7 +8,7 @@ $(function() {
   var placeTile = function(tile, x, y, div) {
     tile.x = x;
     tile.y = y;
-    displayTile(div,x + 1/2,y + 1/2);
+    displayTile(div, x + 1/2, y + 1/2);
   }
 
   var processGameData = function(game_tiles) {
@@ -38,16 +38,17 @@ $(function() {
       var moving_tile = _.find(tiles,function(tile){
           return tile.id == tileId;
         });
+
       var handlers = {
         mousemove : function(e) {
-          displayTile(moving_div,e.pageX/52.0,e.pageY/70.0);
+          displayTile(moving_div, e.pageX / 52.0, e.pageY / 70.0);
           moving_div.css("z-index", 9999);
         },
         mouseup : function(e) {
           moving_div.css("z-index", 0);
-          var adjustX = Math.floor(e.pageX/52.0);
-          var adjustY = Math.floor(e.pageY/70.0);
-          coordinates = findNearestSpace(adjustX, adjustY, moving_tile.id, tiles);
+          var adjustX = Math.floor(e.pageX / 52.0);
+          var adjustY = Math.floor(e.pageY / 70.0);
+          coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
           placeTile(moving_tile, coordinates[0], coordinates[1], moving_div);
           $(this).off(handlers);
         }
@@ -55,7 +56,7 @@ $(function() {
       $(document).on(handlers);
     });
 
-    $("#submit").click(function() {
+    $("#submit").click( function() {
       console.log("Submit");
       $.ajax({
         type: 'PUT',
@@ -72,7 +73,7 @@ $(function() {
       });
     })
 
-    $("#drawTile").click(function() {
+    $("#drawTile").click( function() {
       console.log("Draw Tile");
       $.ajax({
         type: 'PUT',
@@ -89,7 +90,7 @@ $(function() {
       });
     });
 
-    $("#reset").click(function(){
+    $("#reset").click( function(){
       console.log("Reset");
       location.reload();
     });

@@ -39,8 +39,8 @@ RSpec.describe ValidateBoard do
     end
   end
 
-  context "When one invalid group" do
-    it "is a invalid board when two colours the same" do
+  context "A group is invalid when" do
+    it "has two colours the same" do
       tiles = [{"id"=>105, "colour"=>"red", "number"=>1, "player_id"=>1, "on_board"=>true, "x"=>1, "y"=>0},
         {"id"=>158, "colour"=>"black", "number"=>1, "player_id"=>nil, "on_board"=>true, "x"=>2, "y"=>0},
         {"id"=>115, "colour"=>"black", "number"=>1, "player_id"=>nil, "on_board"=>true, "x"=>3, "y"=>0}]
@@ -49,7 +49,7 @@ RSpec.describe ValidateBoard do
       expect(validate_board.call).to be_falsey
     end
 
-    it "is a invalid board when not all the same number" do
+    it "has tiles that are not all the same number" do
       tiles = [{"id"=>105, "colour"=>"red", "number"=>1, "player_id"=>1, "on_board"=>true, "x"=>1, "y"=>0},
         {"id"=>158, "colour"=>"black", "number"=>1, "player_id"=>nil, "on_board"=>true, "x"=>2, "y"=>0},
         {"id"=>115, "colour"=>"blue", "number"=>2, "player_id"=>nil, "on_board"=>true, "x"=>3, "y"=>0}]
@@ -59,8 +59,8 @@ RSpec.describe ValidateBoard do
     end
   end
 
-  context "When on invalid run" do
-    it "is an invalid board when they are not in order" do
+  context "A run is invaild when" do
+    it "has tiles that are not in order" do
       tiles = [{"id"=>105, "colour"=>"red", "number"=>1, "player_id"=>1, "on_board"=>true, "x"=>1, "y"=>3},
         {"id"=>158, "colour"=>"red", "number"=>3, "player_id"=>nil, "on_board"=>true, "x"=>2, "y"=>3},
         {"id"=>115, "colour"=>"red", "number"=>2, "player_id"=>nil, "on_board"=>true, "x"=>3, "y"=>3}]
@@ -69,7 +69,7 @@ RSpec.describe ValidateBoard do
       expect(validate_board.call).to be_falsey
     end
 
-    it "is an invalid board when they are differnt colours" do
+    it "it has tiles that are differnt colours" do
       tiles = [{"id"=>105, "colour"=>"red", "number"=>1, "player_id"=>1, "on_board"=>true, "x"=>1, "y"=>3},
         {"id"=>158, "colour"=>"black", "number"=>2, "player_id"=>nil, "on_board"=>true, "x"=>2, "y"=>3},
         {"id"=>115, "colour"=>"blue", "number"=>3, "player_id"=>nil, "on_board"=>true, "x"=>3, "y"=>3}]
@@ -132,7 +132,7 @@ RSpec.describe ValidateBoard do
       @validate_board = ValidateBoard.new(tiles)
     end
 
-    it "it to be invalid" do
+    it "is invalid" do
       expect(@validate_board.call).to be_falsey
     end
   end
@@ -145,7 +145,7 @@ RSpec.describe ValidateBoard do
       @validate_board = ValidateBoard.new(tiles)
     end
 
-    it "is an invalid board" do
+    it "is an invalid board if they don't" do
       expect(@validate_board.call).to be_falsey
     end
   end 

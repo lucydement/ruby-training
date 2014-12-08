@@ -1,4 +1,4 @@
-player1:
+player1: 
  game: set_game
  number: 1
  passed:
@@ -44,3 +44,27 @@ player10:
  game: game5
  number: 1
  passed:
+
+decorator_player1:
+ game: decorator_game1
+ number: 0
+
+decorator_player2:
+ game: decorator_game2
+ number: 0
+
+decorator_player3:
+ game: decorator_game3
+ number: 1
+
+decorator_player3and1:
+ game: decorator_game3
+ number: 0
+
+decorator_player4:
+ game: decorator_game4
+ number: 0
+
+decorator_player5:
+ game: decorator_game5
+ number: 0

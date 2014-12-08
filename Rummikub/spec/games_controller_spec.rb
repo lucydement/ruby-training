@@ -8,14 +8,19 @@ RSpec.describe GamesController, :type => :controller do
       expect { post :create }.to change { Game.count }.by +1
     end
 
-    it "sets up the game with players" do
+    it "creates the players" do
       post :create
       expect(Game.last.players.length).to eq 4
     end
 
-    it "sets up the game with tiles" do
+    it "creates the tiles" do
       post :create
       expect(Game.last.tiles.length).to eq 104
+    end
+
+    it "redirects to the new game" do
+      post :create
+      expect(response).to redirect_to(Game.last)
     end
   end
 
@@ -34,13 +39,13 @@ RSpec.describe GamesController, :type => :controller do
         expect(response).to render_template(:show)
       end
 
-      it "calls get_current_player" do
+      it "finds the current player" do
         expect(get_current_player).to receive(:call).once
 
         get :show, id: 1
       end
 
-      it "calls tile decorator" do
+      it "uses a tile decorator to find the json" do
         expect(tile_decorator).to receive(:call).once
 
         xhr :get, :show, id: 1
@@ -57,22 +62,24 @@ RSpec.describe GamesController, :type => :controller do
       allow(SubmitMove).to receive(:new).and_return(submit_move)
     end
 
-    it "will call get_current_player" do
+    it "finds the current player" do
       expect(get_current_player).to receive(:call).once
 
       xhr :put, :update, id: 1
     end
 
-    it "will call submit_move" do
-      expect(get_current_player).to receive(:call).once
+    it "will try to submit the move" do
+      expect(Game).to receive(:find).and_return(games(:game5))
+      expect(submit_move).to receive(:call).once
 
       xhr :put, :update, id: 1
     end
 
-    it "will not call submit_move if the game has ended" do
-      expect(get_current_player).to_not receive(:call)
+    it "will not submit the move if the game has ended" do
+      expect(Game).to receive(:find).and_return(games(:set_game))
+      expect(submit_move).to_not receive(:call)
 
-      xhr :put, :update, id: games(:set_game) 
+      xhr :put, :update, id: 1
     end
   end
 end

@@ -5,7 +5,7 @@ game1:
  current_player: 3
 
 game2:
- current_player: 0
+ current_player: 0 
 
 game3:
  current_player: 0
@@ -18,3 +18,18 @@ game5:
 
 game_show:
  id: 1
+
+decorator_game1:
+ current_player: 0
+
+decorator_game2:
+ current_player: 0
+
+decorator_game3:
+ current_player: 0
+
+decorator_game4:
+ current_player: 0
+
+decorator_game5:
+ current_player: 0

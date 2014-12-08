@@ -37,7 +37,7 @@ class ValidateBoard
     numbers = ordered_tiles.map {|tile| tile["number"]}
 
     (1..numbers.length - 1).each do |i|
-      return true if numbers[i] - numbers[i-1] !=1
+      return true if numbers[i] - numbers[i - 1] != 1
     end
     false
   end

@@ -93,3 +93,35 @@ tile12:
  colour: red
  player: player8
  game: game4
+
+decorator_tile1:
+ number: 7
+ colour: red
+ player:
+ game: decorator_game1
+
+decorator_tile2:
+ number: 8
+ colour: blue
+ player:
+ on_board: false
+ game: decorator_game2
+
+decorator_tile3:
+ number: 9
+ colour: blue
+ player: decorator_player3
+ game: decorator_game3
+
+decorator_tile4:
+ number: 6
+ colour: black
+ player: decorator_player4
+ game: decorator_game4
+
+decorator_tile5:
+ number: 12
+ colour: yellow
+ player:
+ on_board: true
+ game: decorator_game5

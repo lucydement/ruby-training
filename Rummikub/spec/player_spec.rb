@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Player, :type => :model do
   let(:player) {Player.create!(game_id: 1, number: 0)}
 
-  context "When create a player" do
+  context "When creating a player" do
     it "should create a player" do
       expect(Player.new(game_id: 1, number: 0).save).to be_truthy
     end

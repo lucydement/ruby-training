@@ -16,19 +16,19 @@ RSpec.describe SubmitMove do
   context "When the user draw a tile" do
     let(:submit_move) {SubmitMove.new(game, player, "drawTile")}
 
-    it "will call draw tile" do
+    it "will draw a tile for the player" do
       expect(draw_tile).to receive(:call).once
 
       submit_move.call
     end
 
-    it "will call next player" do
+    it "will find the next player" do
       expect(next_player).to receive(:call).once
 
       submit_move.call
     end
 
-    it "will return true" do
+    it "will return true as it was sucessful" do
       expect(submit_move.call).to be_truthy
     end
   end
@@ -41,13 +41,13 @@ RSpec.describe SubmitMove do
       allow(ValidateBoard).to receive(:new).and_return validate_board
     end
 
-    it "will call validate move" do
+    it "will validate the move" do
       expect(validate_board).to receive(:call).once
 
       submit_move.call
     end
 
-    it "will return false" do
+    it "will return false as this is not a valid move" do
       expect(submit_move.call).to be_falsey
     end
   end
@@ -66,19 +66,19 @@ RSpec.describe SubmitMove do
       submit_move.call
     end
 
-    it "will call update game" do
+    it "will update the game" do
       expect(update_game).to receive(:call).once
 
       submit_move.call
     end
 
-    it "will call next player" do
+    it "will find the next player" do
       expect(next_player).to receive(:call).once
 
       submit_move.call
     end
 
-    it "will return true" do
+    it "will return true as it was a valid move" do
       expect(submit_move.call).to be_truthy
     end
   end

@@ -5,7 +5,7 @@ class TileDecorator
   end
 
   def call
-    selected_tiles = @game.tiles.where("on_board IS NOT NULL OR player_id=?",@player.id)
+    selected_tiles = @game.tiles.where("(on_board IS NOT NULL AND on_board != ?) OR player_id=?", false, @player.id)
     {tiles: selected_tiles}.to_json
   end
 end
