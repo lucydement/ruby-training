@@ -9,10 +9,21 @@ class Game < ActiveRecord::Base
   def won?
     players.each do |player|
       if player.tiles.length == 0
-        return true
+        return player.number
       end
     end
     return false
+  end
+
+  def ended?
+    return true if won?
+    if bag.empty? 
+      players.each do |player|
+        return false if !player.passed
+      end
+      return true
+    end
+    false
   end
 
   def setup

@@ -9,7 +9,11 @@ RSpec.describe Player, :type => :model do
     end
 
     it "should fail when no game_id is specified" do
-      expect(Player.new.save).to be_falsey
+      expect(Player.new(number: 0).save).to be_falsey
+    end
+
+    it "should fail when no number is specified" do
+      expect(Player.new(game_id: 0).save).to be_falsey
     end
 
     it "should have no tiles" do

@@ -13,7 +13,7 @@ tile2:
  x:
  y:
  on_board:
- player_id: 10
+ player: player2
  game: set_game 
 
 tile3:
@@ -22,7 +22,7 @@ tile3:
  x:
  y:
  on_board:
- player_id: 10
+ player: player2
  game: set_game 
 
 tile4:
@@ -31,5 +31,65 @@ tile4:
  x:
  y:
  on_board:
- player_id: 10
+ player: player2
  game: set_game
+
+bagTile:
+ number: 1
+ colour: red
+ x:
+ y:
+ on_board:
+ player:
+ game: set_game
+
+tile5:
+ number: 5
+ colour: black
+ x:
+ y:
+ on_board:
+ player: player4
+ game: game2
+
+tile6:
+ number: 3
+ colour: blue
+ player:
+ game: game5
+
+tile7:
+ number: 8
+ colour: red
+ player: player9
+ game: game5
+
+tile8:
+ number: 11
+ colour: yellow
+ player: player10
+ game: game5
+
+tile9:
+ number: 12
+ colour: red
+ player: player5
+ game: game3
+
+tile10:
+ number: 13
+ colour: yellow
+ player: player6
+ game: game3
+
+tile11:
+ number: 1
+ colour: blue
+ player: player7
+ game: game4
+
+tile12:
+ number: 3
+ colour: red
+ player: player8
+ game: game4

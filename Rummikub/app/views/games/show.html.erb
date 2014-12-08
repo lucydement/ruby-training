@@ -9,7 +9,7 @@
 <div id="hand"></div>
 
 <div id="info">
-	<h1>Player <%= @player.number + 1 %>'s turn</h1>
+	<h1><%= heading(@game) %></h1>
 	<p id="flash"><%= flash[:invalid] %></p>
 	<p id="won"><%= flash[:won] %></p>
 	<p>

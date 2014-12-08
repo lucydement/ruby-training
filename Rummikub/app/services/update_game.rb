@@ -1,10 +1,15 @@
 class UpdateGame
-  def initialize(game, game_tiles)
+  def initialize(game, game_tiles, player)
     @game = game
     @changed_tiles = game_tiles.select {|tile| tile["x"] != nil && tile["y"] != nil}
+    @player = player
   end
 
   def call
+    if @game.bag.empty?
+      @player.update_attributes!(passed: false)
+    end
+
     board_tiles = @changed_tiles.select {|tile| tile["x"] < 16 && tile["y"] < 8}
     update_board(board_tiles)
 

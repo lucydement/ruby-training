@@ -1,0 +1,46 @@
+player1:
+ game: set_game
+ number: 1
+ passed:
+
+player2: 
+ game: set_game
+ number: 2
+
+player3:
+ game: game1
+ number: 3
+
+player4:
+ game: game2
+ number: 0
+
+player5:
+ game: game3
+ number: 0
+ passed: true
+
+player6:
+ game: game3
+ number: 1
+ passed: true
+
+player7:
+ game: game4
+ number: 0
+ passed: true
+
+player8:
+ game: game4
+ number: 1
+ passed: false
+
+player9:
+ game: game5
+ number: 0
+ passed:
+
+player10:
+ game: game5
+ number: 1
+ passed:

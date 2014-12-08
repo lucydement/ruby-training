@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20141126222539) do
   create_table "players", force: true do |t|
     t.integer  "game_id",    null: false
     t.integer  "number",     null: false
+    t.boolean  "passed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

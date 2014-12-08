@@ -7,34 +7,21 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find params[:id]
-    current_player = @game.current_player
-    @player = @game.players.where(number: current_player).first
+    current_player = GetCurrentPlayer.new(@game).call
+
     if request.xhr?
-      render json: TileDecorator.new(@game, @player).call
+      render json: TileDecorator.new(@game, current_player).call
     end
   end
 
   def update
     game = Game.find params[:id]
-    if request.xhr? && !game.won?
-      player = game.players.where(number: game.current_player).first
-      game_tiles = params[:tiles]
-      draw_tile = params[:drawTile]
-      puts draw_tile
-      puts "nil" if game_tiles == nil
+    player = GetCurrentPlayer.new(game).call
 
-      if draw_tile == "drawTile"
-        puts "Draw"
-        DrawTile.new(player: player ,game: game).call
-        game.update_attributes(current_player: (game.current_player + 1) % 4)
-      elsif ValidateBoard.new(game_tiles).call
-        UpdateGame.new(game, game_tiles).call
-        game.update_attributes(current_player: (game.current_player + 1) % 4)
-      else
-        #flash invalid and go to show again.
-        puts "invalid"
-        flash[:invalid] = "That move was invalid."
-      end
+    if request.xhr? && !game.ended?
+      game_tiles = params[:tiles]
+
+      SubmitMove.new(game, player, game_tiles).call
 
       render nothing: true
     end
