@@ -24,7 +24,7 @@ RSpec.describe TileDecorator do
     json = JSON.parse(tile_decorator.call)
 
     expect(json["tiles"].length).to eql 1
-    expect(json["tiles"][0]["colour"]).to eql "yellow"
+    expect(json["tiles"][0]["colour"]).to eql Tile::YELLOW
     expect(json["tiles"][0]["number"]).to eql 12
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe TileDecorator do
     json = JSON.parse(tile_decorator.call)
 
     expect(json["tiles"].length).to eql 1
-    expect(json["tiles"][0]["colour"]).to eql "black"
+    expect(json["tiles"][0]["colour"]).to eql Tile::BLACK
     expect(json["tiles"][0]["number"]).to eql 6
   end
 end

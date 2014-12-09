@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   def create
     game = Game.create!
-    game.setup
+    SetupGame.new(game).call
     redirect_to game
   end
 
@@ -12,6 +12,7 @@ class GamesController < ApplicationController
     if request.xhr?
       render json: TileDecorator.new(@game, current_player).call
     end
+    # respond_to?
   end
 
   def update

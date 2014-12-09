@@ -10,7 +10,7 @@ RSpec.describe GamesController, :type => :controller do
 
     it "creates the players" do
       post :create
-      expect(Game.last.players.length).to eq 4
+      expect(Game.last.players.length).to eq Game::NUMBER_PLAYERS
     end
 
     it "creates the tiles" do

@@ -7,8 +7,8 @@ class SplitTilesIntoSets
     @sets = []
     board = @tiles.select {|tile| tile["y"] != nil && tile["x"] != nil}
 
-    (0..7).each do |i|
-      row = board.select {|tile| tile["y"] == i}
+    (0..Game::BOARD_HEIGHT).each do |row_number|
+      row = board.select {|tile| tile["y"] == row_number}
       return false if !split_row_into_sets(row)
     end
     @sets
@@ -16,23 +16,28 @@ class SplitTilesIntoSets
 
   private
 
-  def split_row_into_sets(row)
-    set = []
-    previous_was_nil = true
+  def split_row_into_sets(tiles)
+    return true if tiles.empty?
 
-    (0..15).each do |i|
-      column = row.select {|tile| tile["x"] == i}
+    row = []
 
-      return false if column.length > 1
+    (0..Game::BOARD_WIDTH).each do |column_number|
+      column = tiles.select {|tile| tile["x"] == column_number}
 
-      if column.empty? && !previous_was_nil
-        previous_was_nil = true
-        @sets.push(set)
-        set = []
-      elsif !column.empty? 
-        set.push(column[0])
-        previous_was_nil = false
-      end  
+      return false if column.length > 1 
+
+      if column.empty?
+        row.push(nil)
+      else
+        row.push(column[0])
+      end
     end
+
+    row.chunk {|tile| tile == nil}.each do |is_nil, set|
+      if !is_nil 
+        @sets.push(set)
+      end
+    end
+    true
   end
 end

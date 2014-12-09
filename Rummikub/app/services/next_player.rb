@@ -4,6 +4,6 @@ class NextPlayer
   end
 
   def call
-    @game.update_attributes(current_player: (@game.current_player + 1) % 4)
+    @game.update_attributes(current_player: (@game.current_player + 1) % Game::NUMBER_PLAYERS)
   end
 end

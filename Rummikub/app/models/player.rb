@@ -1,4 +1,6 @@
 class Player < ActiveRecord::Base
+  HAND_SIZE = 14
+
   belongs_to :game
   has_many :tiles
 

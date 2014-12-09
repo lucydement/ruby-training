@@ -1,9 +1,15 @@
 class Tile < ActiveRecord::Base
+  RANGE = (1..13)
+  RED = "red"
+  BLUE = "blue"
+  BLACK = "black"
+  YELLOW = "yellow"
+
   belongs_to :game
   belongs_to :player
 
   validates :colour, presence: true
-  validates :number, presence: true, inclusion: {in: (1..13)}
+  validates :number, presence: true, inclusion: {in: RANGE}
   validates :game_id, presence: true
 
   validate :only_in_one_of_player_or_board 

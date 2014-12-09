@@ -4,7 +4,7 @@ player1:
  passed:
 
 player2: 
- game: set_game
+ game: set_game 
  number: 2
 
 player3:

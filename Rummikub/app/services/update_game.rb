@@ -10,10 +10,10 @@ class UpdateGame
       @player.update_attributes!(passed: false)
     end
 
-    board_tiles = @changed_tiles.select {|tile| tile["x"] < 16 && tile["y"] < 8}
+    board_tiles = @changed_tiles.select {|tile| tile["x"] <= Game::BOARD_WIDTH && tile["y"] <= Game::BOARD_HEIGHT}
     update_board(board_tiles)
 
-    hand = @changed_tiles.select {|tile| tile["x"] > 15 && tile["y"] > 7}
+    hand = @changed_tiles.select {|tile| tile["x"] > Game::BOARD_WIDTH && tile["y"] > Game::BOARD_HEIGHT}
     update_hand(hand)
   end
 

@@ -5,7 +5,7 @@ tile1:
  y: 1
  on_board: true
  player_id:
- game: set_game
+ game: set_game 
 
 tile2:
  number: 3
