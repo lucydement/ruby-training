@@ -9,7 +9,7 @@ class SplitTilesIntoSets
 
     (0..Game::BOARD_HEIGHT).each do |row_number|
       row = board.select {|tile| tile["y"] == row_number}
-      return false if !split_row_into_sets(row)
+      return false unless split_row_into_sets(row)
     end
     @sets
   end
@@ -19,6 +19,19 @@ class SplitTilesIntoSets
   def split_row_into_sets(tiles)
     return true if tiles.empty?
 
+    row = reconstruct_row(tiles)
+
+    return false unless row
+
+    row.chunk {|tile| tile == nil}.each do |is_nil, set|
+      if !is_nil 
+        @sets.push(set)
+      end
+    end
+    true
+  end
+
+  def reconstruct_row(tiles)
     row = []
 
     (0..Game::BOARD_WIDTH).each do |column_number|
@@ -32,12 +45,6 @@ class SplitTilesIntoSets
         row.push(column[0])
       end
     end
-
-    row.chunk {|tile| tile == nil}.each do |is_nil, set|
-      if !is_nil 
-        @sets.push(set)
-      end
-    end
-    true
+    row
   end
 end

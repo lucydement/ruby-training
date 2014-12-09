@@ -63,3 +63,14 @@ body {
   font-weight: bold;
   color: red;
 }
+
+ol {
+  list-style-type: none;
+  counter-reset: item;
+  padding: 10px;
+}
+
+ol li:before {
+  content: 'Game' counter(item, decimal) '. ';
+  counter-increment: item;
+}

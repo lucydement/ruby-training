@@ -10,10 +10,10 @@ class UpdateGame
       @player.update_attributes!(passed: false)
     end
 
-    board_tiles = @changed_tiles.select {|tile| tile["x"] <= Game::BOARD_WIDTH && tile["y"] <= Game::BOARD_HEIGHT}
+    board_tiles = find_board_tiles(@changed_tiles)
     update_board(board_tiles)
 
-    hand = @changed_tiles.select {|tile| tile["x"] > Game::BOARD_WIDTH && tile["y"] > Game::BOARD_HEIGHT}
+    hand = find_hand_tiles(@changed_tiles)
     update_hand(hand)
   end
 
@@ -33,5 +33,13 @@ class UpdateGame
       tile = @game.tiles.detect {|tile| tile.id == id}
       tile.update_attributes!(x: nil, y: nil)
     end
+  end
+
+  def find_board_tiles(tiles)
+    tiles.select {|tile| tile["x"] <= Game::BOARD_WIDTH && tile["y"] <= Game::BOARD_HEIGHT}
+  end
+
+  def find_hand_tiles(tiles)
+    tiles.select {|tile| tile["x"] > Game::BOARD_WIDTH && tile["y"] > Game::BOARD_HEIGHT}
   end
 end

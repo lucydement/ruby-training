@@ -49,6 +49,7 @@ $(function() {
           var adjustX = Math.floor(e.pageX / 52.0);
           var adjustY = Math.floor(e.pageY / 70.0);
           coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
+          console.log(coordinates);
           placeTile(moving_tile, coordinates[0], coordinates[1], moving_div);
           $(this).off(handlers);
         }

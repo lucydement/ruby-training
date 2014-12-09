@@ -1,6 +1,7 @@
 class ValidateBoard
   def initialize(tiles)
     @tiles = tiles
+    @moved_tiles = @tiles.select {|tile| tile["y"] != nil && tile["x"] != nil}
   end
 
   def call  
@@ -13,7 +14,7 @@ class ValidateBoard
   private
 
   def board_invalid?
-    sets = SplitTilesIntoSets.new(@tiles).call
+    sets = SplitTilesIntoSets.new(@moved_tiles).call
     return true if !sets
 
     sets.detect {|set| set_invalid?(set)}
@@ -22,7 +23,7 @@ class ValidateBoard
   def set_invalid?(set)
     return true if set.length < 3
 
-    if set[0]["colour"] == set[1]["colour"]
+    if first_two_tiles_are_the_same_colour(set)
       return run_invalid?(set)
     else
       return group_invalid?(set)
@@ -54,17 +55,19 @@ class ValidateBoard
   end
 
   def tiles_moved_from_board_to_hand?
-    moved_tiles = @tiles.select {|tile| tile["y"] != nil && tile["x"] != nil}
-    moved_tiles_not_on_board = moved_tiles.select {|tile| tile["x"] > Game::BOARD_WIDTH || tile["y"] > Game::BOARD_HEIGHT}
-    board_tiles = moved_tiles_not_on_board.select {|tile| tile["player_id"] == nil}
-    return true if board_tiles.length != 0
+    moved_tiles_not_on_board = @moved_tiles.select {|tile| tile["x"] > Game::BOARD_WIDTH || tile["y"] > Game::BOARD_HEIGHT}
+    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| tile["player_id"] == nil}
+    return true if board_tiles_in_hand.length != 0
     false
   end
 
   def tile_not_moved_from_hand_to_board?
-    moved_tiles = @tiles.select {|tile| tile["y"] != nil && tile["x"] != nil}
-    players_tiles_on_board = moved_tiles.select {|tile| tile["x"] <= Game::BOARD_WIDTH && tile["y"] <= Game::BOARD_HEIGHT && tile["player_id"] != nil}
+    players_tiles_on_board = @moved_tiles.select {|tile| tile["x"] <= Game::BOARD_WIDTH && tile["y"] <= Game::BOARD_HEIGHT && tile["player_id"] != nil}
     return true if players_tiles_on_board.length == 0
     false
+  end
+
+  def first_two_tiles_are_the_same_colour(set)
+    set[0]["colour"] == set[1]["colour"]
   end
 end

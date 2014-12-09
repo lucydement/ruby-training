@@ -1,11 +1,14 @@
 var findNearestSpace = function(x, y, tileId, tiles) {
-  var boardWidth = $("meta[property=board_width]").attr("content");
-  var boardHeight = $("meta[property=board_width]").attr("content");
+  var boardWidth = parseInt($("meta[property=board_width]").attr("content"));
+  var boardHeight = parseInt($("meta[property=board_height]").attr("content"));
 
   if (x > boardWidth) x = boardWidth;
   if (x < 0) x = 0;
   if (y > boardHeight) y = boardHeight;
   if (y < 0) y = 0;
+
+  console.log(x);
+  console.log(y);
 
   visited = [];
   queue = [];
