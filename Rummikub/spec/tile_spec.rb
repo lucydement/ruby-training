@@ -34,5 +34,13 @@ RSpec.describe Tile, :type => :model do
     it "will not create a tile if the number is out of range" do
       expect(Tile.new(colour: Tile::RED, number: 14, game_id: 1).save).to be_falsey
     end
+
+    it "will not create a tile if x is out of bounds" do
+      expect(Tile.new(colour: Tile::RED, number: 2, game_id: 1, on_board: true, x: 16, y: 4).save).to be_falsey
+    end
+
+    it "will not create a tile if y is out of bounds" do
+      expect(Tile.new(colour: Tile::RED, number: 2, game_id: 1, on_board: true, x: 3, y: 8).save).to be_falsey
+    end
   end
 end

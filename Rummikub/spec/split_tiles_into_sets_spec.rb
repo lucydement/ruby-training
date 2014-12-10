@@ -38,11 +38,11 @@ RSpec.describe SplitTilesIntoSets do
   end
 
   context "When given two tiles in the same place" do
-    it "returns false" do
+    it "returns raise an error" do
       tiles = [{"id"=>105, "colour"=>Tile::RED, "number"=>1, "player_id"=>nil, "on_board"=>true, "x"=>0, "y"=>1},
         {"id"=>158, "colour"=>Tile::BLACK, "number"=>7, "game_id"=>2, "player_id"=>nil, "on_board"=>true, "x"=>0, "y"=>1}]
       split_tiles = SplitTilesIntoSets.new(tiles)
-      expect(split_tiles.call).to be_falsey
+      expect{ split_tiles.call }.to raise_error(SplitTilesIntoSets::InvalidTilesError)
     end
   end
 end

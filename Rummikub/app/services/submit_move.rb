@@ -9,12 +9,15 @@ class SubmitMove
     if @user_input == "drawTile"
       DrawTile.new(player: @player ,game: @game).call
       NextPlayer.new(@game).call
+      true
+
     elsif ValidateBoard.new(@user_input).call
       UpdateGame.new(@game, @user_input, @player).call
       NextPlayer.new(@game).call
+      true
+
     else
-      return false
+      false
     end
-    true
   end
 end

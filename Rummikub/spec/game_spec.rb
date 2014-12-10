@@ -15,8 +15,16 @@ RSpec.describe Game, :type => :model do
     expect(games(:set_game).won?).to be_truthy
   end
 
+  it "knows who has won the game" do
+    expect(games(:set_game).winning_player).to eql players(:player1)
+  end
+
   it "knows when a game is not won" do
     expect(games(:game5).won?).to be_falsey
+  end
+
+  it "returns nil when no one has won" do
+    expect(games(:game5).winning_player).to be_nil
   end
 
   context "test when the game ended" do

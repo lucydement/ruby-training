@@ -6,10 +6,10 @@ class DrawTile
 
   def call
     if @game.bag.empty?
-      @player.update_attributes(passed: true)
+      @player.update_attributes!(passed: true)
     else
       new_tile = @game.bag.sample
-      new_tile.update_attributes(player_id: @player.id)
+      new_tile.update_attributes!(player: @player)
     end
   end
 end

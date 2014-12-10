@@ -4,8 +4,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = Game.create!
-    SetupGame.new(game).call
+    game = SetupGame.new.call
     redirect_to game
   end
 
