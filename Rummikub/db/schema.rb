@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20141126222539) do
 
   create_table "games", force: true do |t|
     t.integer  "current_player"
+    t.integer  "number_players"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

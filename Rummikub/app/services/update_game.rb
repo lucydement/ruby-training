@@ -1,7 +1,7 @@
 class UpdateGame
   def initialize(game, game_tiles, player)
     @game = game
-    @changed_tiles = game_tiles.select {|tile| tile["x"] && tile["y"]}
+    @changed_tiles = game_tiles.select {|tile| tile.x && tile.y}
     @player = player
   end
 
@@ -20,13 +20,13 @@ class UpdateGame
 
   def update_board(board)
     board.each do |tile_data|
-      id = tile_data["id"]
+      id = tile_data.id
       tile = @game.tiles.detect {|tile| tile.id == id}
-      tile.update_attributes!(player_id: nil, x: tile_data["x"], y: tile_data["y"], on_board: true)
+      tile.update_attributes!(player_id: nil, x: tile_data.x, y: tile_data.y, on_board: true)
     end
   end
 
   def find_board_tiles(tiles)
-    tiles.select {|tile| tile["x"] < Game::BOARD_WIDTH && tile["y"] < Game::BOARD_HEIGHT}
+    tiles.select {|tile| tile.x < Game::BOARD_WIDTH && tile.y < Game::BOARD_HEIGHT}
   end
 end

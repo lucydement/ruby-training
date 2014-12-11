@@ -4,8 +4,16 @@ class GamesController < ApplicationController
   end
 
   def create
-    game = SetupGame.new.call
-    redirect_to game
+    number_players = params.require(:game).permit(:number_players)["number_players"].to_i
+    puts number_players
+    puts NumberPlayersPolicy.new(number_players).call
+    if NumberPlayersPolicy.new(number_players).call
+      game = SetupGame.new(number_players).call
+      redirect_to game
+    else
+      flash[:wrong_number_players] = "You cannot have this amount of players."
+      render :new
+    end
   end
 
   def show

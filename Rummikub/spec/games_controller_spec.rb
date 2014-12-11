@@ -4,13 +4,17 @@ RSpec.describe GamesController, :type => :controller do
   fixtures :games
 
   describe "POST #create" do
+    before do
+      expect(params).to receive(:require).and_return 4
+    end
+
     it "creates a new game" do
       expect { post :create }.to change { Game.count }.by +1
     end
 
     it "creates the players" do
       post :create
-      expect(Game.last.players.length).to eq Game::NUMBER_PLAYERS
+      expect(Game.last.players.length).to eq 4
     end
 
     it "creates the tiles" do

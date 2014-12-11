@@ -1,7 +1,11 @@
 class SetupGame
+  def initialize(number_players)
+    @number_players = number_players
+  end
+
   def call
     Game.transaction do
-      @game = Game.create!
+      @game = Game.create!(number_players: @number_players)
       create_tiles
       create_players_and_draw_hands
       @game.update_attributes!(current_player: 0) #default?
@@ -20,7 +24,7 @@ class SetupGame
   end
 
   def create_players_and_draw_hands
-    Game::NUMBER_PLAYERS.times do |i|
+    @game.number_players.times do |i|
       player = @game.players.create!(number: i)
 
       Player::HAND_SIZE.times do

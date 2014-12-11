@@ -1,7 +1,7 @@
 class ValidateBoard
   def initialize(tiles)
     @tiles = tiles
-    @moved_tiles = @tiles.select {|tile| tile["y"] && tile["x"]}
+    @moved_tiles = @tiles.select {|tile| tile.y && tile.x}
   end
 
   def call  
@@ -12,8 +12,10 @@ class ValidateBoard
 
   #Use actual models
 
-  def board_valid?
-    sets = SplitTilesIntoSets.new(@moved_tiles).call
+  def board_valid? 
+    #actual_tiles = CreateTiles.new(@tiles).call
+
+    sets = SplitTilesIntoSets.new(@tiles).call
     return false if !sets
 
     sets.all? {|set| set_valid?(set)}
@@ -30,41 +32,41 @@ class ValidateBoard
   end
 
   def run_valid?(run)
-    colours = run.map {|tile| tile["colour"]}.uniq
+    colours = run.map(&:colour).uniq
     
     return false if colours.length != 1
 
-    ordered_tiles = run.sort_by {|tile| tile["x"]}
-    numbers = ordered_tiles.map {|tile| tile["number"]}
+    ordered_tiles = run.sort_by(&:x)
+    numbers = ordered_tiles.map(&:number)
 
     (1..numbers.length - 1).all? {|i| numbers[i] - numbers[i - 1] == 1}
   end
 
   def group_valid?(group)
-    numbers = group.map {|tile| tile["number"]}.uniq
+    numbers = group.map(&:number).uniq
     return false if numbers.length != 1
 
-    colours = group.map {|tile| tile["colour"]}.uniq
+    colours = group.map(&:colour).uniq
     return false if colours.length < group.length
 
     true
   end
 
   def tiles_moved_from_board_to_hand?
-    moved_tiles_not_on_board = @moved_tiles.select {|tile| tile["x"] >= Game::BOARD_WIDTH || tile["y"] >= Game::BOARD_HEIGHT}
-    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| tile["player_id"] == nil}
+    moved_tiles_not_on_board = @moved_tiles.select {|tile| tile.x >= Game::BOARD_WIDTH || tile.y >= Game::BOARD_HEIGHT}
+    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| tile.player_id == nil}
     return true if board_tiles_in_hand.length != 0
     false
   end
 
   def tile_not_moved_from_hand_to_board?
-    players_tiles_on_board = @moved_tiles.select {|tile| tile["x"] < Game::BOARD_WIDTH && tile["y"] < Game::BOARD_HEIGHT && tile["player_id"] != nil}
+    players_tiles_on_board = @moved_tiles.select {|tile| tile.x < Game::BOARD_WIDTH && tile.y < Game::BOARD_HEIGHT && tile.player_id != nil}
     
     return true if players_tiles_on_board.length == 0
     false
   end
 
   def first_two_tiles_are_the_same_colour?(set)
-    set[0]["colour"] == set[1]["colour"]
+    set[0].colour == set[1].colour
   end
 end

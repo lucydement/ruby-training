@@ -6,16 +6,17 @@ class SubmitMove
   end
 
   def call
+    tiles = CreateTiles.new(@user_input).call
+    puts tiles
+
     if @user_input == "drawTile"
       DrawTile.new(player: @player ,game: @game).call
-      NextPlayer.new(@game).call
+      UpdateCurrentPlayer.new(@game).call
       true
-
-    elsif ValidateBoard.new(@user_input).call
-      UpdateGame.new(@game, @user_input, @player).call
-      NextPlayer.new(@game).call
+    elsif ValidateBoard.new(tiles).call
+      UpdateGame.new(@game, tiles, @player).call
+      UpdateCurrentPlayer.new(@game).call
       true
-
     else
       false
     end

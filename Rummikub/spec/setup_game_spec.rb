@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SetupGame do
-  let(:setup_game) {SetupGame.new}
+  let(:setup_game) {SetupGame.new(4)}
   let(:game) {setup_game.call}
 
   it "Creates 104 tiles" do
@@ -13,7 +13,7 @@ RSpec.describe SetupGame do
   end
 
   it "Creates 4 players" do
-    expect(game.players.length).to eql Game::NUMBER_PLAYERS
+    expect(game.players.length).to eql 4
   end
 
   it "makes each player has 14 tiles" do

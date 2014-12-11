@@ -4,16 +4,18 @@ RSpec.describe SubmitMove do
   let(:game) {instance_double('Game')}
   let(:player) {instance_double('Player')}
   let(:draw_tile) {instance_double('DrawTile', call: 0)}
-  let(:next_player) {instance_double('NextPlayer', call: 0)}
+  let(:update_current_player) {instance_double('UpdateCurrentPlayer', call: 0)}
   let(:update_game) {instance_double('UpdateGame', call: 0)}
-
-  before do
-    allow(DrawTile).to receive(:new).and_return draw_tile
-    allow(NextPlayer).to receive(:new).and_return next_player
-    allow(UpdateGame).to receive(:new).and_return update_game
-  end
+  let(:create_tiles) {instance_double('CreateTiles', call: 0)}
 
   context "When the user draw a tile" do
+    before do
+      allow(DrawTile).to receive(:new).and_return draw_tile
+      allow(UpdateCurrentPlayer).to receive(:new).and_return update_current_player
+      allow(UpdateGame).to receive(:new).and_return update_game
+      allow(CreateTiles).to receive(:new).and_return create_tiles
+    end
+
     let(:submit_move) {SubmitMove.new(game, player, "drawTile")}
 
     it "will draw a tile for the player" do
@@ -23,7 +25,7 @@ RSpec.describe SubmitMove do
     end
 
     it "will find the next player" do
-      expect(next_player).to receive(:call).once
+      expect(update_current_player).to receive(:call).once
 
       submit_move.call
     end
@@ -31,9 +33,21 @@ RSpec.describe SubmitMove do
     it "will return true as it was sucessful" do
       expect(submit_move.call).to be_truthy
     end
+
+    it "will create the tiles from the user input" do
+      expect(create_tiles).to receive(:call).once
+
+      submit_move.call
+    end
   end
 
   context "When the user submits some invalid move" do
+    before do
+      allow(DrawTile).to receive(:new).and_return draw_tile
+      allow(UpdateCurrentPlayer).to receive(:new).and_return update_current_player
+      allow(UpdateGame).to receive(:new).and_return update_game
+      allow(CreateTiles).to receive(:new).and_return create_tiles
+    end
     let(:validate_board) {instance_double('ValidateBoard', call: false)}
     let(:submit_move) {SubmitMove.new(game, player, "Invalid move")}
 
@@ -50,14 +64,25 @@ RSpec.describe SubmitMove do
     it "will return false as this is not a valid move" do
       expect(submit_move.call).to be_falsey
     end
+
+    it "will create the tiles from the user input" do
+      expect(create_tiles).to receive(:call).once
+
+      submit_move.call
+    end
   end
 
   context "When the user submits some valid move" do
     let(:validate_board) {instance_double('ValidateBoard', call: true)}
     let(:submit_move) {SubmitMove.new(game, player, "Valid move")}
 
+
     before do
       allow(ValidateBoard).to receive(:new).and_return validate_board
+      allow(DrawTile).to receive(:new).and_return draw_tile
+      allow(UpdateCurrentPlayer).to receive(:new).and_return update_current_player
+      allow(UpdateGame).to receive(:new).and_return update_game
+      allow(CreateTiles).to receive(:new).and_return create_tiles
     end
 
     it "will call validate move" do
@@ -73,13 +98,19 @@ RSpec.describe SubmitMove do
     end
 
     it "will find the next player" do
-      expect(next_player).to receive(:call).once
+      expect(update_current_player).to receive(:call).once
 
       submit_move.call
     end
 
     it "will return true as it was a valid move" do
       expect(submit_move.call).to be_truthy
+    end
+
+    it "will create the tiles from the user input" do
+      expect(create_tiles).to receive(:call).once
+
+      submit_move.call
     end
   end
 end

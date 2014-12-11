@@ -9,6 +9,11 @@
 </ol>
 
 <%= form_for Game.new do |f| %>
+	<%= f.text_field :number_players %>
 	<%= f.submit "Create new game!" %>
+
+	<% if flash[:wrong_number_players] %>
+		<%= flash[:wrong_number_players] %>
+	<% end %>
 <% end %>
 

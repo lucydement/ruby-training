@@ -40,6 +40,6 @@ class Tile < ActiveRecord::Base
 
   def x_and_y_out_bounds
     return false unless x && y
-    x <= 0 || x >= Game::BOARD_WIDTH || y <= 0 || y >= Game::BOARD_HEIGHT
+    x < 0 || x >= Game::BOARD_WIDTH || y < 0 || y >= Game::BOARD_HEIGHT
   end
 end
