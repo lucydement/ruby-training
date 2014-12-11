@@ -27,6 +27,6 @@ class UpdateGame
   end
 
   def find_board_tiles(tiles)
-    tiles.select {|tile| tile.x < Game::BOARD_WIDTH && tile.y < Game::BOARD_HEIGHT}
+    tiles.select {|tile| tile.x_y_on_board?}
   end
 end

@@ -10,11 +10,7 @@ class ValidateBoard
 
   private
 
-  #Use actual models
-
   def board_valid? 
-    #actual_tiles = CreateTiles.new(@tiles).call
-
     sets = SplitTilesIntoSets.new(@tiles).call
     return false if !sets
 
@@ -47,23 +43,19 @@ class ValidateBoard
     return false if numbers.length != 1
 
     colours = group.map(&:colour).uniq
-    return false if colours.length < group.length
-
-    true
+    colours.length == group.length
   end
 
   def tiles_moved_from_board_to_hand?
-    moved_tiles_not_on_board = @moved_tiles.select {|tile| tile.x >= Game::BOARD_WIDTH || tile.y >= Game::BOARD_HEIGHT}
-    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| tile.player_id == nil}
-    return true if board_tiles_in_hand.length != 0
-    false
+    moved_tiles_not_on_board = @moved_tiles.select {|tile| !tile.x_y_on_board?}
+    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| !tile.in_hand?}
+    board_tiles_in_hand.present?
   end
 
   def tile_not_moved_from_hand_to_board?
-    players_tiles_on_board = @moved_tiles.select {|tile| tile.x < Game::BOARD_WIDTH && tile.y < Game::BOARD_HEIGHT && tile.player_id != nil}
+    players_tiles_on_board = @moved_tiles.select {|tile| tile.x_y_on_board? && tile.in_hand?}
     
-    return true if players_tiles_on_board.length == 0
-    false
+    players_tiles_on_board.empty?
   end
 
   def first_two_tiles_are_the_same_colour?(set)

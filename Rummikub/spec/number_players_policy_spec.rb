@@ -27,7 +27,7 @@ RSpec.describe NumberPlayersPolicy do
 
   context "When given a number too high" do
     it "return false" do
-      number_players_policy = NumberPlayersPolicy.new(10)
+      number_players_policy = NumberPlayersPolicy.new(8)
 
       expect(number_players_policy.call).to eql false
     end

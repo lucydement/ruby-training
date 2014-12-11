@@ -10,6 +10,7 @@ class Tile < ActiveRecord::Base
   belongs_to :player
 
   scope :in_bag, -> { where(player_id: nil, on_board: nil) }
+  scope :in_hand, -> { where.not(player_id: nil)}
 
   validates :colour, presence: true, inclusion: {in: COLOURS}
   validates :number, presence: true, inclusion: {in: RANGE}
@@ -19,6 +20,15 @@ class Tile < ActiveRecord::Base
   validate :when_on_board_has_x_y
   validate :when_not_on_board_has_no_x_y
   validate :if_on_board_x_and_y_are_in_the_board
+
+  def x_y_on_board?
+    return false if x == nil || y == nil
+    x >= 0 && x < Game::BOARD_WIDTH && y >= 0 && y < Game::BOARD_HEIGHT
+  end
+
+  def in_hand?
+    player_id != nil
+  end
 
   private
 

@@ -7,7 +7,6 @@ class SubmitMove
 
   def call
     tiles = CreateTiles.new(@user_input).call
-    puts tiles
 
     if @user_input == "drawTile"
       DrawTile.new(player: @player ,game: @game).call
