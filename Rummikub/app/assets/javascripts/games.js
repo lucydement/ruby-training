@@ -17,24 +17,34 @@ $(function() {
     var board = $("#board").empty();
 
     tiles.forEach(function(tile) {
+      var wrapperDiv = $("<div>")
+        .addClass("wrapper");
+
       var div = $("<div>")
         .addClass("tile")
         .addClass(tile.colour)
         .data("tile-id", tile.id)
-        .text(tile.number);
+        .text(tile.number)
+        .appendTo(wrapperDiv);
+
+      var shadowDiv = $("<div>")
+        .addClass("shadow")
+        .appendTo(wrapperDiv);
 
       if (tile.player_id) {
-        $("#hand").append(div);
+        $("#hand").append(wrapperDiv);
       }
       else {
-        $("#board").append(div);
-        displayTile(div, tile.x + 1/2, tile.y + 1/2);
+        $("#board").append(wrapperDiv);
+        displayTile(wrapperDiv, tile.x + 1/2, tile.y + 1/2);
       }
     });
 
-    $(".tile").on('mousedown', function(e){
-      var moving_div = $(this)
-      var tileId = $(this).data("tileId");
+    $(".wrapper").on('mousedown', function(e){
+      var moving_div = $(this);
+      var tile = moving_div.find(".tile");
+      var tileId = tile.data("tileId");
+
       var moving_tile = _.find(tiles,function(tile){
           return tile.id == tileId;
         });
@@ -42,10 +52,10 @@ $(function() {
       var handlers = {
         mousemove : function(e) {
           displayTile(moving_div, e.pageX / 52.0, e.pageY / 70.0);
-          moving_div.css("z-index", 9999);
+          //tile.css("z-index", 9999);
         },
         mouseup : function(e) {
-          moving_div.css("z-index", 0);
+          //moving_div.css("z-index", 3);
           var adjustX = Math.floor(e.pageX / 52.0);
           var adjustY = Math.floor(e.pageY / 70.0);
           coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);

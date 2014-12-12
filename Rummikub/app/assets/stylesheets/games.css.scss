@@ -25,11 +25,18 @@ body {
 }
 
 .yellow{
-  color: #FFE87C;
+  color: gold;
+}
+
+.wrapper {
+  position: relative;
+  width: 51px;
+  height: 50px;
 }
 
 .tile{
-  background-color: white;
+  position: absolute;
+  background-color: floralwhite;
   width: 50px;
   height: 50px;
   text-align: center;
@@ -37,18 +44,34 @@ body {
   border-width: 2px;
   border-color: black;
   line-height: 50px;
+  font-weight: bold;
+  border-radius: 5px;
+  z-index: 3;
+}
+
+.shadow{
+  box-shadow: 2px 2px dimgrey;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  border-radius: 5px;
+  position: absolute;
 }
 
 #board {
   background-color: white;
-  height: 540px;
+  height: 544px;
   width: 830px;
   border: 2px;
   border-color: black;
   border-style: solid;
+  z-index: 0;
 }
 
-#hand > .tile {
+#hand > .wrapper {
   float: left;
 }
 
@@ -73,4 +96,14 @@ ol {
 ol li:before {
   content: 'Game' counter(item, decimal) '. ';
   counter-increment: item;
+}
+
+button {
+  font-weight: bold;
+  height: 25px;
+  margin: 5px;
+}
+
+button:hover {
+  box-shadow: 0 0 4px rgba(0,0,0, .75);
 }
