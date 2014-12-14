@@ -71,5 +71,29 @@ RSpec.describe CreateTiles do
       expect(tile.x).to eql 1
       expect(tile.y).to eql 0
     end
+
+    it "will make the second tile" do
+      tile = @create_tiles.call[1]
+
+      expect(tile.id).to eql 158
+      expect(tile.colour).to eql Tile::BLACK
+      expect(tile.number).to eql 1
+      expect(tile.player_id).to be_nil
+      expect(tile.on_board).to eql true
+      expect(tile.x).to eql 2
+      expect(tile.y).to eql 0
+    end
+
+    it "will make the third tile" do
+      tile = @create_tiles.call.last
+
+      expect(tile.id).to eql 159
+      expect(tile.colour).to eql Tile::BLUE
+      expect(tile.number).to eql 1
+      expect(tile.player_id).to eql nil
+      expect(tile.on_board).to eql true
+      expect(tile.x).to eql 3
+      expect(tile.y).to eql 0
+    end
   end
 end

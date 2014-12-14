@@ -52,10 +52,10 @@ $(function() {
       var handlers = {
         mousemove : function(e) {
           displayTile(moving_div, e.pageX / 52.0, e.pageY / 70.0);
-          //tile.css("z-index", 9999);
+          moving_div.css("z-index", 9999);
         },
         mouseup : function(e) {
-          //moving_div.css("z-index", 3);
+          moving_div.css("z-index", 'auto');
           var adjustX = Math.floor(e.pageX / 52.0);
           var adjustY = Math.floor(e.pageY / 70.0);
           coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
