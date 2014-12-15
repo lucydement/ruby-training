@@ -1,12 +1,21 @@
 <meta property="game_id" content="<%= @game.id %>">
 <meta property="board_width" content="<%= Game::BOARD_WIDTH %>">
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
+<meta property="current_user_id" content="<%= @game.current_users_player_id(current_user) %>">
+
+<% if @game.not_enough_users? && @game.user_not_in_game?(current_user) %>
+	<%= form_for [@game, Player.new] do |f| %>
+		<%= f.submit "Join game" %>
+	<% end %>
+<% end %>
 
 <div id="board"></div>
 
-<button id="submit">Submit Move</button>
-<button id="drawTile">Draw Tile</button>
-<button id="reset">Reset Move</button>
+<% if @game.playing_user == current_user %>
+	<button id="submit">Submit Move</button>
+	<button id="drawTile">Draw Tile</button>
+	<button id="reset">Reset Move</button>
+<% end %>
 
 <div id="hand"></div>
 

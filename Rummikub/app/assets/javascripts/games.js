@@ -12,31 +12,35 @@ $(function() {
   }
 
   var processGameData = function(game_tiles) {
+    var CurrentUserId = parseInt($("meta[property=current_user_id]").attr("content"));
     console.log("data:", game_tiles);
+    console.log(CurrentUserId);
     var tiles = game_tiles.tiles;
     var board = $("#board").empty();
 
     tiles.forEach(function(tile) {
-      var wrapperDiv = $("<div>")
-        .addClass("wrapper");
+      if(tile.player_id == CurrentUserId || tile.on_board) {
+        var wrapperDiv = $("<div>")
+          .addClass("wrapper");
 
-      var div = $("<div>")
-        .addClass("tile")
-        .addClass(tile.colour)
-        .data("tile-id", tile.id)
-        .text(tile.number)
-        .appendTo(wrapperDiv);
+        var div = $("<div>")
+          .addClass("tile")
+          .addClass(tile.colour)
+          .data("tile-id", tile.id)
+          .text(tile.number)
+          .appendTo(wrapperDiv);
 
-      var shadowDiv = $("<div>")
-        .addClass("shadow")
-        .appendTo(wrapperDiv);
+        var shadowDiv = $("<div>")
+          .addClass("shadow")
+          .appendTo(wrapperDiv);
 
-      if (tile.player_id) {
-        $("#hand").append(wrapperDiv);
-      }
-      else {
-        $("#board").append(wrapperDiv);
-        displayTile(wrapperDiv, tile.x + 1/2, tile.y + 1/2);
+        if (tile.player_id) {
+          $("#hand").append(wrapperDiv);
+        }
+        else {
+          $("#board").append(wrapperDiv);
+          displayTile(wrapperDiv, tile.x + 1/2, tile.y + 1/2);
+        }
       }
     });
 

@@ -9,6 +9,13 @@ RSpec.describe Game, :type => :model do
     it "will create a game" do
       expect(Game.create(number_players: 4)).to be_truthy
     end
+
+    it "will not have enough users" do
+      set_up = SetupGame.new(4)
+      set_up.call
+
+      expect(game.not_enough_users).to be_truthy
+    end
   end
 
   it "knows when a game is won" do

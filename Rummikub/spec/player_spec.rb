@@ -19,5 +19,9 @@ RSpec.describe Player, :type => :model do
     it "should have no tiles" do
       expect(player.tiles.empty?).to be_truthy
     end
+
+    it "should have no user" do
+      expect(player.users.empty?).to be_truthy
+    end
   end
 end

@@ -33,6 +33,8 @@ gem 'rspec-rails'
 
 gem 'json_expressions'
 
+gem 'devise'
+
 #gem 'pry-byebug '
 
 # Use ActiveModel has_secure_password
