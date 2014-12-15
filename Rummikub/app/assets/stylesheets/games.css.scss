@@ -10,6 +10,7 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: default;
 }
 
 .blue{
@@ -30,7 +31,7 @@ body {
 
 .wrapper {
   position: relative;
-  width: 51px;
+  width: 53px;
   height: 50px;
 }
 

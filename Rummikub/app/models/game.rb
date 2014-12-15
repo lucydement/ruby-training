@@ -43,6 +43,8 @@ class Game < ActiveRecord::Base
 
   def current_users_player_id(current_user)
     user_player = players.find {|player| player.users.first == current_user}
-    user_player.id
+    if user_player != nil
+      user_player.id
+    end
   end
 end

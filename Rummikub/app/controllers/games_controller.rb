@@ -39,4 +39,10 @@ class GamesController < ApplicationController
 
     render nothing: true
   end
+
+  def current_player_id
+    game = Game.find params[:game_id]
+    player = GetCurrentPlayer.new(game).call
+    render text: player.number
+  end
 end

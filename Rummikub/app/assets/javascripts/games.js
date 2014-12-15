@@ -1,8 +1,14 @@
 $(function() {
   var gameId = $("meta[property=game_id]").attr("content");
+  var currentPlayerNumber;
+
+  var setCurrentPlayerNumber = function(number) {
+    currentPlayerNumber = number;
+    console.log("currentPlayerNumber " + number);
+  };
 
   var displayTile = function(div, x, y) {
-    div.css({left: x * 52 - 18, top: y * 70 - 27, position: 'absolute'});
+    div.css({left: x * 52 - 18, top: y * 70 + 15, position: 'absolute'});
   };
 
   var placeTile = function(tile, x, y, div) {
@@ -55,13 +61,13 @@ $(function() {
 
       var handlers = {
         mousemove : function(e) {
-          displayTile(moving_div, e.pageX / 52.0, e.pageY / 70.0);
+          displayTile(moving_div, e.pageX / 52.0, (e.pageY - 50) / 70.0);
           moving_div.css("z-index", 9999);
         },
         mouseup : function(e) {
           moving_div.css("z-index", 'auto');
           var adjustX = Math.floor(e.pageX / 52.0);
-          var adjustY = Math.floor(e.pageY / 70.0);
+          var adjustY = Math.floor((e.pageY - 50) / 70.0);
           coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
           console.log(coordinates);
           placeTile(moving_tile, coordinates[0], coordinates[1], moving_div);
@@ -109,7 +115,20 @@ $(function() {
       console.log("Reset");
       location.reload();
     });
+
+    setInterval(function(retry){
+      console.log("poll");
+
+      function reloadPageIfCurrentPlayerHasChanged (newPlayerNumber) {
+        if(currentPlayerNumber != newPlayerNumber){
+          location.reload();
+        }
+      };
+
+      $.getJSON("/games/" + gameId + "/current_player_id").done(reloadPageIfCurrentPlayerHasChanged);
+    }, 2000);
   };
 
   $.getJSON("/games/" + gameId).done(processGameData);
+  $.getJSON("/games/" + gameId + "/current_player_id").done(setCurrentPlayerNumber);
 });
