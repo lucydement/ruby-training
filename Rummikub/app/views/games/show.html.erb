@@ -11,7 +11,7 @@
 
 <div id="board"></div>
 
-<% if @game.playing_user == current_user %>
+<% if @game.user_whose_turn_it_is == current_user %>
 	<button id="submit">Submit Move</button>
 	<button id="drawTile">Draw Tile</button>
 	<button id="reset">Reset Move</button>

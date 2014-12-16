@@ -5,7 +5,7 @@ class ValidateBoard
   end
 
   def call  
-    !(tile_not_moved_from_hand_to_board? || tiles_moved_from_board_to_hand?) && board_valid?
+    tile_moved_from_hand_to_board? && !tiles_moved_from_board_to_hand? && board_valid?
   end
 
   private
@@ -52,10 +52,10 @@ class ValidateBoard
     board_tiles_in_hand.present?
   end
 
-  def tile_not_moved_from_hand_to_board?
+  def tile_moved_from_hand_to_board?
     players_tiles_on_board = @moved_tiles.select {|tile| tile.x_y_on_board? && tile.in_hand?}
     
-    players_tiles_on_board.empty?
+    players_tiles_on_board.present?
   end
 
   def first_two_tiles_are_the_same_colour?(set)

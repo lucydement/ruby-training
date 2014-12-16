@@ -36,7 +36,7 @@ class Game < ActiveRecord::Base
     !players.detect {|player| player.users.first == current_user}
   end
 
-  def playing_user
+  def user_whose_turn_it_is
     playing_player = players.find {|player| player.number == current_player}
     playing_player.users.first
   end

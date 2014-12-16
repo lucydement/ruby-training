@@ -4,7 +4,6 @@ class CreateTiles
   end
 
   def call
-    puts "create tiles"
     return @user_input if @user_input == "drawTile"
     tiles = []
     @user_input.each do |input|

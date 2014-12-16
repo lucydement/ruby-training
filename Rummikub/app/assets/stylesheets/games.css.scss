@@ -32,7 +32,7 @@ body {
 .wrapper {
   position: relative;
   width: 53px;
-  height: 50px;
+  height: 53px;
 }
 
 .tile{
@@ -63,7 +63,7 @@ body {
 }
 
 #board {
-  background-color: white;
+  background-color: mintcream;
   height: 544px;
   width: 834px;
   border: 2px;
@@ -72,15 +72,19 @@ body {
   z-index: 0;
 }
 
+#hand {
+  padding: 10px;
+}
+
 #hand > .wrapper {
   float: left;
 }
 
 #info {
   width: 250px;
-  top: 5px;
-  left: 850px;
-  position: fixed;
+  top: 25px;
+  left: 860px;
+  position: absolute;
 }
 
 #flash {
@@ -102,7 +106,7 @@ ol li:before {
 button {
   font-weight: bold;
   height: 25px;
-  margin: 5px;
+  margin-top: 10px;
 }
 
 button:hover {

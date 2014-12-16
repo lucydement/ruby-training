@@ -1,10 +1,11 @@
 class PlayersController < ApplicationController
   def create
-    puts "CREATE PLAYER"
-
     @game = Game.find params[:game_id]
-    player = @game.get_free_player
-    current_user.update_attributes!(player_id: player.id)
+    
+    if @game.not_enough_users?
+      player = @game.get_free_player
+      current_user.update_attributes!(player_id: player.id)
+    end
 
     redirect_to @game
   end

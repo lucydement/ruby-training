@@ -1,4 +1,4 @@
-require_relative 'rails_helper'
+require_relative '../rails_helper'
 
 RSpec.describe ValidateBoard do
   context "When running" do

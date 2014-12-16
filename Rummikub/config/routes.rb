@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'games#index'
 
   resources :games do
-    get "current_player_id" => "games#current_player_id"
+    get "current_player_number" => "games#current_player_number"
     resources :tiles
     resources :players
     resources :tile_sets

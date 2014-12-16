@@ -22,7 +22,6 @@ class GamesController < ApplicationController
     if request.xhr?
       render json: TileDecorator.new(@game, current_player).call
     end
-    # respond_to?
   end
 
   def update
@@ -40,7 +39,7 @@ class GamesController < ApplicationController
     render nothing: true
   end
 
-  def current_player_id
+  def current_player_number
     game = Game.find params[:game_id]
     player = GetCurrentPlayer.new(game).call
     render text: player.number

@@ -29,10 +29,14 @@ RSpec.describe TileDecorator do
     end
   end
 
-  it "will return nothing if there is a tile in a different players hand" do
+  it "will return the tile if there is a tile in a different players hand" do
     tile_decorator = TileDecorator.new(games(:decorator_game3), players(:decorator_player3and1))
 
-    expect(tile_decorator.call).to eql "{\"tiles\":[]}"
+    json = JSON.parse(tile_decorator.call)
+
+    expect(json["tiles"].length).to eql 1
+    expect(json["tiles"][0]["colour"]).to eql Tile::BLUE
+    expect(json["tiles"][0]["number"]).to eql 9  
   end
 
   it "will return one tile if there is a tile in the players hand" do

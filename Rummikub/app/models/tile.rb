@@ -10,7 +10,6 @@ class Tile < ActiveRecord::Base
   belongs_to :player
 
   scope :in_bag, -> { where(player_id: nil, on_board: nil) }
-  scope :in_hand, -> { where.not(player_id: nil)}
 
   validates :colour, presence: true, inclusion: {in: COLOURS}
   validates :number, presence: true, inclusion: {in: RANGE}

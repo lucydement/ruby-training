@@ -125,10 +125,10 @@ $(function() {
         }
       };
 
-      $.getJSON("/games/" + gameId + "/current_player_id").done(reloadPageIfCurrentPlayerHasChanged);
+      $.getJSON("/games/" + gameId + "/current_player_number").done(reloadPageIfCurrentPlayerHasChanged);
     }, 2000);
   };
 
   $.getJSON("/games/" + gameId).done(processGameData);
-  $.getJSON("/games/" + gameId + "/current_player_id").done(setCurrentPlayerNumber);
+  $.getJSON("/games/" + gameId + "/current_player_number").done(setCurrentPlayerNumber);
 });

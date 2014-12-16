@@ -19,10 +19,10 @@ class UpdateGame
   private
 
   def update_board(board)
-    board.each do |tile_data|
-      id = tile_data.id
+    board.each do |data_tile|
+      id = data_tile.id
       tile = @game.tiles.detect {|tile| tile.id == id}
-      tile.update_attributes!(player_id: nil, x: tile_data.x, y: tile_data.y, on_board: true)
+      tile.update_attributes!(player_id: nil, x: data_tile.x, y: data_tile.y, on_board: true)
     end
   end
 
