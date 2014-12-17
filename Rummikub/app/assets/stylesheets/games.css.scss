@@ -4,13 +4,10 @@
 
 body {
   background-color: #99C68E;
-  -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   cursor: default;
+  color: darkslategrey;
+  font-family: sans-serif;
 }
 
 .blue{
@@ -82,14 +79,41 @@ body {
 
 #info {
   width: 250px;
-  top: 25px;
+  top: 50px;
   left: 860px;
   position: absolute;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  padding: 15px;
+  color: mintcream;
+  background-color: darkslategrey;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+#info > div {
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #99C68E;
+} 
+
+#info > h1 {
+  margin-top: 5px;
+}
+
+#info > p {
+  font-family: auto;
 }
 
 #flash {
   font-weight: bold;
   color: red;
+}
+
+#link {
+  left: 860px;
+  position: absolute;
 }
 
 ol {
@@ -115,4 +139,15 @@ button:hover {
 
 button:active {
   background-color: grey;
+}
+
+#index_box {
+  background-color: mintcream;
+  width: 300px;
+  text-align: center;
+  padding: 15px;
+  margin: auto;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
 }

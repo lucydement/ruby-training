@@ -7,9 +7,6 @@ var findNearestSpace = function(x, y, tileId, tiles) {
   if (y >= boardHeight) y = boardHeight - 1;
   if (y < 0) y = 0;
 
-  console.log(x);
-  console.log(y);
-
   visited = [];
   queue = [];
   queue.push([x,y]);

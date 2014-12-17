@@ -1,19 +1,23 @@
-<h1>Rummikub!</h1>
+<div id="index_box">
+	<h1>RUMMIKUB</h1>
 
-<ol>
-	<% @games.each do |game| %>
-		<li>
-			<%= link_to heading(game), game %>
-		</li>
+	<ol>
+		<% @games.each do |game| %>
+			<li>
+				<%= link_to heading(game, current_user), game %>
+			</li>
+		<% end %>
+	</ol>
+
+	<%= form_for Game.new do |f| %>
+		<p>
+			Number of players:
+			<%= f.text_field :number_players %>
+			<%= f.submit "Create new game!" %>
+		</p>
+
+		<% if flash[:wrong_number_players] %>
+			<%= flash[:wrong_number_players] %>
+		<% end %>
 	<% end %>
-</ol>
-
-<%= form_for Game.new do |f| %>
-	<%= f.text_field :number_players %>
-	<%= f.submit "Create new game!" %>
-
-	<% if flash[:wrong_number_players] %>
-		<%= flash[:wrong_number_players] %>
-	<% end %>
-<% end %>
-
+</div>

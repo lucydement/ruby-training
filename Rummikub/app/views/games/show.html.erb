@@ -2,6 +2,7 @@
 <meta property="board_width" content="<%= Game::BOARD_WIDTH %>">
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
 <meta property="current_user_id" content="<%= @game.current_users_player_id(current_user) %>">
+<meta property="current_player_id" content="<%= @current_player.id %>">
 
 <% if @game.not_enough_users? && @game.user_not_in_game?(current_user) %>
 	<%= form_for [@game, Player.new] do |f| %>
@@ -20,13 +21,22 @@
 <div id="hand"></div>
 
 <div id="info">
-	<h1><%= heading(@game) %></h1>
+	<h1><%= heading(@game, current_user) %></h1>
 	<p id="flash"><%= flash[:invalid] %></p>
 	
+	<div>
+		<% if !@game.not_enough_users? %>
+		<p>Number of tiles in hand:</p>
+			<% @players.each do |player| %>
+				<%= "#{player.users.first.name}: #{player.tiles.length}" %>
+				<br />
+			<% end %>
+		<% end %>
+	</div>
 	<p>The aim of the game is to get rid of all your tiles. To do this you need to place either runs or groups on the board.</p>
-	<p>Run: a set of consecutive tiles of the same colour that is at
+	<p>Run:<br />A set of consecutive tiles of the same colour that is at
 	least 3 tiles long.</p>
-	<p>Group: a set tiles with the same number
+	<p>Group:<br />A set tiles with the same number
 	but all different colours, again this must be a least 3 long.</p>
 	<p>During your turn you are allowed to rearange all the tiles on 
 	the board so long as the resulting sets are all valid. If you

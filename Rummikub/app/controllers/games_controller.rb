@@ -17,10 +17,11 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find params[:id]
-    current_player = GetCurrentPlayer.new(@game).call
+    @players = @game.players
+    @current_player = GetCurrentPlayer.new(@game).call
 
     if request.xhr?
-      render json: TileDecorator.new(@game, current_player).call
+      render json: TileDecorator.new(@game, @current_player).call
     end
   end
 

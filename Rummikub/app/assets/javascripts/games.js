@@ -1,5 +1,7 @@
 $(function() {
   var gameId = $("meta[property=game_id]").attr("content");
+  var boardWidth = parseInt($("meta[property=board_width]").attr("content"));
+  var boardHeight = parseInt($("meta[property=board_height]").attr("content"));
   var currentPlayerNumber;
 
   var setCurrentPlayerNumber = function(number) {
@@ -17,8 +19,24 @@ $(function() {
     displayTile(div, x + 1/2, y + 1/2);
   }
 
+  var notOnBoard = function(x, y) {
+    console.log("x < 0: " + (x<0));
+    console.log("y < 0: " + (y<0));
+    console.log("x >= boardWidth: " + (x >= boardWidth));
+    console.log("y >= boardHeight: " + (y >= boardHeight));
+    console.log(x < 0 || y < 0 || x >= boardWidth || y >= boardHeight);
+    return (x < 0 || y < 0 || x >= boardWidth || y >= boardHeight);
+  }
+
   var processGameData = function(game_tiles) {
     var CurrentUserId = parseInt($("meta[property=current_user_id]").attr("content"));
+    var CurrentPlayerId = parseInt($("meta[property=current_player_id").attr("content"));
+    
+    if(CurrentUserId == CurrentPlayerId){
+      Notification.requestPermission()
+      new Notification("Rummikub", {"body": "Your turn" });
+    } 
+
     console.log("data:", game_tiles);
     console.log(CurrentUserId);
     var tiles = game_tiles.tiles;
@@ -68,9 +86,20 @@ $(function() {
           moving_div.css("z-index", 'auto');
           var adjustX = Math.floor(e.pageX / 52.0);
           var adjustY = Math.floor((e.pageY - 50) / 70.0);
-          coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
-          console.log(coordinates);
-          placeTile(moving_tile, coordinates[0], coordinates[1], moving_div);
+          console.log(adjustX);
+          console.log(adjustY);
+          console.log(moving_tile);
+          if(notOnBoard(adjustX, adjustY) && moving_tile.player_id != null){
+            console.log("in hand");
+            moving_tile.x = null;
+            moving_tile.y = null;
+            moving_div.css({left: 'auto' , top: 'auto', position: 'relative'});
+          } else {
+            console.log("on board");
+            coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
+            console.log(coordinates);
+            placeTile(moving_tile, coordinates[0], coordinates[1], moving_div);
+          }
           $(this).off(handlers);
         }
       }
