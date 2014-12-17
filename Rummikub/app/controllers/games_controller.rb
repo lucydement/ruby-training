@@ -42,7 +42,9 @@ class GamesController < ApplicationController
 
   def current_player_number
     game = Game.find params[:game_id]
-    player = GetCurrentPlayer.new(game).call
-    render text: player.number
+    if game 
+      player = GetCurrentPlayer.new(game).call
+      render text: player.number
+    end
   end
 end

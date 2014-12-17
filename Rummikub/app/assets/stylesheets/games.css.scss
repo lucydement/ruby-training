@@ -131,13 +131,33 @@ button {
   font-weight: bold;
   height: 25px;
   margin-top: 10px;
+  color: mintcream;
+  background-color: darkslategrey;
+  border-color: black;
 }
 
 button:hover {
-  box-shadow: 0 0 4px rgba(0,0,0, .75);
+  box-shadow: 0 0 4px black;
 }
 
 button:active {
+  background-color: grey;
+}
+
+form input[type=submit] {
+  font-weight: bold;
+  height: 25px;
+  margin-top: 10px;
+  color: mintcream;
+  background-color: darkslategrey;
+  border-color: black;
+}
+
+form input[type=submit]:hover {
+  box-shadow: 0 0 4px rgba(0,0,0, .75);
+}
+
+form input[type=submit]:active {
   background-color: grey;
 }
 

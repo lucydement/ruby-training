@@ -32,10 +32,10 @@ $(function() {
     var CurrentUserId = parseInt($("meta[property=current_user_id]").attr("content"));
     var CurrentPlayerId = parseInt($("meta[property=current_player_id").attr("content"));
     
-    if(CurrentUserId == CurrentPlayerId){
-      Notification.requestPermission()
-      new Notification("Rummikub", {"body": "Your turn" });
-    } 
+    // if(CurrentUserId == CurrentPlayerId){
+    //   Notification.requestPermission()
+    //   new Notification("Rummikub", {"body": "Your turn" });
+    // } 
 
     console.log("data:", game_tiles);
     console.log(CurrentUserId);

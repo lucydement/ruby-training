@@ -1,7 +1,9 @@
 module GamesHelper
-  def heading(game, current_user)
-    if game.not_enough_users?
-      "Waiting for Players" 
+  def heading(game, current_user) 
+    if game.not_enough_users? && game.won?
+      "The game is over"
+    elsif game.not_enough_users?
+      "Waiting for Players"
     elsif game.won?
       "The game was won by #{game.winning_player.users.first.name}"
     elsif game.ended?

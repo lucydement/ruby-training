@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
   has_many :players, dependent: :destroy 
 
   validates :number_players, inclusion: {in: NumberPlayersPolicy::POSSIBLE}
-  validates :number_players, presence: true
+  #validates :number_players, presence: true
 
   def bag
     tiles.in_bag
@@ -21,12 +21,15 @@ class Game < ActiveRecord::Base
   end
 
   def ended?
-    won? || (bag.empty? && players.all?(&:passed))
+    won? || (bag.empty? && players.all?(&:passed?))
   end
 
   def not_enough_users?
     players.any? {|player| !player.has_user}
   end
+
+  #get free player = nil
+  #make player for user
 
   def get_free_player
     players.find {|player| !player.has_user}
@@ -36,11 +39,14 @@ class Game < ActiveRecord::Base
     !players.detect {|player| player.users.first == current_user}
   end
 
+  #put somewhere else
   def user_whose_turn_it_is
     playing_player = players.find {|player| player.number == current_player}
     playing_player.users.first
   end
 
+  #try
+  #add to helper
   def current_users_player_id(current_user)
     user_player = players.find {|player| player.users.first == current_user}
     if user_player != nil
