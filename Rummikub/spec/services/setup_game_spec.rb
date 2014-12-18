@@ -12,15 +12,7 @@ RSpec.describe SetupGame do
     expect(game.tiles.where(number: 3, colour: Tile::RED).length).to eql 2
   end
 
-  it "Creates 4 players" do
-    expect(game.players.length).to eql 4
-  end
-
-  it "makes each player has 14 tiles" do
-    expect(game.players[0].tiles.length).to eql Player::HAND_SIZE
-  end
-
   it "will make the current player 0" do
-    expect(game.current_player).to eql 0
+    expect(game.current_player_number).to eql 0
   end
 end

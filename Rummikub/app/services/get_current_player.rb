@@ -4,7 +4,7 @@ class GetCurrentPlayer
   end
 
   def call
-    current_player = @game.current_player
-    @game.players.where(number: current_player).first
+    current_player_number = @game.current_player_number
+    @game.players.where(number: current_player_number).first
   end
 end

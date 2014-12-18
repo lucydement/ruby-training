@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    number_players = params.require(:game).permit(:number_players)["number_players"].to_i
+    number_players = params.require(:game).permit(:total_number_players)["total_number_players"].to_i
     
     if NumberPlayersPolicy.new(number_players).call
       game = SetupGame.new(number_players).call

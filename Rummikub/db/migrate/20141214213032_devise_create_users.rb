@@ -33,7 +33,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.timestamps
 
-      t.integer :player_id
       t.string :name
     end
 

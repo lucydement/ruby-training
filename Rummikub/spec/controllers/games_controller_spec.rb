@@ -9,29 +9,24 @@ RSpec.describe GamesController, :type => :controller do
 
   describe "POST #create" do
     it "creates a new game" do
-      expect { post :create, { :game => {:number_players => 4}} }.to change { Game.count }.by +1
+      expect { post :create, { :game => {:total_number_players => 4}} }.to change { Game.count }.by +1
     end
 
     it "will not create a game if invalid number of players" do
-      expect { post :create, { :game => {:number_players => 1}} }.to_not change { Game.count }
+      expect { post :create, { :game => {:total_number_players => 1}} }.to_not change { Game.count }
     end
 
     it "will redirect to the index page if creation fails" do
       
     end
 
-    it "creates the players" do
-      post :create, { :game => {:number_players => 4}}
-      expect(Game.last.players.length).to eq 4
-    end
-
     it "creates the tiles" do
-      post :create, { :game => {:number_players => 4}}
+      post :create, { :game => {:total_number_players => 4}}
       expect(Game.last.tiles.length).to eq 104
     end
 
     it "redirects to the new game" do
-      post :create, { :game => {:number_players => 4}}
+      post :create, { :game => {:total_number_players => 4}}
       expect(response).to redirect_to(Game.last)
     end
   end

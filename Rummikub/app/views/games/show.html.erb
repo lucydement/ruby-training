@@ -1,10 +1,13 @@
 <meta property="game_id" content="<%= @game.id %>">
 <meta property="board_width" content="<%= Game::BOARD_WIDTH %>">
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
-<meta property="current_user_id" content="<%= @game.current_users_player_id(current_user) %>">
-<meta property="current_player_id" content="<%= @current_player.id %>">
 
-<% if @game.not_enough_users? && @game.user_not_in_game?(current_user) %>
+<% if !UserNotInGame.new(@game, current_user).call %>
+	<meta property="current_user_id" content="<%= current_user.player_for_game(@game).id %>">
+	<meta property="current_player_id" content="<%= @current_player.id %>">
+<% end %>
+
+<% if @game.not_enough_players? && UserNotInGame.new(@game, current_user).call %>
 	<%= form_for [@game, Player.new] do |f| %>
 		<%= f.submit "Join game" %>
 	<% end %>
@@ -12,7 +15,7 @@
 
 <div id="board"></div>
 
-<% if @game.user_whose_turn_it_is == current_user %>
+<% if user_whose_turn_it_is(@game) == current_user %>
 	<button id="submit">Submit Move</button>
 	<button id="drawTile">Draw Tile</button>
 	<button id="reset">Reset Move</button>
@@ -25,14 +28,15 @@
 	<p id="flash"><%= flash[:invalid] %></p>
 	
 	<div>
-		<% if !@game.not_enough_users? %>
-		<p>Number of tiles in hand:</p>
+		<% if !@game.not_enough_players? %>
+			<p>Number of tiles in hand:</p>
 			<% @players.each do |player| %>
-				<%= "#{player.users.first.name}: #{player.tiles.length}" %>
+				<%= "#{player.user.name}: #{player.tiles.length}" %>
 				<br />
 			<% end %>
 		<% end %>
 	</div>
+
 	<p>The aim of the game is to get rid of all your tiles. To do this you need to place either runs or groups on the board.</p>
 	<p>Run:<br />A set of consecutive tiles of the same colour that is at
 	least 3 tiles long.</p>

@@ -1,17 +1,24 @@
 module GamesHelper
   def heading(game, current_user) 
-    if game.not_enough_users? && game.won?
+    if game.not_enough_players? && game.won?
       "The game is over"
-    elsif game.not_enough_users?
+    elsif game.not_enough_players?
       "Waiting for Players"
     elsif game.won?
       "The game was won by #{game.winning_player.users.first.name}"
     elsif game.ended?
       "The game is over because the bag is empty"
-    elsif current_user == game.user_whose_turn_it_is
+    elsif current_user == user_whose_turn_it_is(game)
       "Your turn."
     else
-      "#{game.user_whose_turn_it_is.name}'s Turn"
+      "#{user_whose_turn_it_is(game).name}'s Turn"
+    end
+  end
+
+  def user_whose_turn_it_is(game)
+    playing_player = game.players.find {|player| player.number == game.current_player_number}
+    if playing_player
+      playing_player.user
     end
   end
 end

@@ -2,13 +2,13 @@ class SetupGame
   def initialize(number_players)
     @number_players = number_players
   end
-
+  
   def call
     Game.transaction do
-      @game = Game.create!(number_players: @number_players)
+      @game = Game.create!(total_number_players: @number_players)
       create_tiles
-      create_players_and_draw_hands
-      @game.update_attributes!(current_player: 0) #default?
+      #create_players_and_draw_hands
+      @game.update_attributes!(current_player_number: 0) #default?
       @game
     end
   end

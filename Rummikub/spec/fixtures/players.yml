@@ -2,69 +2,95 @@ player1:
  game: set_game
  number: 1
  passed:
+ user: user_1
 
 player2: 
  game: set_game 
  number: 2
+ user: user_default
 
 player3:
  game: game1
  number: 3
+ user: user_2
 
 player4:
  game: game2
  number: 0
+ user: user_default
 
 player5:
  game: game3
  number: 0
  passed: true
+ user: user_default
 
 player6:
  game: game3
  number: 1
  passed: true
+ user: user_default
 
 player7:
  game: game4
  number: 0
  passed: true
+ user: user_3
 
 player8:
  game: game4
  number: 1
  passed: false
+ user: user_default
 
 player9:
  game: game5
  number: 0
  passed:
+ user: user_default
 
 player10:
  game: game5
  number: 1
  passed:
+ user: user_default
 
 decorator_player1:
  game: decorator_game1
  number: 0
+ user: user_default
 
 decorator_player2:
  game: decorator_game2
  number: 0
+ user: user_default
 
 decorator_player3:
  game: decorator_game3
  number: 1
+ user: user_default
 
 decorator_player3and1:
  game: decorator_game3
  number: 0
+ user: user_default
 
 decorator_player4:
  game: decorator_game4
  number: 0
+ user: user_default
 
 decorator_player5:
  game: decorator_game5
+ user: user_default
  number: 0
+
+full_player_1:
+ game: full_game
+ user: user_default
+ number: 0
+
+full_player_2:
+ game: full_game
+ user: user_default
+ number: 1

@@ -4,6 +4,6 @@ class UpdateCurrentPlayer
   end
 
   def call
-    @game.update_attributes!(current_player: (@game.current_player + 1) % @game.number_players)
+    @game.update_attributes!(current_player_number: (@game.current_player_number + 1) % @game.total_number_players)
   end
 end

@@ -14,14 +14,15 @@
 ActiveRecord::Schema.define(version: 20141214213032) do
 
   create_table "games", force: true do |t|
-    t.integer  "current_player"
-    t.integer  "number_players"
+    t.integer  "current_player_number"
+    t.integer  "total_number_players"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "players", force: true do |t|
     t.integer  "game_id",    null: false
+    t.integer  "user_id",    null: false
     t.integer  "number",     null: false
     t.boolean  "passed"
     t.datetime "created_at"
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20141214213032) do
   end
 
   add_index "players", ["game_id"], name: "index_players_on_game_id"
+  add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "tiles", force: true do |t|
     t.string   "colour",     null: false
@@ -58,7 +60,6 @@ ActiveRecord::Schema.define(version: 20141214213032) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "player_id"
     t.string   "name"
   end
 

@@ -3,18 +3,11 @@ class Player < ActiveRecord::Base
 
   belongs_to :game
   has_many :tiles
-  has_many :users
+  belongs_to :user
 
-  validates :game_id, presence: true
-  validates :number, presence: true
+  validates :game_id, :user_id, :number, presence: true
 
-  validate :has_at_most_one_user
-
-  def has_at_most_one_user
-    users.length <= 1
-  end
-
-  def has_user
-    users.length == 1
+  def user
+    User.find {|user| user.id == user_id}
   end
 end
