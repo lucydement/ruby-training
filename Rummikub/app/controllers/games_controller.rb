@@ -27,12 +27,13 @@ class GamesController < ApplicationController
 
   def update
     game = Game.find params[:id]
-    player = GetCurrentPlayer.new(game).call
+
+    #try regular post
 
     if request.xhr? && !game.ended?
       game_tiles = params[:tiles]
 
-      if !SubmitMove.new(game, player, game_tiles).call
+      unless SubmitMove.new(game, game_tiles).call
         flash[:invalid] = "That move was invalid."
       end
     end

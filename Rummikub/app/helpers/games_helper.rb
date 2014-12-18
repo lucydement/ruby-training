@@ -5,7 +5,7 @@ module GamesHelper
     elsif game.not_enough_players?
       "Waiting for Players"
     elsif game.won?
-      "The game was won by #{game.winning_player.users.first.name}"
+      "The game was won by #{game.winning_player.user.name}"
     elsif game.ended?
       "The game is over because the bag is empty"
     elsif current_user == user_whose_turn_it_is(game)

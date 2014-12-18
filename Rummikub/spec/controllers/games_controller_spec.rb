@@ -17,7 +17,8 @@ RSpec.describe GamesController, :type => :controller do
     end
 
     it "will redirect to the index page if creation fails" do
-      
+      post :create, { :game => {:total_number_players => 1}}
+      expect(response).to redirect_to(games_path)
     end
 
     it "creates the tiles" do
@@ -32,31 +33,29 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe "GET show" do
-    context "when show action is successful" do
-      let(:get_current_player) {instance_double('GetCurrentPlayer', call: 0)}
-      let(:tile_decorator) {instance_double('TileDecorator', call: 0)}
+    let(:get_current_player) {instance_double('GetCurrentPlayer', call: 0)}
+    let(:tile_decorator) {instance_double('TileDecorator', call: 0)}
 
-      before do
-        allow(GetCurrentPlayer).to receive(:new).and_return(get_current_player)
-        allow(TileDecorator).to receive(:new).and_return(tile_decorator)
-      end
+    before do
+      allow(GetCurrentPlayer).to receive(:new).and_return(get_current_player)
+      allow(TileDecorator).to receive(:new).and_return(tile_decorator)
+    end
 
-      it "redirects to the show page for that game" do
-        get :show, id: 1
-        expect(response).to render_template(:show)
-      end
+    it "redirects to the show page for that game" do
+      get :show, id: 1
+      expect(response).to render_template(:show)
+    end
 
-      it "finds the current player" do
-        expect(get_current_player).to receive(:call).once
+    it "finds the current player" do
+      expect(get_current_player).to receive(:call).once
 
-        get :show, id: 1
-      end
+      get :show, id: 1
+    end
 
-      it "uses a tile decorator to find the json" do
-        expect(tile_decorator).to receive(:call).once
+    it "uses a tile decorator to find the json" do
+      expect(tile_decorator).to receive(:call).once
 
-        xhr :get, :show, id: 1
-      end
+      xhr :get, :show, id: 1
     end
   end
 
@@ -67,12 +66,6 @@ RSpec.describe GamesController, :type => :controller do
     before do
       allow(GetCurrentPlayer).to receive(:new).and_return(get_current_player)
       allow(SubmitMove).to receive(:new).and_return(submit_move)
-    end
-
-    it "finds the current player" do
-      expect(get_current_player).to receive(:call).once
-
-      xhr :put, :update, id: 1
     end
 
     it "will try to submit the move" do

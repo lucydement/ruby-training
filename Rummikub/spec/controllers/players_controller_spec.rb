@@ -17,18 +17,6 @@ RSpec.describe PlayersController, :type => :controller do
       post :create, game_id: games(:set_game).id
     end
 
-    it "doesn't make a new player if that game is full" do
-      expect(make_player).to_not receive(:call)
-
-      post :create, game_id: games(:full_game).id
-    end
-
-    it "doesn't make a new player if user_belongs to game" do
-      expect(make_player).to_not receive(:call)
-
-      post :create, game_id: games(:game1)
-    end
-
     it "redirects to the game" do
       post :create, game_id: games(:full_game).id
       expect(response).to redirect_to(games(:full_game))
