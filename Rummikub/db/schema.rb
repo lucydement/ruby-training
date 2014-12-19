@@ -33,15 +33,15 @@ ActiveRecord::Schema.define(version: 20141214213032) do
   add_index "players", ["user_id"], name: "index_players_on_user_id"
 
   create_table "tiles", force: true do |t|
-    t.string   "colour",     null: false
-    t.integer  "number",     null: false
+    t.string   "colour",                     null: false
+    t.integer  "number",                     null: false
     t.integer  "game_id"
     t.integer  "player_id"
-    t.boolean  "on_board"
     t.integer  "x"
     t.integer  "y"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "on_board",   default: false
   end
 
   add_index "tiles", ["game_id"], name: "index_tiles_on_game_id"

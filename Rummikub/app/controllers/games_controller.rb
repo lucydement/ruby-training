@@ -20,10 +20,8 @@ class GamesController < ApplicationController
     @players = @game.players
     @active_player = GetActivePlayer.new(@game).call
 
-    @game.tiles.not_in_bag.each{|tile| puts "#{tile.player_id} #{tile.on_board}"}
-
     if request.xhr?
-      render json: TileDecorator.new(@game, @active_player).call
+      render json: @game.tiles.not_in_bag.to_json
     end
   end
 
@@ -34,6 +32,8 @@ class GamesController < ApplicationController
 
     if request.xhr? && !game.ended?
       game_tiles = params[:tiles]
+      puts "CONTROLLER"
+      puts game_tiles
 
       unless SubmitMove.new(game, game_tiles).call
         flash[:invalid] = "That move was invalid."

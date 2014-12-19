@@ -28,7 +28,7 @@ $(function() {
     return (x < 0 || y < 0 || x >= boardWidth || y >= boardHeight);
   }
 
-  var processGameData = function(game_tiles) {
+  var processGameData = function(tiles) {
     var CurrentUserId = parseInt($("meta[property=current_user_id]").attr("content"));
     var ActivePlayerId = parseInt($("meta[property=active_player_id").attr("content"));
     
@@ -37,9 +37,8 @@ $(function() {
     //   new Notification("Rummikub", {"body": "Your turn" });
     // } 
 
-    console.log("data:", game_tiles);
+    console.log("data:", tiles);
     console.log(CurrentUserId);
-    var tiles = game_tiles.tiles;
     var board = $("#board").empty();
 
     tiles.forEach(function(tile) {
@@ -108,11 +107,12 @@ $(function() {
 
     $("#submit").click( function() {
       console.log("Submit");
+      console.log(JSON.stringify({"tiles" : tiles}));
       $.ajax({
         type: 'PUT',
         url: '/games/' + gameId,
         contentType: 'application/json',
-        data: JSON.stringify(game_tiles), 
+        data: JSON.stringify({"tiles" : tiles}), 
         success: function(){
           console.log("Success");
           location.reload();

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CreateTiles do
   context "When making one tile" do
     before do
-      user_input = [{"id"=>105, "colour"=>Tile::RED, "number"=>1, "player_id"=>1, "on_board"=>true, "x"=>1, "y"=>0}]
+      user_input = [{"id"=>"105", "colour"=>Tile::RED, "number"=>"1", "player_id"=>"1", "on_board"=>true, "x"=>"1", "y"=>"0"}]
       @create_tiles = CreateTiles.new(user_input)
     end
 

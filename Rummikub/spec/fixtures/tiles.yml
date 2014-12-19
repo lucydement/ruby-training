@@ -12,7 +12,7 @@ tile2:
  colour: blue 
  x:
  y:
- on_board:
+ on_board: false
  player: player2
  game: set_game 
 
@@ -21,7 +21,7 @@ tile3:
  colour: black 
  x:
  y:
- on_board:
+ on_board: false
  player: player2
  game: set_game 
 
@@ -30,7 +30,7 @@ tile4:
  colour: red
  x:
  y:
- on_board:
+ on_board: false
  player: player2
  game: set_game
 
@@ -39,7 +39,7 @@ bagTile:
  colour: red
  x:
  y:
- on_board:
+ on_board: false
  player:
  game: set_game
 
@@ -48,7 +48,7 @@ tile5:
  colour: black
  x:
  y:
- on_board:
+ on_board: false
  player: player4
  game: game2
 

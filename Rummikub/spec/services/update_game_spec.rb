@@ -5,9 +5,9 @@ RSpec.describe UpdateGame do
 
   before do
     tiles = [instance_double('Tile', id: tiles(:tile1).id, player_id: nil, on_board: true, x: 2, y: 3, x_y_on_board?: true),
-        instance_double('Tile', id: tiles(:tile2).id, player_id: 1, on_board: nil, x: 3, y: 2, x_y_on_board?: true),
-        instance_double('Tile', id: tiles(:tile3).id, player_id: 1, on_board: nil, x: nil, y: nil, x_y_on_board?: false),
-        instance_double('Tile', id: tiles(:tile4).id, player_id: 1, on_board: nil, x: 16, y: 8, x_y_on_board?: false)]
+        instance_double('Tile', id: tiles(:tile2).id, player_id: 1, on_board: false, x: 3, y: 2, x_y_on_board?: true),
+        instance_double('Tile', id: tiles(:tile3).id, player_id: 1, on_board: false, x: nil, y: nil, x_y_on_board?: false),
+        instance_double('Tile', id: tiles(:tile4).id, player_id: 1, on_board: false, x: 16, y: 8, x_y_on_board?: false)]
     game = games(:set_game)
     update_game = UpdateGame.new(game, tiles, players(:player1))
     update_game.call
@@ -49,7 +49,7 @@ RSpec.describe UpdateGame do
     end
 
     it "will not be on the board" do
-      expect(tiles(:tile3).reload.on_board).to be_nil
+      expect(tiles(:tile3).reload.on_board).to be_falsey
     end
 
     it "will have no x,y coordinates" do
@@ -64,7 +64,7 @@ RSpec.describe UpdateGame do
     end
 
     it "will not be on the board" do 
-      expect(tiles(:tile4).reload.on_board).to be_nil
+      expect(tiles(:tile4).reload.on_board).to be_falsey
     end
 
     it "will have no x,y coordinates" do

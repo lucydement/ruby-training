@@ -9,9 +9,9 @@ class Tile < ActiveRecord::Base
   belongs_to :game
   belongs_to :player
 
-  scope :in_bag, -> { where(player_id: nil, on_board: nil) }
-  # scope :not_in_bag, -> { where("on_board OR player_id") } need to default to false
-  scope :not_in_bag, -> {where("(on_board IS NOT NULL AND on_board != ?) OR player_id", false)}
+  scope :in_bag, -> { where(player_id: nil, on_board: false) }
+  scope :not_in_bag, -> { where("on_board = ? OR player_id", true) }
+  #scope :not_in_bag, -> {where("(on_board IS NOT NULL AND on_board != ?) OR player_id", false)}
 
   validates :colour, presence: true, inclusion: {in: COLOURS}
   validates :number, presence: true, inclusion: {in: RANGE}
