@@ -16,7 +16,7 @@ module GamesHelper
   end
 
   def user_whose_turn_it_is(game)
-    playing_player = game.players.find {|player| player.number == game.current_player_number}
+    playing_player = game.players.find {|player| player.number == game.active_player_number}
     if playing_player
       playing_player.user
     end

@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    number_players = params.require(:game).permit(:total_number_players)["total_number_players"].to_i
+    number_players = params.require(:game).permit(:total_player_count)["total_player_count"].to_i
     
     if NumberPlayersPolicy.new(number_players).call
       game = SetupGame.new(number_players).call
@@ -18,10 +18,12 @@ class GamesController < ApplicationController
   def show
     @game = Game.find params[:id]
     @players = @game.players
-    @current_player = GetCurrentPlayer.new(@game).call
+    @active_player = GetActivePlayer.new(@game).call
+
+    @game.tiles.not_in_bag.each{|tile| puts "#{tile.player_id} #{tile.on_board}"}
 
     if request.xhr?
-      render json: TileDecorator.new(@game, @current_player).call
+      render json: TileDecorator.new(@game, @active_player).call
     end
   end
 
@@ -41,10 +43,10 @@ class GamesController < ApplicationController
     render nothing: true
   end
 
-  def current_player_number
+  def active_player_number
     game = Game.find params[:game_id]
     if game 
-      player = GetCurrentPlayer.new(game).call
+      player = GetActivePlayer.new(game).call
       render text: player.number
     end
   end

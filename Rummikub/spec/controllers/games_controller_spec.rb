@@ -9,35 +9,35 @@ RSpec.describe GamesController, :type => :controller do
 
   describe "POST #create" do
     it "creates a new game" do
-      expect { post :create, { :game => {:total_number_players => 4}} }.to change { Game.count }.by +1
+      expect { post :create, { :game => {:total_player_count => 4}} }.to change { Game.count }.by +1
     end
 
     it "will not create a game if invalid number of players" do
-      expect { post :create, { :game => {:total_number_players => 1}} }.to_not change { Game.count }
+      expect { post :create, { :game => {:total_player_count => 1}} }.to_not change { Game.count }
     end
 
     it "will redirect to the index page if creation fails" do
-      post :create, { :game => {:total_number_players => 1}}
+      post :create, { :game => {:total_player_count => 1}}
       expect(response).to redirect_to(games_path)
     end
 
     it "creates the tiles" do
-      post :create, { :game => {:total_number_players => 4}}
+      post :create, { :game => {:total_player_count => 4}}
       expect(Game.last.tiles.length).to eq 104
     end
 
     it "redirects to the new game" do
-      post :create, { :game => {:total_number_players => 4}}
+      post :create, { :game => {:total_player_count => 4}}
       expect(response).to redirect_to(Game.last)
     end
   end
 
   describe "GET show" do
-    let(:get_current_player) {instance_double('GetCurrentPlayer', call: 0)}
+    let(:get_active_player) {instance_double('GetActivePlayer', call: 0)}
     let(:tile_decorator) {instance_double('TileDecorator', call: 0)}
 
     before do
-      allow(GetCurrentPlayer).to receive(:new).and_return(get_current_player)
+      allow(GetActivePlayer).to receive(:new).and_return(get_active_player)
       allow(TileDecorator).to receive(:new).and_return(tile_decorator)
     end
 
@@ -46,8 +46,8 @@ RSpec.describe GamesController, :type => :controller do
       expect(response).to render_template(:show)
     end
 
-    it "finds the current player" do
-      expect(get_current_player).to receive(:call).once
+    it "finds the active player" do
+      expect(get_active_player).to receive(:call).once
 
       get :show, id: 1
     end
@@ -60,11 +60,11 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe "PUT update" do
-    let(:get_current_player) {instance_double('GetCurrentPlayer', call: 0)}
+    let(:get_active_player) {instance_double('GetActivePlayer', call: 0)}
     let(:submit_move) {instance_double('SubmitMove', call: true)}
 
     before do
-      allow(GetCurrentPlayer).to receive(:new).and_return(get_current_player)
+      allow(GetActivePlayer).to receive(:new).and_return(get_active_player)
       allow(SubmitMove).to receive(:new).and_return(submit_move)
     end
 

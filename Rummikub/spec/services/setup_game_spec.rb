@@ -13,6 +13,6 @@ RSpec.describe SetupGame do
   end
 
   it "will make the current player 0" do
-    expect(game.current_player_number).to eql 0
+    expect(game.active_player_number).to eql 0
   end
 end

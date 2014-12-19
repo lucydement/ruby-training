@@ -5,10 +5,9 @@ class SetupGame
   
   def call
     Game.transaction do
-      @game = Game.create!(total_number_players: @number_players)
+      @game = Game.create!(total_player_count: @number_players)
       create_tiles
-      #create_players_and_draw_hands
-      @game.update_attributes!(current_player_number: 0) #default?
+      @game.update_attributes!(active_player_number: 0) #default?
       @game
     end
   end
@@ -19,17 +18,6 @@ class SetupGame
     Tile::RANGE.each do |tile_number|
       Tile::COLOURS.each do |colour|
         2.times {@game.tiles.create!(colour: colour, number: tile_number)}
-      end
-    end
-  end
-
-  def create_players_and_draw_hands
-    @game.number_players.times do |i|
-      player = @game.players.create!(number: i)
-
-      Player::HAND_SIZE.times do
-        tile = @game.bag.sample
-        tile.update_attributes!(player_id: player.id)
       end
     end
   end

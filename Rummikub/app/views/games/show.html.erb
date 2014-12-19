@@ -4,7 +4,7 @@
 
 <% if !UserNotInGame.new(@game, current_user).call %>
 	<meta property="current_user_id" content="<%= current_user.player_for_game(@game).id %>">
-	<meta property="current_player_id" content="<%= @current_player.id %>">
+	<meta property="active_player_id" content="<%= @active_player.id %>">
 <% end %>
 
 <% if @game.not_enough_players? && UserNotInGame.new(@game, current_user).call %>

@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Game, :type => :model do
   fixtures :games, :tiles, :players, :users
 
-  let(:game) {Game.create(total_number_players: 4)}
+  let(:game) {Game.create(total_player_count: 4)}
 
   context "When creating a game" do
     fixtures :games, :players, :users
     it "will create a game" do
-      expect(Game.create(total_number_players: 4)).to be_truthy
+      expect(Game.create(total_player_count: 4)).to be_truthy
     end
  
     it "will not have enough users" do

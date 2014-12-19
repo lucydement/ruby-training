@@ -2,10 +2,10 @@ $(function() {
   var gameId = $("meta[property=game_id]").attr("content");
   var boardWidth = parseInt($("meta[property=board_width]").attr("content"));
   var boardHeight = parseInt($("meta[property=board_height]").attr("content"));
-  var currentPlayerNumber;
+  var activePlayerNumber;
 
-  var setCurrentPlayerNumber = function(number) {
-    currentPlayerNumber = number;
+  var setActivePlayerNumber = function(number) {
+    activePlayerNumber = number;
     console.log("currentPlayerNumber " + number);
   };
 
@@ -30,9 +30,9 @@ $(function() {
 
   var processGameData = function(game_tiles) {
     var CurrentUserId = parseInt($("meta[property=current_user_id]").attr("content"));
-    var CurrentPlayerId = parseInt($("meta[property=current_player_id").attr("content"));
+    var ActivePlayerId = parseInt($("meta[property=active_player_id").attr("content"));
     
-    // if(CurrentUserId == CurrentPlayerId){
+    // if(CurrentUserId == ActivePlayerId){
     //   Notification.requestPermission()
     //   new Notification("Rummikub", {"body": "Your turn" });
     // } 
@@ -148,16 +148,16 @@ $(function() {
     setInterval(function(retry){
       console.log("poll");
 
-      function reloadPageIfCurrentPlayerHasChanged (newPlayerNumber) {
-        if(currentPlayerNumber != newPlayerNumber){
+      function reloadPageIfActivePlayerHasChanged (newPlayerNumber) {
+        if(activePlayerNumber != newPlayerNumber){
           location.reload();
         }
       };
 
-      $.getJSON("/games/" + gameId + "/current_player_number").done(reloadPageIfCurrentPlayerHasChanged);
+      $.getJSON("/games/" + gameId + "/active_player_number").done(reloadPageIfActivePlayerHasChanged);
     }, 2000);
   };
 
   $.getJSON("/games/" + gameId).done(processGameData);
-  $.getJSON("/games/" + gameId + "/current_player_number").done(setCurrentPlayerNumber);
+  $.getJSON("/games/" + gameId + "/active_player_number").done(setActivePlayerNumber);
 });

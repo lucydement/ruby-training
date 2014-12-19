@@ -1,51 +1,51 @@
 set_game:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 game1: 
- current_player_number: 3 
- total_number_players: 4
+ active_player_number: 3 
+ total_player_count: 4
 
 game2:
- current_player_number: 0 
- total_number_players: 4
+ active_player_number: 0 
+ total_player_count: 4
 
 game3:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 game4:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 game5:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 game_show:
  id: 1
- total_number_players: 4
+ total_player_count: 4
 
 decorator_game1:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 decorator_game2:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 decorator_game3:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 decorator_game4:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 decorator_game5:
- current_player_number: 0
- total_number_players: 4
+ active_player_number: 0
+ total_player_count: 4
 
 full_game:
- current_player_number: 0
- total_number_players: 2
+ active_player_number: 0
+ total_player_count: 2

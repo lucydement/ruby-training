@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   has_many :tiles, dependent: :destroy
   has_many :players, dependent: :destroy 
 
-  validates :total_number_players, inclusion: {in: NumberPlayersPolicy::POSSIBLE}
+  validates :total_player_count, inclusion: {in: NumberPlayersPolicy::POSSIBLE}
 
   def bag
     tiles.in_bag
@@ -28,6 +28,6 @@ class Game < ActiveRecord::Base
   end
 
   def not_enough_players?
-    number_players < total_number_players
+    number_players < total_player_count
   end
 end

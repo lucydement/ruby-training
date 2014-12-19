@@ -6,7 +6,7 @@ class MakePlayer
 
   def call
     Game.transaction do
-      @game.reload(lock: true)
+      @game.lock!
       @user.reload
       if @game.not_enough_players? && UserNotInGame.new(@game, @user).call
         player = @game.players.create!(user_id: @user.id, number: @game.number_players)
