@@ -11,8 +11,8 @@
 			<%= f.text_field :letter %>
 			<%= f.submit "Submit" %>
 		</p>
-		<% if flash[:notice] %>
-			<%= flash[:notice] %>
+		<% if flash[:alert] %>
+			<%= flash[:alert] %>
 		<% end %>
 	<% end %>
 <% elsif @game.won? %>

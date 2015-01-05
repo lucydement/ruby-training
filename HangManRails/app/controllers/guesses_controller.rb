@@ -3,14 +3,14 @@ class GuessesController < ApplicationController
     game = Game.find(params[:game_id])
 
     if game.won? || game.lost?
-      flash[:notice] = "You cannot guess after you have won or lost."
+      flash[:alert] = "You cannot guess after you have won or lost."
     else
       guess = game.guesses.new(params.require(:guess).permit(:letter))
       if !guess.save
-        flash[:notice] = "This is an invalid guess."
+        flash[:alert] = "That is an invalid guess."
       end
     end
-    
+
     redirect_to game
   end
 end

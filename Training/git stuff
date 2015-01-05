@@ -1,0 +1,15 @@
+git stuff
+
+git config --global push.default simple
+
+touch apple.txt
+
+git status
+git ls-tree master
+
+git checkout add_oranges
+
+git log master
+git log something ^other
+
+git branch --contains
