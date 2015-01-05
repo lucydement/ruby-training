@@ -4,7 +4,8 @@ class ValidateBoard
     @moved_tiles = @tiles.select {|tile| tile.y && tile.x}
   end
 
-  def call  
+  def call 
+  puts @moved_tiles 
     tile_moved_from_hand_to_board? && !tiles_moved_from_board_to_hand? && board_valid?
   end
 
