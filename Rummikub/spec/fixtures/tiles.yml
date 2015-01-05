@@ -125,3 +125,10 @@ decorator_tile5:
  player:
  on_board: true
  game: decorator_game5
+
+create_1:
+ number: 1
+ colour: red
+ player:
+ on_board: false
+ game: create_game1

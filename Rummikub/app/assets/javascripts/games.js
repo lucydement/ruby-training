@@ -16,6 +16,8 @@ $(function() {
   var placeTile = function(tile, x, y, div) {
     tile.x = x;
     tile.y = y;
+    tile.player_id = null;
+    tile.on_board = true;
     displayTile(div, x + 1/2, y + 1/2);
   }
 

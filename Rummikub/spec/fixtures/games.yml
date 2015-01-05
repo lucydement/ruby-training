@@ -49,3 +49,7 @@ decorator_game5:
 full_game:
  active_player_number: 0
  total_player_count: 2
+
+create_game1:
+ active_player_number: 0
+ total_player_count: 2

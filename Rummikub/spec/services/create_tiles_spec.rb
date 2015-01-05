@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe CreateTiles do
+  fixtures :games, :tiles
   context "When making one tile" do
     before do
-      user_input = [{"id"=>"105", "colour"=>Tile::RED, "number"=>"1", "player_id"=>"1", "on_board"=>true, "x"=>"1", "y"=>"0"}]
-      @create_tiles = CreateTiles.new(user_input)
+      user_input = [{"id"=>tiles(:create_1).id.to_s, "colour"=>Tile::RED, "number"=>"1", "player_id"=>"1", "on_board"=>true, "x"=>"1", "y"=>"0"}]
+      @create_tiles = CreateTiles.new(user_input, games(:create_game1))
+      @create_tiles.call
     end
 
     it "makes one tile" do
-      tile = @create_tiles.call.first
+      tile = tiles(:create_1).reload
 
-      expect(tile.id).to eql 105
       expect(tile.colour).to eql Tile::RED
       expect(tile.number).to eql 1
       expect(tile.player_id).to eql 1

@@ -48,12 +48,12 @@ class ValidateBoard
 
   def tiles_moved_from_board_to_hand?
     moved_tiles_not_on_board = @moved_tiles.select {|tile| !tile.x_y_on_board?}
-    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| !tile.in_hand?}
+    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| tile.on_board_was}
     board_tiles_in_hand.present?
   end
 
   def tile_moved_from_hand_to_board?
-    players_tiles_on_board = @moved_tiles.select {|tile| tile.x_y_on_board? && tile.in_hand?}
+    players_tiles_on_board = @moved_tiles.select {|tile| tile.x_y_on_board? && tile.player_id_was}
     
     players_tiles_on_board.present?
   end
