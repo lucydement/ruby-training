@@ -6,14 +6,24 @@ $(function() {
 
   var setActivePlayerNumber = function(number) {
     activePlayerNumber = number;
-    console.log("currentPlayerNumber " + number);
   };
 
   var displayTile = function(div, x, y) {
     div.css({left: x * 52 - 18, top: y * 70 + 15, position: 'absolute'});
   };
 
-  var placeTile = function(tile, x, y, div) {
+  var placeTile = function(tile, tileId, x, y, div, player_id, tiles) {
+    div.css("z-index", 'auto');
+
+    if(notOnBoard(x, y) && div.attr("class").indexOf("inHand") != -1){
+      placeTileInHand(tile, div, player_id);
+    } else {
+      coordinates = findNearestSpace(x, y, tileId, tiles);
+      placeTileOnBoard(tile, coordinates[0], coordinates[1], div);
+    }
+  }
+
+  var placeTileOnBoard = function(tile, x, y, div) {
     tile.x = x;
     tile.y = y;
     tile.player_id = null;
@@ -21,30 +31,29 @@ $(function() {
     displayTile(div, x + 1/2, y + 1/2);
   }
 
+  var placeTileInHand = function(tile, div, player_id) {
+    tile.x = null;
+    tile.y = null;
+    tile.player_id = player_id;
+    tile.on_board = false;
+    div.css({left: 'auto' , top: 'auto', position: 'relative'});
+  }
+
   var notOnBoard = function(x, y) {
-    console.log("x < 0: " + (x<0));
-    console.log("y < 0: " + (y<0));
-    console.log("x >= boardWidth: " + (x >= boardWidth));
-    console.log("y >= boardHeight: " + (y >= boardHeight));
-    console.log(x < 0 || y < 0 || x >= boardWidth || y >= boardHeight);
     return (x < 0 || y < 0 || x >= boardWidth || y >= boardHeight);
   }
 
   var processGameData = function(tiles) {
-    var CurrentUserId = parseInt($("meta[property=current_user_id]").attr("content"));
-    var ActivePlayerId = parseInt($("meta[property=active_player_id").attr("content"));
-    
-    // if(CurrentUserId == ActivePlayerId){
+    var currentPlayerId = parseInt($("meta[property=current_player_id]").attr("content"));
+    var activePlayerId = parseInt($("meta[property=active_player_id").attr("content"));
+
+    // if(currentPlayerId == activePlayerId){
     //   Notification.requestPermission()
     //   new Notification("Rummikub", {"body": "Your turn" });
     // } 
 
-    console.log("data:", tiles);
-    console.log(CurrentUserId);
-    var board = $("#board").empty();
-
     tiles.forEach(function(tile) {
-      if(tile.player_id == CurrentUserId || tile.on_board) {
+      if(tile.player_id == currentPlayerId || tile.on_board) {
         var wrapperDiv = $("<div>")
           .addClass("wrapper");
 
@@ -60,47 +69,36 @@ $(function() {
           .appendTo(wrapperDiv);
 
         if (tile.player_id) {
+          wrapperDiv.addClass("inHand");
           $("#hand").append(wrapperDiv);
         }
         else {
           $("#board").append(wrapperDiv);
-          displayTile(wrapperDiv, tile.x + 1/2, tile.y + 1/2);
+          placeTileOnBoard(tile, tile.x, tile.y, wrapperDiv);
         }
       }
     });
 
     $(".wrapper").on('mousedown', function(e){
-      var moving_div = $(this);
-      var tile = moving_div.find(".tile");
+      var movingDiv = $(this);
+      var tile = movingDiv.find(".tile");
       var tileId = tile.data("tileId");
 
-      var moving_tile = _.find(tiles,function(tile){
+      var movingTile = _.find(tiles,function(tile){
           return tile.id == tileId;
         });
 
       var handlers = {
         mousemove : function(e) {
-          displayTile(moving_div, e.pageX / 52.0, (e.pageY - 50) / 70.0);
-          moving_div.css("z-index", 9999);
+          displayTile(movingDiv, e.pageX / 52.0, (e.pageY - 50) / 70.0);
+          movingDiv.css("z-index", 9999);
         },
         mouseup : function(e) {
-          moving_div.css("z-index", 'auto');
           var adjustX = Math.floor(e.pageX / 52.0);
           var adjustY = Math.floor((e.pageY - 50) / 70.0);
-          console.log(adjustX);
-          console.log(adjustY);
-          console.log(moving_tile);
-          if(notOnBoard(adjustX, adjustY) && moving_tile.player_id != null){
-            console.log("in hand");
-            moving_tile.x = null;
-            moving_tile.y = null;
-            moving_div.css({left: 'auto' , top: 'auto', position: 'relative'});
-          } else {
-            console.log("on board");
-            coordinates = findNearestSpace(adjustX, adjustY, tileId, tiles);
-            console.log(coordinates);
-            placeTile(moving_tile, coordinates[0], coordinates[1], moving_div);
-          }
+
+          placeTile(movingTile, tileId, adjustX, adjustY, movingDiv, currentPlayerId, tiles);
+
           $(this).off(handlers);
         }
       }
@@ -108,15 +106,12 @@ $(function() {
     });
 
     $("#submit").click( function() {
-      console.log("Submit");
-      console.log(JSON.stringify({"tiles" : tiles}));
       $.ajax({
         type: 'PUT',
         url: '/games/' + gameId,
         contentType: 'application/json',
         data: JSON.stringify({"tiles" : tiles}), 
         success: function(){
-          console.log("Success");
           location.reload();
         },
         failure: function(){
@@ -126,14 +121,12 @@ $(function() {
     })
 
     $("#drawTile").click( function() {
-      console.log("Draw Tile");
       $.ajax({
         type: 'PUT',
         url: '/games/' + gameId,
         contentType: 'application/json',
         data: JSON.stringify({'tiles': "drawTile"}),
         success: function(){
-          console.log("Success");
           location.reload();
         },
         failure: function(){
@@ -143,13 +136,10 @@ $(function() {
     });
 
     $("#reset").click( function(){
-      console.log("Reset");
       location.reload();
     });
 
     setInterval(function(retry){
-      console.log("poll");
-
       function reloadPageIfActivePlayerHasChanged (newPlayerNumber) {
         if(activePlayerNumber != newPlayerNumber){
           location.reload();

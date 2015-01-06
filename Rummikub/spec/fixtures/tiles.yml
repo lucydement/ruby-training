@@ -132,3 +132,38 @@ create_1:
  player:
  on_board: false
  game: create_game1
+
+create_2:
+ number: 1
+ colour: red
+ player:
+ on_board: false
+ game: create_game2
+
+create_3:
+ number: 1
+ colour: black
+ player:
+ on_board: false
+ game: create_game2
+
+create_4:
+ number: 1
+ colour: red
+ player:
+ on_board: false
+ game: create_game3
+
+create_5:
+ number: 1
+ colour: black
+ player:
+ on_board: true
+ game: create_game3
+
+create_6:
+ number: 1
+ colour: blue
+ player:
+ on_board: false
+ game: create_game3

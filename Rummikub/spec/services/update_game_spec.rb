@@ -4,12 +4,20 @@ RSpec.describe UpdateGame do
   fixtures :games, :players, :tiles
 
   before do
-    tiles = [instance_double('Tile', id: tiles(:tile1).id, player_id: nil, on_board: true, x: 2, y: 3, x_y_on_board?: true),
-        instance_double('Tile', id: tiles(:tile2).id, player_id: 1, on_board: false, x: 3, y: 2, x_y_on_board?: true),
-        instance_double('Tile', id: tiles(:tile3).id, player_id: 1, on_board: false, x: nil, y: nil, x_y_on_board?: false),
-        instance_double('Tile', id: tiles(:tile4).id, player_id: 1, on_board: false, x: 16, y: 8, x_y_on_board?: false)]
+    new_tile_data = { tiles(:tile1).id => {player_id: nil, on_board: true, x: 2, y: 3},
+            tiles(:tile2).id => {player_id: nil, on_board: true, x: 3, y: 2},
+            tiles(:tile3).id => {player_id: 1, on_board: false, x: nil, y: nil},
+            tiles(:tile4).id => {player_id: 1, on_board: false, x: 16, y: 8}}
+
+    tiles = [tiles(:tile1), tiles(:tile2), tiles(:tile3), tiles(:tile4)]
+    
+    changed_tiles = tiles.map do |tile|
+      tile.attributes = new_tile_data[tile.id]
+      tile
+    end
+
     game = games(:set_game)
-    update_game = UpdateGame.new(game, tiles, players(:player1))
+    update_game = UpdateGame.new(changed_tiles, game, players(:player1))
     update_game.call
   end
 
@@ -75,9 +83,8 @@ RSpec.describe UpdateGame do
 
   context "When the bag is empty" do
     it "will set the players passed to false" do
-      tiles = [instance_double('Tile', id: tiles(:tile5).id, player_id: nil, on_board: true, x: 2, y: 3, x_y_on_board?: true)]
       game = games(:game2)
-      update_game = UpdateGame.new(game,tiles,players(:player4))
+      update_game = UpdateGame.new([tiles(:tile5)], game, players(:player4))
       update_game.call
       expect(players(:player4).reload.passed).to be_falsey
     end
