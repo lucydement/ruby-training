@@ -9,11 +9,7 @@
 
 <div id="board"></div>
 
-<% if user_whose_turn_it_is(@game) == current_user && @game.begun? %>
-	<button id="submit">Submit Move</button>
-	<button id="drawTile">Draw Tile</button>
-	<button id="reset">Reset Move</button>
-<% end %>
+<%= display_buttons(@game, current_user) %>
 
 <div id="hand"></div>
 
@@ -22,13 +18,7 @@
 	<p id="flash"><%= flash[:invalid] %></p>
 	
 	<div>
-		<% if !@game.not_enough_players? %>
-			<p>Number of tiles in hand:</p>
-			<% @players.each do |player| %>
-				<%= "#{player.user.name}: #{player.tiles.length}" %>
-				<br />
-			<% end %>
-		<% end %>
+		<%= display_number_of_tiles_in_hands(@game, @players) %>
 	</div>
 
 	<p>The aim of the game is to get rid of all your tiles. To do this you need to place either runs or groups on the board.</p>
