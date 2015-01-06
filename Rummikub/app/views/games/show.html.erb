@@ -7,12 +7,6 @@
 	<meta property="active_player_id" content="<%= @active_player.id %>">
 <% end %>
 
-<% if @game.not_enough_players? && UserNotInGame.new(@game, current_user).call %>
-	<%= form_for [@game, Player.new] do |f| %>
-		<%= f.submit "Join game" %>
-	<% end %>
-<% end %>
-
 <div id="board"></div>
 
 <% if user_whose_turn_it_is(@game) == current_user && @game.begun? %>

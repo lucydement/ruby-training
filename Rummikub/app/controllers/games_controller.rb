@@ -8,6 +8,7 @@ class GamesController < ApplicationController
     
     if NumberPlayersPolicy.new(number_players).call
       game = SetupGame.new(number_players).call
+      MakePlayer.new(game, current_user).call
       redirect_to game
     else
       flash[:wrong_number_players] = "You cannot have this amount of players."
@@ -43,9 +44,11 @@ class GamesController < ApplicationController
 
   def active_player_number
     game = Game.find params[:game_id]
-    if game 
+    if game && game.begun?
       player = GetActivePlayer.new(game).call
       render text: player.number
+    else
+      render nothing: true
     end
   end
 end

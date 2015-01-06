@@ -4,7 +4,12 @@
 	<ol>
 		<% @games.each do |game| %>
 			<li>
-				<%= link_to heading(game, current_user), game %>
+				<%= form_for [game, Player.new] do |f| %>
+					<%= link_to heading(game, current_user), game %>
+					<% if game.not_enough_players? && UserNotInGame.new(game, current_user).call %>
+						<%= f.submit "Join game" %>
+					<% end %>
+				<% end %>
 			</li>
 		<% end %>
 	</ol>

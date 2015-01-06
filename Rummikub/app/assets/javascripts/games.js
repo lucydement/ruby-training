@@ -140,6 +140,7 @@ $(function() {
     });
 
     setInterval(function(retry){
+      console.log("poll");
       function reloadPageIfActivePlayerHasChanged (newPlayerNumber) {
         if(activePlayerNumber != newPlayerNumber){
           location.reload();
