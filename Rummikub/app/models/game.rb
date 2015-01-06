@@ -30,4 +30,8 @@ class Game < ActiveRecord::Base
   def not_enough_players?
     number_players < total_player_count
   end
+
+  def begun?
+    number_players == total_player_count
+  end
 end

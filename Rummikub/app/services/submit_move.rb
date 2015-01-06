@@ -8,14 +8,14 @@ class SubmitMove
     Game.transaction do
       @game.reload(lock: true)
       player = GetActivePlayer.new(@game).call
-      tiles = CreateTiles.new(@user_input).call
+      tiles = CreateTiles.new(@user_input, @game).call
 
       if @user_input == "drawTile"
         DrawTile.new(player: player ,game: @game).call
         UpdateActivePlayer.new(@game).call
         true
       elsif ValidateBoard.new(tiles).call
-        UpdateGame.new(@game, tiles, player).call
+        UpdateGame.new(tiles, @game, player).call
         UpdateActivePlayer.new(@game).call
         true
       else

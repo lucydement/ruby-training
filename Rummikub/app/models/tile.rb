@@ -11,7 +11,6 @@ class Tile < ActiveRecord::Base
 
   scope :in_bag, -> { where(player_id: nil, on_board: false) }
   scope :not_in_bag, -> { where("on_board = ? OR player_id", true) }
-  #scope :not_in_bag, -> {where("(on_board IS NOT NULL AND on_board != ?) OR player_id", false)}
 
   validates :colour, presence: true, inclusion: {in: COLOURS}
   validates :number, presence: true, inclusion: {in: RANGE}
@@ -34,19 +33,27 @@ class Tile < ActiveRecord::Base
   private
 
   def only_in_one_of_player_or_board
-    errors.add(:player_id, "Is in players hand and on the board") if player_id && on_board
+    if player_id && on_board
+      errors.add(:player_id, "Is in players hand and on the board")
+    end
   end
 
   def when_on_board_has_x_y
-    errors.add(:on_board, "It is on board but has no x and y") if on_board && (!x || !y)
+    if on_board && (!x || !y)
+      errors.add(:on_board, "It is on board but has no x and y")
+    end
   end
 
   def when_not_on_board_has_no_x_y
-    errors.add(:on_board, "It is not on the board but has x and y") if !on_board && (x || y)
+    if !on_board && (x || y)
+      errors.add(:on_board, "It is not on the board but has x and y")
+    end
   end
 
   def if_on_board_x_and_y_are_in_the_board
-    errors.add(:on_board, "The x and y are out of bounds") if x_and_y_out_bounds
+    if x_and_y_out_bounds
+      errors.add(:on_board, "The x and y are out of bounds")
+    end
   end
 
   def x_and_y_out_bounds

@@ -3,7 +3,7 @@
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
 
 <% if !UserNotInGame.new(@game, current_user).call %>
-	<meta property="current_user_id" content="<%= current_user.player_for_game(@game).id %>">
+	<meta property="current_player_id" content="<%= current_user.player_for_game(@game).id %>">
 	<meta property="active_player_id" content="<%= @active_player.id %>">
 <% end %>
 
@@ -15,7 +15,7 @@
 
 <div id="board"></div>
 
-<% if user_whose_turn_it_is(@game) == current_user %>
+<% if user_whose_turn_it_is(@game) == current_user && @game.begun? %>
 	<button id="submit">Submit Move</button>
 	<button id="drawTile">Draw Tile</button>
 	<button id="reset">Reset Move</button>
