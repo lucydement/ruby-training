@@ -98,6 +98,11 @@ body {
   color: #99C68E;
 } 
 
+#info > div > ul >li {
+  list-style-type: none;
+  margin-left: -30px;
+}
+
 #info > h1 {
   margin-top: 5px;
 }

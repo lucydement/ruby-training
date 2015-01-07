@@ -24,10 +24,11 @@ module GamesHelper
 
   def display_number_of_tiles_in_hands(game, players)
     if !game.not_enough_players?
-      string = "Number of tiles in hand:<br /><br />"
+      string = "<p>Number of tiles in hand:</p><ul>"
       players.each do |player|
-        string << "#{player.user.name}: #{player.tiles.length}<br />"
+        string << "<li>#{player.user.name}: #{player.tiles.length}</li>"
       end
+      string << "</us>"
       string.html_safe
     end
   end
@@ -40,9 +41,15 @@ module GamesHelper
     end
   end
 
-  def join_game_button(game, current_user)
-    if game.not_enough_players? && UserNotInGame.new(game, current_user).call
-      "<%= f.submit \"Join Game\" %>".html_safe
+  def metadata(game,current_user, active_player)
+    html = "<meta property=\"game_id\" content=\"<%= @game.id %>\">
+      <meta property=\"board_width\" content=\"<%= Game::BOARD_WIDTH %>\">
+      <meta property=\"board_height\" content=\"<%= Game::BOARD_HEIGHT %>\">"
+
+    if !UserNotInGame.new(game, current_user).call
+      html << "<meta property=\"current_player_id\" content=\"<%= current_user.player_for_game(@game).id %>\">
+        <meta property=\"active_player_id\" content=\"<%= @active_player.id %>\">"
     end
+    html.html_safe
   end
 end
