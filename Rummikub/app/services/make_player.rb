@@ -8,7 +8,7 @@ class MakePlayer
     Game.transaction do
       @game.lock!
       @user.reload
-      if @game.not_enough_players? && UserNotInGame.new(@game, @user).call
+      if @game.not_enough_players? && @user.not_in_game(@game)
         player = @game.players.create!(user_id: @user.id, number: @game.number_players)
         
         Player::HAND_SIZE.times do

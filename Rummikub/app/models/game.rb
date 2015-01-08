@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   has_many :tiles, dependent: :destroy
   has_many :players, dependent: :destroy 
 
-  validates :total_player_count, inclusion: {in: NumberPlayersPolicy::POSSIBLE}
+  validates :total_player_count, inclusion: {in: NumberPlayersPolicy::POSSIBLE_PLAYERS}
 
   def bag
     tiles.in_bag
@@ -33,5 +33,9 @@ class Game < ActiveRecord::Base
 
   def begun?
     number_players == total_player_count
+  end
+
+  def active_player
+    players.where(number: active_player_number).first
   end
 end

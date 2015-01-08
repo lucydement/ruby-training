@@ -12,6 +12,7 @@ RSpec.describe PlayersController, :type => :controller do
 
   describe "POST #create" do
     it "makes a new player" do
+      expect(MakePlayer).to receive(:new).with(games(:set_game), users(:user_2)).and_return make_player
       expect(make_player).to receive(:call).once
 
       post :create, game_id: games(:set_game).id

@@ -21,11 +21,6 @@ RSpec.describe GamesController, :type => :controller do
       expect(response).to redirect_to(games_path)
     end
 
-    it "creates the tiles" do
-      post :create, { :game => {:total_player_count => 4}}
-      expect(Game.last.tiles.length).to eq 104
-    end
-
     it "redirects to the new game" do
       post :create, { :game => {:total_player_count => 4}}
       expect(response).to redirect_to(Game.last)
@@ -33,30 +28,16 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe "GET show" do
-    let(:get_active_player) {instance_double('GetActivePlayer', call: 0)}
-
-    before do
-      allow(GetActivePlayer).to receive(:new).and_return(get_active_player)
-    end
-
     it "redirects to the show page for that game" do
       get :show, id: 1
       expect(response).to render_template(:show)
     end
-
-    it "finds the active player" do
-      expect(get_active_player).to receive(:call).once
-
-      get :show, id: 1
-    end
   end
 
   describe "PUT update" do
-    let(:get_active_player) {instance_double('GetActivePlayer', call: 0)}
     let(:submit_move) {instance_double('SubmitMove', call: true)}
 
     before do
-      allow(GetActivePlayer).to receive(:new).and_return(get_active_player)
       allow(SubmitMove).to receive(:new).and_return(submit_move)
     end
 

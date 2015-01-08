@@ -7,7 +7,6 @@ RSpec.describe SubmitMove do
   let(:update_active_player) {instance_double('UpdateActivePlayer', call: 0)}
   let(:update_game) {instance_double('UpdateGame', call: 0)}
   let(:create_tiles) {instance_double('CreateTiles', call: 0)}
-  let(:get_active_player) {instance_double('GetActivePlayer', call: player)}
 
   context "When the user draw a tile" do
     before do
@@ -15,7 +14,6 @@ RSpec.describe SubmitMove do
       allow(UpdateActivePlayer).to receive(:new).and_return update_active_player
       allow(UpdateGame).to receive(:new).and_return update_game
       allow(CreateTiles).to receive(:new).and_return create_tiles
-      allow(GetActivePlayer).to receive(:new).and_return get_active_player
     end
 
     let(:submit_move) {SubmitMove.new(game, "drawTile")}
@@ -49,7 +47,6 @@ RSpec.describe SubmitMove do
       allow(UpdateActivePlayer).to receive(:new).and_return update_active_player
       allow(UpdateGame).to receive(:new).and_return update_game
       allow(CreateTiles).to receive(:new).and_return create_tiles
-      allow(GetActivePlayer).to receive(:new).and_return get_active_player
     end
 
     let(:validate_board) {instance_double('ValidateBoard', call: false)}
@@ -87,7 +84,6 @@ RSpec.describe SubmitMove do
       allow(UpdateActivePlayer).to receive(:new).and_return update_active_player
       allow(UpdateGame).to receive(:new).and_return update_game
       allow(CreateTiles).to receive(:new).and_return create_tiles
-      allow(GetActivePlayer).to receive(:new).and_return get_active_player
     end
 
     it "will call validate move" do

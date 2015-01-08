@@ -6,8 +6,4 @@ class Player < ActiveRecord::Base
   has_many :tiles
 
   validates :game_id, :user_id, :number, presence: true
-
-  def user
-    User.find {|user| user.id == user_id}
-  end
 end

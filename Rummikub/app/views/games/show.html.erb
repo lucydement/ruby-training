@@ -2,9 +2,9 @@
 <meta property="board_width" content="<%= Game::BOARD_WIDTH %>">
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
 
-<% if !UserNotInGame.new(@game, current_user).call %>
+<% if !current_user.not_in_game(@game) %>
 	<meta property="current_player_id" content="<%= current_user.player_for_game(@game).id %>">
-	<meta property="active_player_id" content="<%= @active_player.id %>">
+	<meta property="active_player_id" content="<%= @game.active_player.id %>">
 <% end %>
 
 <div id="board"></div>
@@ -14,7 +14,7 @@
 <div id="hand"></div>
 
 <div id="info">
-	<h1><%= heading(@game, current_user) %></h1>
+	<h1><%= @game.heading(current_user) %></h1>
 	<p id="flash"><%= flash[:invalid] %></p>
 	
 	<div>

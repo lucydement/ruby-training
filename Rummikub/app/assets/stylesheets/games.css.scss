@@ -90,6 +90,7 @@ body {
   background-color: darkslategrey;
   text-align: center;
   padding-bottom: 5px;
+  word-wrap: break-word;
 }
 
 #info > div {
@@ -125,10 +126,11 @@ ol {
   list-style-type: none;
   counter-reset: item;
   padding: 10px;
+  margin-bottom: 0px;
 }
 
 ol > li {
-  margin: 10px;
+  padding-bottom: 13px;
 }
 
 ol li:before {
@@ -176,7 +178,7 @@ form input[type=submit]:active {
 
 #index_box {
   background-color: mintcream;
-  width: 300px;
+  width: 350px;
   text-align: center;
   padding: 15px;
   margin: auto;

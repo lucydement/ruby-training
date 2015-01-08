@@ -1,15 +1,13 @@
 class SplitTilesIntoSets
   InvalidTilesError = Class.new(StandardError)
 
-  def initialize(tiles)
-    @tiles = tiles
+  def initialize(board_tiles)
+    @board_tiles = board_tiles
   end
 
   def call
-    board = @tiles.select {|tile| tile.y && tile.x}
-
     Game::BOARD_HEIGHT.times.flat_map do |row_number|
-      row = board.select {|tile| tile.y == row_number}
+      row = @board_tiles.select {|tile| tile.y == row_number}
       split_row_into_sets(row)
     end
   end

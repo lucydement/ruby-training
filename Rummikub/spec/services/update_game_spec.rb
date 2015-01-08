@@ -17,7 +17,7 @@ RSpec.describe UpdateGame do
     end
 
     game = games(:set_game)
-    update_game = UpdateGame.new(changed_tiles, game, players(:player1))
+    update_game = UpdateGame.new(changed_tiles, game)
     update_game.call
   end
 
@@ -84,7 +84,7 @@ RSpec.describe UpdateGame do
   context "When the bag is empty" do
     it "will set the players passed to false" do
       game = games(:game2)
-      update_game = UpdateGame.new([tiles(:tile5)], game, players(:player4))
+      update_game = UpdateGame.new([tiles(:tile5)], game)
       update_game.call
       expect(players(:player4).reload.passed).to be_falsey
     end

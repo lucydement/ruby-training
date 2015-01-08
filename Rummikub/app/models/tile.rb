@@ -21,38 +21,29 @@ class Tile < ActiveRecord::Base
   validate :when_not_on_board_has_no_x_y
   validate :if_on_board_x_and_y_are_in_the_board
 
-  def x_y_on_board?
-    return false if x == nil || y == nil
-    x >= 0 && x < Game::BOARD_WIDTH && y >= 0 && y < Game::BOARD_HEIGHT
-  end
-
-  def in_hand?
-    player_id != nil
-  end
-
   private
 
   def only_in_one_of_player_or_board
     if player_id && on_board
-      errors.add(:player_id, "Is in players hand and on the board")
+      errors.add(:player_id, "cannot be true if on_board is also true")
     end
   end
 
   def when_on_board_has_x_y
     if on_board && (!x || !y)
-      errors.add(:on_board, "It is on board but has no x and y")
+      errors.add(:on_board, "cannot be true with no x and y")
     end
   end
 
   def when_not_on_board_has_no_x_y
     if !on_board && (x || y)
-      errors.add(:on_board, "It is not on the board but has x and y")
+      errors.add(:on_board, "cannot be false if it has x and y values")
     end
   end
 
   def if_on_board_x_and_y_are_in_the_board
     if x_and_y_out_bounds
-      errors.add(:on_board, "The x and y are out of bounds")
+      errors.add(:x, "and y cannot be out of bounds")
     end
   end
 

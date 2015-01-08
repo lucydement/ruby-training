@@ -4,7 +4,7 @@ RSpec.describe MakePlayer do
   fixtures :games, :users
 
   let(:game) { SetupGame.new(4).call }
-  let(:user) {instance_double('User', id: 1, reload: true)}
+  let(:user) {instance_double('User', id: 1, reload: true, not_in_game: true)}
   let(:make_player) { MakePlayer.new(game,user) }
 
   it "make a new player" do

@@ -61,4 +61,10 @@ RSpec.describe Game, :type => :model do
       expect(games(:game5).ended?).to be_falsey
     end
   end
+
+  context "test active_player" do
+    it "will return the current active player" do
+      expect(games(:game2).active_player).to eql players(:player4)
+    end
+  end
 end

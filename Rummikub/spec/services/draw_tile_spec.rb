@@ -4,7 +4,7 @@ RSpec.describe DrawTile do
   fixtures :games, :players, :tiles
 
   context "When drawing a tile" do
-    let(:draw_tile) {DrawTile.new(player: players(:player1), game: games(:set_game))}
+    let(:draw_tile) {DrawTile.new(games(:set_game))}
     
     it "will add the tile to the players hand" do
       draw_tile.call
@@ -20,7 +20,7 @@ RSpec.describe DrawTile do
   end
 
   context "When bag is empty" do
-    let(:draw_tile) {DrawTile.new(player: players(:player4), game: games(:game2))}
+    let(:draw_tile) {DrawTile.new(games(:game2))}
 
     it "will not draw a tile" do
       draw_tile.call

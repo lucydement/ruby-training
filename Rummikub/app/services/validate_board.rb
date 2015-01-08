@@ -1,7 +1,7 @@
 class ValidateBoard
   def initialize(tiles)
     @tiles = tiles
-    @moved_tiles = @tiles.select {|tile| tile.y && tile.x}
+    @board_tiles = @tiles.select(&:on_board)
   end
 
   def call
@@ -11,8 +11,7 @@ class ValidateBoard
   private
 
   def board_valid? 
-    sets = SplitTilesIntoSets.new(@tiles).call
-    return false if !sets
+    sets = SplitTilesIntoSets.new(@board_tiles).call
 
     sets.all? {|set| set_valid?(set)}
   end
@@ -47,13 +46,13 @@ class ValidateBoard
   end
 
   def tiles_moved_from_board_to_hand?
-    moved_tiles_not_on_board = @moved_tiles.select {|tile| !tile.x_y_on_board?}
-    board_tiles_in_hand = moved_tiles_not_on_board.select {|tile| tile.on_board_was}
+    board_tiles_in_hand = @tiles.select {|tile| !tile.on_board && tile.on_board_was}
+    
     board_tiles_in_hand.present?
   end
 
   def tile_moved_from_hand_to_board?
-    players_tiles_on_board = @moved_tiles.select {|tile| tile.x_y_on_board? && tile.player_id_was}
+    players_tiles_on_board = @board_tiles.select {|tile| tile.player_id_was}
     
     players_tiles_on_board.present?
   end

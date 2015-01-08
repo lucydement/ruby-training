@@ -1,15 +1,14 @@
 class DrawTile
-  def initialize(player:, game:)
-    @player = player
+  def initialize(game)
     @game = game
   end
 
   def call
     if @game.bag.empty?
-      @player.update_attributes!(passed: true)
+      @game.active_player.update_attributes!(passed: true)
     else
       new_tile = @game.bag.sample
-      new_tile.update_attributes!(player: @player)
+      new_tile.update_attributes!(player: @game.active_player)
     end
   end
 end

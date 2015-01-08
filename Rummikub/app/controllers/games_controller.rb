@@ -1,3 +1,5 @@
+require_relative '../delegators/games_delegator'
+
 class GamesController < ApplicationController
   def index
     @games = Game.all
@@ -17,9 +19,8 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find params[:id]
+    @game = GamesDelegator.new(Game.find params[:id])
     @players = @game.players
-    @active_player = GetActivePlayer.new(@game).call
 
     if request.xhr?
       render json: @game.tiles.not_in_bag.to_json
@@ -28,8 +29,6 @@ class GamesController < ApplicationController
 
   def update
     game = Game.find params[:id]
-
-    #try regular post
 
     if request.xhr? && !game.ended?
       game_tiles = params[:tiles]
@@ -45,8 +44,7 @@ class GamesController < ApplicationController
   def active_player_number
     game = Game.find params[:game_id]
     if game && game.begun?
-      player = GetActivePlayer.new(game).call
-      render text: player.number
+      render text: game.active_player_number
     else
       render nothing: true
     end
