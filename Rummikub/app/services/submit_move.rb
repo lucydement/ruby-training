@@ -6,7 +6,7 @@ class SubmitMove
 
   def call
     Game.transaction do
-      @game.reload(lock: true)
+      @game.lock!
       tiles = CreateTiles.new(@user_input, @game).call
 
       if @user_input == "drawTile"

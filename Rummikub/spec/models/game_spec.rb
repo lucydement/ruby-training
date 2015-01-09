@@ -18,30 +18,42 @@ RSpec.describe Game, :type => :model do
     end
   end
 
-  context "Testing stuff with users" do
-    it "knows when there aren't enough users" do
+  context "Testing stuff with players" do
+    it "knows when there aren't enough players" do
       expect(games(:set_game).not_enough_players?).to be_truthy
     end
 
-    it "knows when there are enough users" do
+    it "knows when there are enough players" do
       expect(games(:full_game).not_enough_players?).to be_falsey
     end
   end
 
-  it "knows when a game is won" do
-    expect(games(:set_game).won?).to be_truthy
+  context "Testing begun" do
+    it "knows when the game has begun" do
+      expect(games(:full_game).begun?).to be_truthy
+    end
+
+    it "knows when the game hasn't started yet" do
+      expect(games(:set_game).begun?).to be_falsey
+    end
   end
 
-  it "knows who has won the game" do
-    expect(games(:set_game).winning_player).to eql players(:player1)
-  end
+  context "Testing stuff to do with winning the game" do
+    it "knows when a game is won" do
+      expect(games(:set_game).won?).to be_truthy
+    end
 
-  it "knows when a game is not won" do
-    expect(games(:game5).won?).to be_falsey
-  end
+    it "knows who has won the game" do
+      expect(games(:set_game).winning_player).to eql players(:player1)
+    end
 
-  it "returns nil when no one has won" do
-    expect(games(:game5).winning_player).to be_nil
+    it "knows when a game is not won" do
+      expect(games(:game5).won?).to be_falsey
+    end
+
+    it "returns nil when no one has won" do
+      expect(games(:game5).winning_player).to be_nil
+    end
   end
 
   context "test when the game ended" do

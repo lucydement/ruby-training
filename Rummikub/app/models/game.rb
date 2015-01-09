@@ -23,16 +23,12 @@ class Game < ActiveRecord::Base
     won? || (bag.empty? && players.all?(&:passed?))
   end
 
-  def number_players
-    players.length
-  end
-
   def not_enough_players?
-    number_players < total_player_count
+    players.length < total_player_count
   end
 
   def begun?
-    number_players == total_player_count
+    players.length == total_player_count
   end
 
   def active_player

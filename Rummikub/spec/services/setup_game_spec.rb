@@ -4,6 +4,10 @@ RSpec.describe SetupGame do
   let(:setup_game) {SetupGame.new(4)}
   let(:game) {setup_game.call}
 
+  it "creates a game" do
+    expect {setup_game.call}.to change {Game.count}.by 1
+  end
+
   it "Creates 104 tiles" do
     expect(game.tiles.length).to eql 104
   end

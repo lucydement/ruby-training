@@ -12,7 +12,7 @@ game2:
 
 game3:
  active_player_number: 0
- total_player_count: 4
+ total_player_count: 2
 
 game4:
  active_player_number: 0
@@ -59,5 +59,13 @@ create_game2:
  total_player_count: 2
 
 create_game3:
+ active_player_number: 0
+ total_player_count: 2
+
+won_game:
+ active_player_number: 0
+ total_player_count: 2
+
+ongoing_game:
  active_player_number: 0
  total_player_count: 2

@@ -9,3 +9,19 @@ user_3:
 
 user_default:
  email: default@whatever.com
+
+won_user_1:
+ email: j@j.com
+ name: Lucy
+
+won_user_2:
+ email: e@k.com
+ name: Eevee
+
+ongoing_user_1:
+ email: d@f.com
+ name: Lucy
+
+ongoing_user_2:
+ email: f@j.com
+ name: Eevee

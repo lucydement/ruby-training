@@ -167,3 +167,26 @@ create_6:
  player:
  on_board: false
  game: create_game3
+
+won_1:
+ number: 1
+ colour: blue
+ player: won_2
+ game: won_game
+
+ongoing_tile_1:
+ number: 1
+ colour: red
+ game: ongoing_game
+
+ongoing_tile_2:
+ number: 3
+ colour: blue
+ player: ongoing_1
+ game: ongoing_game
+
+ongoing_tile_3:
+ number: 4
+ colour: black
+ player: ongoing_2
+ game: ongoing_game

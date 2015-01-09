@@ -15,8 +15,12 @@ RSpec.describe Tile, :type => :model do
       expect(Tile.new(colour: Tile::RED ,number: 12, game_id: 2, on_board: true,x: 1, y: 1).save).to be_truthy
     end
 
-    it "will not create a tile when a on_board is true but x and y are undifined" do
+    it "will not create a tile when on_board is true but x and y are undifined" do
       expect(Tile.new(colour: Tile::RED, number: 3, game_id: 1, on_board: true).save).to be_falsey
+    end
+
+    it "will not create a tile when has x and y but on_board is false" do
+      expect(Tile.new(colour: Tile::RED, number: 3, game_id: 1, on_board: false, x: 2, y: 4).save).to be_falsey
     end
 
     it "will not create a tile when no colour" do

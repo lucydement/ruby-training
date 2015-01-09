@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SubmitMove do
-  let(:game) {instance_double('Game', reload: true)}
+  let(:game) {instance_double('Game', lock!: true)}
   let(:player) {instance_double('Player')}
   let(:draw_tile) {instance_double('DrawTile', call: 0)}
   let(:update_active_player) {instance_double('UpdateActivePlayer', call: 0)}

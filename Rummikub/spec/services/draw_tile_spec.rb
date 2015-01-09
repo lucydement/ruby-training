@@ -17,6 +17,10 @@ RSpec.describe DrawTile do
       expect(tiles(:bagTile).x).to be_falsey
       expect(tiles(:bagTile).y).to be_falsey
     end
+
+    it "will be one less tile in the bag" do
+      expect { draw_tile.call }.to change { games(:set_game).bag.length }.by -1
+    end
   end
 
   context "When bag is empty" do

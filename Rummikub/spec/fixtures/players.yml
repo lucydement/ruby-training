@@ -94,3 +94,23 @@ full_player_2:
  game: full_game
  user: user_default
  number: 1
+
+won_1:
+ game: won_game
+ user: won_user_1
+ number: 0
+
+won_2:
+ game: won_game
+ user: won_user_2
+ number: 1
+
+ongoing_1:
+ game: ongoing_game
+ user: ongoing_user_1
+ number: 0
+
+ongoing_2:
+ game: ongoing_game
+ user: ongoing_user_2
+ number: 1

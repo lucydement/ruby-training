@@ -23,6 +23,12 @@ RSpec.describe MakePlayer do
     expect(game.players.first.tiles.length).to eql 14
   end
 
+  it "makes passed false" do
+    make_player.call
+
+    expect(game.players.first.passed).to eql false
+  end
+
   it "doesn't make a new player if that game is full" do
     game1 = games(:full_game)
     make_player1 = MakePlayer.new(game1, users(:user_2))
