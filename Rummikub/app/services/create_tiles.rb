@@ -1,13 +1,13 @@
 class CreateTiles
-  def initialize(user_input, game)
-    @user_input = user_input
+  def initialize(game_tiles, game)
+    @game_tiles = game_tiles
     @game = game
   end
 
   def call
-    return @user_input if @user_input == "drawTile"
+    return nil if !@game_tiles
 
-    tiles = @user_input.map do |input|
+    tiles = @game_tiles.map do |input|
       x = input["x"] ? input["x"].to_i : nil
       y = input["y"] ? input["y"].to_i : nil
       player_id = input["player_id"] ? input["player_id"].to_i : nil

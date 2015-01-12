@@ -1,15 +1,22 @@
 class SubmitMove
-  def initialize(game, user_input) 
+  InvalidSubmitError = Class.new(StandardError)
+
+  def initialize(game, game_tiles, draw_tile) 
     @game = game
-    @user_input = user_input
+    @game_tiles = game_tiles
+    @draw_tile = draw_tile
   end
 
   def call
+    if @game_tiles && @draw_tile
+      raise InvalidSubmitError
+    end
+
     Game.transaction do
       @game.lock!
-      tiles = CreateTiles.new(@user_input, @game).call
+      tiles = CreateTiles.new(@game_tiles, @game).call
 
-      if @user_input == "drawTile"
+      if @draw_tile
         DrawTile.new(@game).call
         UpdateActivePlayer.new(@game).call
         true

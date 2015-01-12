@@ -16,7 +16,7 @@ RSpec.describe SubmitMove do
       allow(CreateTiles).to receive(:new).and_return create_tiles
     end
 
-    let(:submit_move) {SubmitMove.new(game, "drawTile")}
+    let(:submit_move) {SubmitMove.new(game, nil, "drawTile")}
 
     it "will draw a tile for the player" do
       expect(draw_tile).to receive(:call).once
@@ -50,7 +50,7 @@ RSpec.describe SubmitMove do
     end
 
     let(:validate_board) {instance_double('ValidateBoard', call: false)}
-    let(:submit_move) {SubmitMove.new(game, "Invalid move")}
+    let(:submit_move) {SubmitMove.new(game, "Invalid move", nil)}
 
     before do
       allow(ValidateBoard).to receive(:new).and_return validate_board
@@ -73,9 +73,17 @@ RSpec.describe SubmitMove do
     end
   end
 
+  context "When it recieves both tiles and draw_tile" do
+    let(:submit_move) {SubmitMove.new(game, "Invalid move", "draw_tile")}
+    
+    it "throws an error" do
+      expect {submit_move.call}.to raise_error(SubmitMove::InvalidSubmitError)
+    end
+  end
+
   context "When the user submits some valid move" do
     let(:validate_board) {instance_double('ValidateBoard', call: true)}
-    let(:submit_move) {SubmitMove.new(game, "Valid move")}
+    let(:submit_move) {SubmitMove.new(game, "Valid move", nil)}
 
     before do
       allow(ValidateBoard).to receive(:new).and_return validate_board

@@ -88,7 +88,7 @@ $(function() {
         type: 'PUT',
         url: '/games/' + gameId,
         contentType: 'application/json',
-        data: JSON.stringify({'tiles': "drawTile"}),
+        data: JSON.stringify({"drawTile": "drawTile"}),
         success: function(){
           location.reload();
         },

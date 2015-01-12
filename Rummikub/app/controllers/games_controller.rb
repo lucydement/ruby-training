@@ -32,8 +32,9 @@ class GamesController < ApplicationController
 
     if request.xhr? && !game.ended?
       game_tiles = params[:tiles]
+      draw_tile = params[:drawTile]
 
-      unless SubmitMove.new(game, game_tiles).call
+      unless SubmitMove.new(game, game_tiles, draw_tile).call
         flash[:invalid] = "That move was invalid."
       end
     end
