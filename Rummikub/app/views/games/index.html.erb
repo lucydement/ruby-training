@@ -6,7 +6,7 @@
 			<li>
 				<%= form_for [game, Player.new] do |f| %>
 					<%= link_to GamesDelegator.new(game).heading(current_user), game %>
-					<% if game.not_enough_players? && current_user.not_in_game(game) %>
+					<% if game.not_enough_players? && current_user.not_in_game?(game) %>
 						<%= f.submit "Join game" %>
 					<% end %>
 				<% end %>

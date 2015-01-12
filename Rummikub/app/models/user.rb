@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     players.find {|player| player.game_id == game.id}
   end
 
-  def not_in_game(game)
+  def not_in_game?(game)
     player_for_game(game).blank?
   end
 end

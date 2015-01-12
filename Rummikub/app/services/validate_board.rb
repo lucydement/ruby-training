@@ -39,9 +39,11 @@ class ValidateBoard
 
   def group_valid?(group)
     numbers = group.map(&:number).uniq
+
     return false if numbers.length != 1
 
     colours = group.map(&:colour).uniq
+    
     colours.length == group.length
   end
 

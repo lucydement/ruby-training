@@ -5,7 +5,7 @@ module GamesHelper
       players.each do |player|
         string << "<li>#{player.user.name}: #{player.tiles.length}</li>"
       end
-      string << "</us>"
+      string << "</ul>"
       string.html_safe
     end
   end

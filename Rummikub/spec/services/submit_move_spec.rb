@@ -8,7 +8,7 @@ RSpec.describe SubmitMove do
   let(:update_game) {instance_double('UpdateGame', call: 0)}
   let(:create_tiles) {instance_double('CreateTiles', call: 0)}
 
-  context "When the user draw a tile" do
+  context "When the user draws a tile" do
     before do
       allow(DrawTile).to receive(:new).and_return draw_tile
       allow(UpdateActivePlayer).to receive(:new).and_return update_active_player
@@ -76,7 +76,6 @@ RSpec.describe SubmitMove do
   context "When the user submits some valid move" do
     let(:validate_board) {instance_double('ValidateBoard', call: true)}
     let(:submit_move) {SubmitMove.new(game, "Valid move")}
-
 
     before do
       allow(ValidateBoard).to receive(:new).and_return validate_board

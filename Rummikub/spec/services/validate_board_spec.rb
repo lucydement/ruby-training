@@ -13,7 +13,7 @@ RSpec.describe ValidateBoard do
     end
   end
 
-  context "When one valid group" do
+  context "With one valid group" do
     before do
       tiles = [instance_double('Tile', id: 105, colour: Tile::RED, number: 1, player_id: 1, on_board: true, x: 1, y: 0, on_board_was: true, player_id_was: nil),
         instance_double('Tile', id: 158, colour: Tile::BLACK, number: 1, player_id: nil, on_board: true, x: 2, y: 0, on_board_was: true, player_id_was: nil),
@@ -26,7 +26,7 @@ RSpec.describe ValidateBoard do
     end
   end
 
-  context "When one valid run" do
+  context "With one valid run" do
     before do
       tiles = [instance_double('Tile', id: 105, colour: Tile::RED, number: 11, player_id: 1, on_board: true, x: 1, y: 3, on_board_was: true, player_id_was: nil),
         instance_double('Tile', id: 158, colour: Tile::RED, number: 12, player_id: nil, on_board: true, x: 2, y: 3, on_board_was: true, player_id_was: nil),

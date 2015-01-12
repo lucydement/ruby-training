@@ -2,7 +2,7 @@
 <meta property="board_width" content="<%= Game::BOARD_WIDTH %>">
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
 
-<% if !current_user.not_in_game(@game) %>
+<% if !current_user.not_in_game?(@game) %>
 	<meta property="current_player_id" content="<%= current_user.player_for_game(@game).id %>">
 	<meta property="active_player_id" content="<%= @game.active_player.id %>">
 <% end %>

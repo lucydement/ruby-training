@@ -38,7 +38,7 @@ RSpec.describe SplitTilesIntoSets do
   end
 
   context "When given two tiles in the same place" do
-    it "returns raise an error" do
+    it "raises an error" do
       tiles = [instance_double('Tile', id: 105, colour: Tile::RED, number: 1, player_id: nil, on_board: true, x: 0, y: 1),
         instance_double('Tile', id: 158, colour: Tile::BLACK, number: 7, game_id: 2, player_id: nil, on_board: true, x: 0, y: 1)]
       split_tiles = SplitTilesIntoSets.new(tiles)
