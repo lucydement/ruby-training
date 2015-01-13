@@ -24,7 +24,7 @@ RSpec.describe CreateTiles do
   end
 
   context "When making two tiles" do
-    before do
+    before do #in a let block
       user_input = [{"id"=>tiles(:create_2).id, "colour"=>Tile::RED, "number"=>1, "player_id"=>1, "on_board"=>true, "x"=>1, "y"=>0},
         {"id"=>tiles(:create_3).id, "colour"=>Tile::BLACK, "number"=>1, "player_id"=>nil, "on_board"=>true, "x"=>2, "y"=>0}]
       @create_tiles = CreateTiles.new(user_input, games(:create_game2))
@@ -42,7 +42,7 @@ RSpec.describe CreateTiles do
       expect(tile.y).to eql 0
     end
 
-    it "makes the second tile" do
+    it "makes the second tile" do #check length as well
       tile = @create_tiles.call.last
 
       expect(tile.id).to eql tiles(:create_3).id

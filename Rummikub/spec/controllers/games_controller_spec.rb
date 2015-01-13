@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, :type => :controller do
-  fixtures :games, :users
+  fixtures :users, :games
 
   before do
     sign_in users(:user_1)
@@ -28,28 +28,37 @@ RSpec.describe GamesController, :type => :controller do
   end
 
   describe "GET show" do
-    it "redirects to the show page for that game" do
-      get :show, id: 1
-      expect(response).to render_template(:show)
+    before do
+      allow(GamesDelegator).to receive(:new).and_return games(:game3)
     end
+    
+    it "renders correct json" do
+      xhr :get, :show, id: 1
+      
+      expect(response.body).to eql games(:game3).tiles.not_in_bag.to_json
+    end
+
+    it "should render show"
   end
 
-  describe "PUT update" do
+  describe "PUT update" do #wouldn't use instance_doubles
     let(:submit_move) {instance_double('SubmitMove', call: true)}
+    let(:game) {instance_double('Game', ended?: false)}
+    let(:ended_game) {instance_double('Game', ended?: true)}
 
     before do
       allow(SubmitMove).to receive(:new).and_return(submit_move)
     end
 
     it "will try to submit the move" do
-      expect(Game).to receive(:find).and_return(games(:game5))
+      expect(Game).to receive(:find).and_return(game)
       expect(submit_move).to receive(:call).once
 
       xhr :put, :update, id: 1
     end
 
     it "will not submit the move if the game has ended" do
-      expect(Game).to receive(:find).and_return(games(:set_game))
+      expect(Game).to receive(:find).and_return(ended_game)
       expect(submit_move).to_not receive(:call)
 
       xhr :put, :update, id: 1

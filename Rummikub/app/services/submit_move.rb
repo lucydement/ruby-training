@@ -7,7 +7,7 @@ class SubmitMove
     @draw_tile = draw_tile
   end
 
-  def call
+  def call#(game_tiles)
     if @game_tiles && @draw_tile
       raise InvalidSubmitError
     end
@@ -16,13 +16,13 @@ class SubmitMove
       @game.lock!
       tiles = CreateTiles.new(@game_tiles, @game).call
 
-      if @draw_tile
+      if @draw_tile #Put in controller
         DrawTile.new(@game).call
         UpdateActivePlayer.new(@game).call
         true
-      elsif ValidateBoard.new(tiles).call
+      elsif ValidateBoard.new(tiles).call  #used as a policy
         UpdateGame.new(tiles, @game).call
-        UpdateActivePlayer.new(@game).call
+        UpdateActivePlayer.new(@game).call  #put in method
         true
       else
         false

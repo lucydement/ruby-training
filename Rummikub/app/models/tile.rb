@@ -1,5 +1,5 @@
 class Tile < ActiveRecord::Base
-  RANGE = (1..13)
+  RANGE = 1..13  #NUMBERS
   RED = "red"
   BLUE = "blue"
   BLACK = "black"
@@ -10,16 +10,18 @@ class Tile < ActiveRecord::Base
   belongs_to :player
 
   scope :in_bag, -> { where(player_id: nil, on_board: false) }
-  scope :not_in_bag, -> { where("on_board = ? OR player_id", true) }
+  scope :not_in_bag, -> { where("on_board OR player_id") }
 
-  validates :colour, presence: true, inclusion: {in: COLOURS}
-  validates :number, presence: true, inclusion: {in: RANGE}
+  validates :colour, inclusion: {in: COLOURS}
+  validates :number, inclusion: {in: RANGE}
   validates :game_id, presence: true
 
   validate :only_in_one_of_player_or_board 
   validate :when_on_board_has_x_y
   validate :when_not_on_board_has_no_x_y
-  validate :if_on_board_x_and_y_are_in_the_board
+  validate :x_and_y_are_in_bounds
+
+  validates :x, :y, presence: {message: "cannot be true with no x and y"}, if: :on_board
 
   private
 
@@ -41,13 +43,13 @@ class Tile < ActiveRecord::Base
     end
   end
 
-  def if_on_board_x_and_y_are_in_the_board
-    if x_and_y_out_bounds
+  def x_and_y_are_in_bounds
+    if x_and_y_out_of_bounds?
       errors.add(:x, "and y cannot be out of bounds")
     end
   end
 
-  def x_and_y_out_bounds
+  def x_and_y_out_of_bounds?  #switch and use include
     return false unless x && y
     x < 0 || x >= Game::BOARD_WIDTH || y < 0 || y >= Game::BOARD_HEIGHT
   end

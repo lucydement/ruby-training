@@ -42,14 +42,14 @@ $(function() {
       }
     });
 
-    $(".wrapper").on('mousedown', function(e){
+    $(".wrapper").on('mousedown', function(e) {
       var movingDiv = $(this);
       var tile = movingDiv.find(".tile");
       var tileId = tile.data("tileId");
 
-      var movingTile = _.find(tiles,function(tile){
-          return tile.id == tileId;
-        });
+      var movingTile = _.find(tiles, function(tile) {
+        return tile.id == tileId;
+      });
 
       var handlers = {
         mousemove : function(e) {
@@ -57,24 +57,24 @@ $(function() {
           movingDiv.css("z-index", 9999);
         },
         mouseup : function(e) {
-          var adjustX = Math.floor(e.pageX / 52.0);
+          var adjustX = Math.floor(e.pageX / 52.0); //magic
           var adjustY = Math.floor((e.pageY - 50) / 70.0);
 
           placeTile(movingTile, tileId, adjustX, adjustY, movingDiv, currentPlayerId, tiles);
-
+            //make an object
           $(this).off(handlers);
         }
       }
       $(document).on(handlers);
     });
 
-    $("#submit").click( function() {
+    $("#submit").click(function() {
       $.ajax({
         type: 'PUT',
         url: '/games/' + gameId,
         contentType: 'application/json',
         data: JSON.stringify({"tiles" : tiles}), 
-        success: function(){
+        success: function(){ //promises
           location.reload();
         },
         failure: function(){
@@ -82,6 +82,8 @@ $(function() {
         }
       });
     })
+
+    //make a draw and moves controller
 
     $("#drawTile").click( function() {
       $.ajax({

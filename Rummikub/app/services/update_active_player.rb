@@ -3,7 +3,7 @@ class UpdateActivePlayer
     @game = game
   end
 
-  def call
+  def call #put in two lines
     @game.update_attributes!(active_player_number: (@game.active_player_number + 1) % @game.total_player_count)
   end
 end

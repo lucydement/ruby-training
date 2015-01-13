@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Game, :type => :model do
   fixtures :games, :tiles, :players, :users
 
-  let(:game) {Game.create(total_player_count: 4)}
-
+  #wrap in describe block
   it "knows when there aren't enough players" do
     expect(games(:set_game).not_enough_players?).to be_truthy
   end
@@ -23,10 +22,11 @@ RSpec.describe Game, :type => :model do
 
   it "knows when a game is won" do
     expect(games(:set_game).won?).to be_truthy
+    expect(games(:set_game)).to be_won
   end
 
   it "knows who has won the game" do
-    expect(games(:set_game).winning_player).to eql players(:player1)
+    expect(games(:set_game).winning_player).to eq players(:player1)
   end
 
   it "knows when a game is not won" do
@@ -34,7 +34,7 @@ RSpec.describe Game, :type => :model do
   end
 
   it "returns nil when no one has won" do
-    expect(games(:game5).winning_player).to be_nil
+    expect(games(:game5).winning_player).to be nil
   end
 
   it "will return true when someone has won" do

@@ -2,14 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Player, :type => :model do
   fixtures :players, :users
-  let(:player) {Player.create!(game_id: 1, number: 0, user_id: 1)}
 
-  context "When creating a player" do
-    it "should create a player" do
+  let(:player) {Player.create!(game_id: 1, number: 0, user_id: 1)}
+  #have valid player and update to check validations
+  context "when creating a player" do
+    it "should create a player" do #for specific validations
       expect(Player.new(game_id: 1, number: 0, user_id: 1).save).to be_truthy
     end
 
-    it "should fail when no game_id is specified" do
+    it "fails when no game_id is specified" do
       expect(Player.new(number: 0, user_id: 2).save).to be_falsey
     end
 

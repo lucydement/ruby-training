@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :players
+  has_many :players, dependent: :restrict_with_error
 
   def player_for_game(game)
-    players.find {|player| player.game_id == game.id}
+    players.detect {|player| player.game_id == game.id}
   end
 
   def not_in_game?(game)

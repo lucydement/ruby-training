@@ -10,7 +10,7 @@ module GamesHelper
     end
   end
 
-  def display_buttons(game, current_user)
+  def display_buttons(game, current_user) # player.active?
     if game.active_player.user == current_user && game.begun?
       "<button id=\"submit\">Submit Move</button>
        <button id=\"drawTile\">Draw Tile</button>

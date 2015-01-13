@@ -1,10 +1,10 @@
 var placeTile = function(tile, tileId, x, y, div, player_id, tiles) {
 	div.css("z-index", 'auto');
 
-  if(notOnBoard(x, y) && div.attr("class").indexOf("inHand") != -1){
+  if (notOnBoard(x, y) && div.hasClass("inHand")){
   	placeTileInHand(tile, div, player_id);
   } else {
-  	coordinates = findNearestSpace(x, y, tileId, tiles);
+  	var coordinates = findNearestSpace(x, y, tileId, tiles);
   	placeTileOnBoard(tile, coordinates[0], coordinates[1], div);
   }
 }
@@ -32,6 +32,6 @@ var displayTile = function(div, x, y) {
 var notOnBoard = function(x, y) {
 	var boardWidth = parseInt($("meta[property=board_width]").attr("content"));
 	var boardHeight = parseInt($("meta[property=board_height]").attr("content"));
-
+  //pass into this, make method positive
   return (x < 0 || y < 0 || x >= boardWidth || y >= boardHeight);
 }

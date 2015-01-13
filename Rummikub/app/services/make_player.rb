@@ -8,12 +8,15 @@ class MakePlayer
     Game.transaction do
       @game.lock!
       @user.reload
+
+      bag = @game.bag.shuffle
+
       if @game.not_enough_players? && @user.not_in_game?(@game)
-        player = @game.players.create!(user_id: @user.id, number: @game.players.length, passed: false)
+        player = @game.players.create!(user: @user, number: @game.players.length, passed: false)
         
         Player::HAND_SIZE.times do
-          tile = @game.bag.sample
-          tile.update_attributes!(player_id: player.id)
+          tile = bag.pop
+          tile.update_attributes!(player: player)
         end
       end
     end

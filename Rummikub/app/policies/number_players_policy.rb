@@ -5,7 +5,7 @@ class NumberPlayersPolicy
     @number_players = number_players
   end
 
-  def call
+  def call # not in here in controller
     (@number_players.is_a? Integer) && POSSIBLE_PLAYERS.include?(@number_players)
   end
 end

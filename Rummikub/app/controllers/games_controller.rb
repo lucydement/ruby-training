@@ -12,23 +12,23 @@ class GamesController < ApplicationController
       game = SetupGame.new(number_players).call
       MakePlayer.new(game, current_user).call
       redirect_to game
-    else
+    else  #alert
       flash[:wrong_number_players] = "You cannot have this amount of players."
-      redirect_to games_path
+      redirect_to games_path, alert: "string"
     end
   end
 
-  def show
-    @game = GamesDelegator.new(Game.find params[:id])
+  def show  #make decorator/presentor
+    @game = GamesDelegator.new(Game.find(params[:id]))
     @players = @game.players
 
-    if request.xhr?
-      render json: @game.tiles.not_in_bag.to_json
+    if request.xhr?  #respond to
+      render json: @game.tiles.not_in_bag  #add active_player_number in here
     end
   end
 
   def update
-    game = Game.find params[:id]
+    game = Game.find(params[:id])
 
     if request.xhr? && !game.ended?
       game_tiles = params[:tiles]

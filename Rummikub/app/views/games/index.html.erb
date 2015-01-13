@@ -8,7 +8,7 @@
 					<%= link_to GamesDelegator.new(game).heading(current_user), game %>
 					<% if game.not_enough_players? && current_user.not_in_game?(game) %>
 						<%= f.submit "Join game" %>
-					<% end %>
+					<% end %><!-- button_to -->
 				<% end %>
 			</li>
 		<% end %>

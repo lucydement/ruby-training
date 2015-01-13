@@ -4,21 +4,20 @@ RSpec.describe UpdateGame do
   fixtures :games, :players, :tiles
 
   before do
-    new_tile_data = { tiles(:tile1).id => {player_id: nil, on_board: true, x: 2, y: 3},
-            tiles(:tile2).id => {player_id: nil, on_board: true, x: 3, y: 2},
-            tiles(:tile3).id => {player_id: 1, on_board: false, x: nil, y: nil},
-            tiles(:tile4).id => {player_id: 1, on_board: false, x: 16, y: 8}}
+    new_tile_data = { 
+      tiles(:tile1) => {player_id: nil, on_board: true, x: 2, y: 3},
+      tiles(:tile2) => {player_id: nil, on_board: true, x: 3, y: 2},
+      tiles(:tile3) => {player_id: 1, on_board: false, x: nil, y: nil},
+      tiles(:tile4) => {player_id: 1, on_board: false, x: 16, y: 8}
+    }
 
-    tiles = [tiles(:tile1), tiles(:tile2), tiles(:tile3), tiles(:tile4)]
-    
-    changed_tiles = tiles.map do |tile|
-      tile.attributes = new_tile_data[tile.id]
-      tile
+    new_tile_data.each do |tile, data|
+      tile.attributes = data
     end
 
     game = games(:set_game)
-    update_game = UpdateGame.new(changed_tiles, game)
-    update_game.call
+    update_game = UpdateGame.new(new_tile_data.keys, game)
+    update_game.call #in tests not before, as a let
   end
 
   context "When moving a tile around on the board" do
@@ -76,6 +75,7 @@ RSpec.describe UpdateGame do
     end
 
     it "will have no x,y coordinates" do
+      #reload here
       expect(tiles(:tile4).reload.x).to be_nil
       expect(tiles(:tile4).y).to be_nil
     end

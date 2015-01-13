@@ -2,7 +2,7 @@
 <meta property="board_width" content="<%= Game::BOARD_WIDTH %>">
 <meta property="board_height" content="<%= Game::BOARD_HEIGHT %>">
 
-<% if !current_user.not_in_game?(@game) %>
+<% if !current_user.not_in_game?(@game) %> <!-- add a player in controller-->
 	<meta property="current_player_id" content="<%= current_user.player_for_game(@game).id %>">
 	<meta property="active_player_id" content="<%= @game.active_player.id %>">
 <% end %>
@@ -14,7 +14,7 @@
 <div id="hand"></div>
 
 <div id="info">
-	<h1><%= @game.heading(current_user) %></h1>
+	<h1><%= @game.heading(current_user) %></h1> <!-- @game decorator -->
 	<p id="flash"><%= flash[:invalid] %></p>
 	
 	<div>
@@ -23,7 +23,7 @@
 
 	<p>The aim of the game is to get rid of all your tiles. To do this you need to place either runs or groups on the board.</p>
 	<p>Run:<br />A set of consecutive tiles of the same colour that is at
-	least 3 tiles long.</p>
+	least 3 tiles long.</p><!-- make run heading -->
 	<p>Group:<br />A set tiles with the same number
 	but all different colours, again this must be a least 3 long.</p>
 	<p>During your turn you are allowed to rearange all the tiles on 
