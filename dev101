@@ -1,0 +1,21 @@
+betil
+incident- something isn't working right.
+release- 
+changes- stories- in story form, by not developers
+         deleriables- are the solution to the story. must be aproved
+
+sprint.ops.powershop.com
+
+git
+rules- don't commit to master
+     - only merge to master after code review on betil
+     - no force pushing
+
+Everything must be code reveiwed.
+
+Timesheets- install scarab
+
+ci.ops.powershop.com
+put our initails in branch name
+-copy existing item nz/au
+-branches to build (branch name)
